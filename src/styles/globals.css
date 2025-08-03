@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+.blinking-cursor::after {
+    content: '|';
+    margin-left: 8px;
+    animation: blink 1s step-start infinite;
+  }
+  
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }

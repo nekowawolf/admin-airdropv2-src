@@ -83,7 +83,7 @@ export default function ForbiddenPage() {
           width={256}
           height={256}
           onClick={checkImageClick}
-          className="w-64 bg-center h-auto mx-auto fixed top-[75%] left-1/2 -translate-x-1/2 cursor-pointer"
+          className="w-64 bg-center h-auto mx-auto fixed -bottom-40 sm:-bottom-50 left-1/2 -translate-x-1/2 cursor-pointer"
         />
       </div>
     </div>

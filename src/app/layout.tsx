@@ -1,5 +1,6 @@
 import '@/styles/globals.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
+import { Toaster } from 'sonner'
 import { ReactNode } from 'react'
 import { Montserrat } from 'next/font/google'
 
@@ -19,7 +20,10 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${montserrat.className} bg-gray-900`}>{children}</body>
+      <body className={`${montserrat.className} bg-gray-900`}>
+        <Toaster richColors position="top-center" />
+        {children}
+      </body>
     </html>
   )
 }

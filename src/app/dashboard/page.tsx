@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -15,6 +16,7 @@ export default function DashboardPage() {
 
   const handleLogout = () => {
     localStorage.removeItem('token')
+    toast.success('Logout successfully!')
     router.push('/login')
   }
 

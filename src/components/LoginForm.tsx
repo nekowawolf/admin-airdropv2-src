@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 export default function LoginForm() {
   const [username, setUsername] = useState('')
@@ -12,7 +13,7 @@ export default function LoginForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!username || !password) {
-      alert('All fields are required.')
+      toast.error('All fields are required.')
       return
     }
 
@@ -35,12 +36,13 @@ export default function LoginForm() {
       const data = await res.json()
       if (data.token) {
         localStorage.setItem('token', data.token)
+        toast.success('Login successfully!')
         router.push('/dashboard')
       } else {
         throw new Error('Invalid token received.')
       }
     } catch (err: any) {
-      alert(err.message)
+      toast.error(err.message)
     } finally {
       setLoading(false)
     }

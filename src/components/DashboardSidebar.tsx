@@ -41,7 +41,7 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
 	return (
 		<>
 			{/* Desktop sidebar */}
-			<aside className="hidden md:flex md:flex-col w-64 shrink-0 border-r border-gray-200 bg-white">
+			<aside className="hidden md:flex md:flex-col md:h-screen w-64 shrink-0 border-r border-gray-200 bg-white">
 				{content}
 			</aside>
 

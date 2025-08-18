@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { toast } from 'sonner'
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -14,22 +13,20 @@ export default function DashboardPage() {
     }
   }, [router])
 
-  const handleLogout = () => {
-    localStorage.removeItem('token')
-    toast.success('Logout successfully!')
-    router.push('/login')
-  }
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
-      <h1 className="text-3xl font-bold mb-6 text-center">✅ Login Successfully! JWT stored.</h1>
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-2xl font-semibold">Dashboard</h2>
+        <p className="text-sm text-gray-500">Overview of your project stats</p>
+      </div>
 
-      <button
-        onClick={handleLogout}
-        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-colors duration-300"
-      >
-        Logout
-      </button>
+      <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+        
+      </section>
+
+      <section className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        
+      </section>
     </div>
   )
 }

@@ -51,7 +51,7 @@ export default function DashboardHeader({ onToggleSidebar }: HeaderProps) {
 			<div className="flex items-center gap-4">
 				<button 
 					onClick={handleToggleDarkMode} 
-					className="inline-flex h-9 w-9 items-center justify-center rounded-full button-border border hover:button-hover"
+					className="inline-flex h-9 w-9 items-center justify-center rounded-full button-border border hover:button-hover cursor-pointer"
 				>
 					{isDark ? (
 						<i className="fa-regular fa-sun text-secondary" />
@@ -62,9 +62,9 @@ export default function DashboardHeader({ onToggleSidebar }: HeaderProps) {
 
 				<div className="relative" ref={menuRef}>
 					<button onClick={() => setOpen((v) => !v)} className="flex items-center gap-2">
-						<img src="https://avatars.githubusercontent.com/u/113094795?s=400&u=09f3e0e5f27350cd376caa27f7aa65cf46c9384c&v=4" alt="avatar" className="h-9 w-9 rounded-full object-cover" />
-						<span className="hidden sm:block text-sm font-medium text-primary">admin</span>
-						<i className={`fa-solid fa-caret-down text-muted transition-transform duration-200 ${open ? 'rotate-0' : 'rotate-180'}`} />
+						<img src="https://avatars.githubusercontent.com/u/113094795?s=400&u=09f3e0e5f27350cd376caa27f7aa65cf46c9384c&v=4" alt="avatar" className="h-9 w-9 rounded-full object-cover cursor-pointer" />
+						<span className="hidden sm:block text-sm font-medium text-primary cursor-pointer">admin</span>
+						<i className={`fa-solid fa-caret-down text-muted cursor-pointer transition-transform duration-200 ${open ? 'rotate-0' : 'rotate-180'}`} />
 					</button>
 					{open && (
 						<div className="absolute right-0 mt-2 w-64 rounded-lg dropdown-border border dropdown-bg dropdown-shadow p-2">

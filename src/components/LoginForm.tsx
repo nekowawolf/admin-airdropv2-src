@@ -83,7 +83,7 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={loading}
-        className="flex h-10 items-center justify-between rounded-sm bg-blue-600 px-2 text-white transition-colors duration-300 hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-400"
+        className="flex h-10 cursor-pointer items-center justify-between rounded-sm bg-blue-600 px-2 text-white transition-colors duration-300 hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-400"
       >
         <span>{loading ? 'Loading...' : 'ログイン'}</span>
         <span>

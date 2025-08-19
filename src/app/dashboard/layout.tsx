@@ -9,7 +9,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
 	return (
-		<div className="min-h-screen bg-gray-50 text-gray-900">
+		<div className="min-h-screen body-color text-primary">
 			<div className="flex">
 				<DashboardSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 				<div className="flex-1 flex flex-col min-w-0">
@@ -20,5 +20,3 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 		</div>
 	)
 }
-
-

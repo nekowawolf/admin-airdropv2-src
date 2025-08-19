@@ -20,7 +20,19 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${montserrat.className} bg-gray-900`}>
+      <head>
+        <title>nekowawolf</title>
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <script src="https://kit.fontawesome.com/2ff8362c80.js" crossOrigin="anonymous"></script>
+        <script dangerouslySetInnerHTML={{
+          __html: `(function() {
+            if (localStorage.getItem("darkmode") === "active") {
+              document.documentElement.classList.add("darkmode");
+            }
+          })();`
+        }} />
+      </head>
+      <body className={`${montserrat.className} body-color`}>
         <Toaster richColors position="top-center" />
         {children}
       </body>

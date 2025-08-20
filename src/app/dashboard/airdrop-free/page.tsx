@@ -1,3 +1,8 @@
+export const metadata = {
+  title: 'Admin | Airdrop Free',
+  description: 'Airdrop Free Dashboard',
+}
+
 export default function AirdropFreePage() {
   return (
     <div className="space-y-6">

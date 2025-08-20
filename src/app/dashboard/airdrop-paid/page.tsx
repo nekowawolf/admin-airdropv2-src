@@ -1,3 +1,8 @@
+export const metadata = {
+  title: 'Admin | Airdrop Paid',
+  description: 'Airdrop Paid Dashboard',
+}
+
 export default function AirdropPaidPage() {
   return (
     <div className="space-y-6">

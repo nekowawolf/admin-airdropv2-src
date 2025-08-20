@@ -1,3 +1,8 @@
+export const metadata = {
+  title: 'Admin | Airdrop Ended',
+  description: 'Airdrop Ended Dashboard',
+}
+
 export default function AirdropEndedPage() {
   return (
     <div className="space-y-6">

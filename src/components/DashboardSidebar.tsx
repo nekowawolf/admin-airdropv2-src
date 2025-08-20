@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { RxDashboard } from 'react-icons/rx'
+import { IoIosAddCircleOutline } from "react-icons/io"
 
 type SidebarProps = {
 	isOpen?: boolean
@@ -33,6 +34,18 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
 				>
 					<RxDashboard className={`${isActive('/dashboard') ? 'text-accent' : 'text-muted'}`} size={18} />
 					<span>Dashboard</span>
+				</Link>
+				
+				<Link
+					href="/add-airdrop"
+					className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${
+						isActive('/add-airdrop')
+							? 'hover-bg-accent text-accent'
+							: 'text-secondary hover:hover-bg'
+					}`}
+				>
+					<IoIosAddCircleOutline className={`${isActive('/add-airdrop') ? 'text-accent' : 'text-muted'}`} size={18} />
+					<span>Add Airdrop</span>
 				</Link>
 			</nav>
 		</>

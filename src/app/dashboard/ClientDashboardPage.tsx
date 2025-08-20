@@ -15,10 +15,14 @@ export default function ClientDashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-semibold text-primary">Dashboard</h2>
-        <p className="text-sm text-secondary">Overview of your project stats</p>
-      </div>
+    <div className="text-center sm:text-left">
+      <h2 className="text-lg sm:text-2xl font-semibold text-primary">
+        Dashboard
+      </h2>
+      <p className="text-xs sm:text-sm text-secondary">
+        Overview of your project stats
+      </p>
+    </div>
 
       <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         

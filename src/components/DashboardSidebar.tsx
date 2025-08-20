@@ -14,7 +14,7 @@ type SidebarProps = {
 export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
     const pathname = usePathname()
 	const isActive = (href: string) => pathname.startsWith(href)
-    const [openDropdown, setOpenDropdown] = useState(isActive('/dashboard'))
+    const [openDropdown, setOpenDropdown] = useState(false)
 
     const handleDropdown = () => setOpenDropdown((v) => !v)
 

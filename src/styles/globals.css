@@ -6,7 +6,7 @@
   --card-color: #1a2540;
   --border-color: #959090;
   --card-color2: #161e34d7;
-  --border-divider: rgba(255, 255, 255, 0.1);
+  --border-divider: rgba(35, 34, 34, 0.53);
   
   /* Dashboard specific colors */
   --header-bg: #ffffff;
@@ -33,7 +33,7 @@
   --card-color: #ffffff;
   --border-color: #000000;
   --card-color2: #20325c39;
-  --border-divider: rgba(0, 0, 0, 0.1);
+  --border-divider: rgba(208, 202, 202, 0.455);
   
   /* Dashboard specific colors - dark mode */
   --header-bg: #1f2937;

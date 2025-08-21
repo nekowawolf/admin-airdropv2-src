@@ -3,12 +3,13 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import LoginForm from '@/components/LoginForm'
+import Cookies from 'js-cookie'
 
 export default function LoginPage() {
   const router = useRouter()
 
-  useEffect(() => {
-    const token = localStorage.getItem('token')
+   useEffect(() => {
+    const token = Cookies.get('token')
     if (token) router.push('/dashboard')
   }, [router])
 

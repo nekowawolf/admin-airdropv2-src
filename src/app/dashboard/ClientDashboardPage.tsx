@@ -1,17 +1,9 @@
 'use client'
 
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useAuthGuard } from '@/hooks/useAuthGuard'
 
 export default function ClientDashboardPage() {
-  const router = useRouter()
-
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (!token) {
-      router.push('/login')
-    }
-  }, [router])
+  useAuthGuard()
 
   return (
     <div className="space-y-6">

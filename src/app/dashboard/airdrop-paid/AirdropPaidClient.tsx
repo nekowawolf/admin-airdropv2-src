@@ -2,17 +2,17 @@
 
 import { useAuthGuard } from '@/hooks/useAuthGuard'
 
-export default function AddAirdropForm() {
+export default function AirdropPaidPage() {
   useAuthGuard()
-  
+
   return (
     <div className="space-y-6">
       <div className="text-center sm:text-left">
         <h2 className="text-lg sm:text-2xl font-semibold text-primary">
-          Add New Airdrop
+          Airdrop Paid
         </h2>
         <p className="text-xs sm:text-sm text-secondary">
-          Create a new list airdrop campaign
+          List of paid airdrop campaigns
         </p>
       </div>
 

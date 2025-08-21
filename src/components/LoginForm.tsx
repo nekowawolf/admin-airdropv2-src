@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import Cookies from 'js-cookie'
 
 export default function LoginForm() {
   const [username, setUsername] = useState('')
@@ -35,7 +36,7 @@ export default function LoginForm() {
 
       const data = await res.json()
       if (data.token) {
-        localStorage.setItem('token', data.token)
+        Cookies.set('token', data.token, { expires: 1, secure: true, sameSite: 'strict' })
         toast.success('Login successfully!')
         router.push('/dashboard')
       } else {

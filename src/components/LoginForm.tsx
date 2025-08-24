@@ -20,14 +20,13 @@ export default function LoginForm() {
 
     try {
       setLoading(true)
-      const res = await fetch(
-        process.env.NEXT_PUBLIC_API_LOGIN!,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password }),
-        }
-      )
+
+      const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
+      const res = await fetch(`${API_BASE_URL}/airdrop/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      })
 
       if (!res.ok) {
         const errorData = await res.json()

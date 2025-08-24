@@ -15,8 +15,10 @@ interface AirdropFormData {
   funds: string
   supply: string
   market_cap: string
-  cost?: string
-  reward?: string
+  price: string
+  vesting: string
+  usd_income: string
+  claim: string
 }
 
 interface DropdownOption {
@@ -132,8 +134,10 @@ export default function AddAirdropForm() {
     funds: '',
     supply: '',
     market_cap: '',
-    cost: '',
-    reward: ''
+    price: '',
+    vesting: '',
+    usd_income: '',
+    claim: '',
   })
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -162,8 +166,10 @@ export default function AddAirdropForm() {
       funds: '',
       supply: '',
       market_cap: '',
-      cost: '',
-      reward: ''
+      price: '',
+      vesting: '',
+      usd_income: '',
+      claim: '',
     })
     setSuccessMessage('')
     setErrorMessage('')
@@ -369,6 +375,72 @@ export default function AddAirdropForm() {
                     className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="flex flex-col gap-2">
+                  <label className="text-secondary text-sm font-medium" htmlFor="price">
+                    Price *
+                  </label>
+                  <input
+                    type="text"
+                    id="price"
+                    name="price"
+                    value={formData.price}
+                    onChange={handleInputChange}
+                    placeholder="e.g., 0.01"
+                    required
+                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-secondary text-sm font-medium" htmlFor="vesting">
+                    Vesting *
+                  </label>
+                  <CustomDropdown
+                    id="vesting"
+                    name="vesting"
+                    value={formData.vesting}
+                    onChange={(value) => handleDropdownChange('vesting', value)}
+                    options={[
+                      { value: 'yes', label: 'Yes' },
+                      { value: 'no', label: 'No' }
+                    ]}
+                    placeholder="Select vesting option"
+                    required
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-secondary text-sm font-medium" htmlFor="usd_income">
+                    USD income *
+                  </label>
+                  <input
+                    type="text"
+                    id="usd_income"
+                    name="usd_income"
+                    value={formData.usd_income}
+                    onChange={handleInputChange}
+                    placeholder="e.g., $100 usd"
+                    required
+                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-secondary text-sm font-medium" htmlFor="claim">
+                  Claim *
+                </label>
+                <input
+                  type="text"
+                  id="claim"
+                  name="claim"
+                  value={formData.claim}
+                  onChange={handleInputChange}
+                  placeholder="https://example.com"
+                  required
+                  className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
               
               <div className="flex justify-end gap-4 pt-6 border-t border-border-divider">

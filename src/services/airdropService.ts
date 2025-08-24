@@ -1,0 +1,52 @@
+import Cookies from 'js-cookie';
+import { AirdropFreeRequest, AirdropPaidRequest } from '@/types/airdrop';
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+export const createAirdropFree = async (data: AirdropFreeRequest) => {
+  const token = Cookies.get('token');
+  
+  if (!token) {
+    throw new Error('No authentication token found');
+  }
+  
+  const response = await fetch(`${API_BASE_URL}/airdrop/freeairdrop`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify(data)
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || 'Failed to create free airdrop');
+  }
+
+  return response.json();
+};
+
+export const createAirdropPaid = async (data: AirdropPaidRequest) => {
+  const token = Cookies.get('token');
+  
+  if (!token) {
+    throw new Error('No authentication token found');
+  }
+  
+  const response = await fetch(`${API_BASE_URL}/airdrop/paidairdrop`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify(data)
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || 'Failed to create paid airdrop');
+  }
+
+  return response.json();
+};

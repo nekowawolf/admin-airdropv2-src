@@ -4,22 +4,8 @@ import { useAuthGuard } from '@/hooks/useAuthGuard'
 import { useState, useRef, useEffect } from 'react'
 import { FiDollarSign, FiGift } from 'react-icons/fi'
 import { IoIosArrowUp } from "react-icons/io"
-
-interface AirdropFormData {
-  name: string
-  task: string
-  link: string
-  level: string
-  status: string
-  backed: string
-  funds: string
-  supply: string
-  market_cap: string
-  price: string
-  vesting: string
-  usd_income: string
-  claim: string
-}
+import { useAddAirdrop } from '@/hooks/useAddAirdrop'
+import { AirdropFormData } from '@/types/airdrop'
 
 interface DropdownOption {
   value: string
@@ -121,9 +107,6 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
 export default function AddAirdropForm() {
   useAuthGuard()
   const [activeTab, setActiveTab] = useState<'free' | 'paid'>('free')
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [successMessage, setSuccessMessage] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
   const [formData, setFormData] = useState<AirdropFormData>({
     name: '',
     task: '',
@@ -139,6 +122,8 @@ export default function AddAirdropForm() {
     usd_income: '',
     claim: '',
   })
+
+  const { isSubmitting, successMessage, errorMessage, submitAirdrop } = useAddAirdrop()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -171,8 +156,12 @@ export default function AddAirdropForm() {
       usd_income: '',
       claim: '',
     })
-    setSuccessMessage('')
-    setErrorMessage('')
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    await submitAirdrop(formData, activeTab)
+    resetForm()
   }
 
   return (
@@ -187,17 +176,6 @@ export default function AddAirdropForm() {
       </div>
 
       <div className="bg-card-color border border-border-color rounded-xl p-6 pb-1 shadow-lg w-full sm:w-5/6 mx-auto mb-8">
-        {successMessage && (
-          <div className="bg-green-900/30 text-green-400 border border-green-400/50 rounded-lg px-4 py-2 mb-6 font-medium">
-            {successMessage}
-          </div>
-        )}
-        {errorMessage && (
-          <div className="bg-red-900/30 text-red-400 border border-red-400/50 rounded-lg px-4 py-2 mb-6 font-medium">
-            {errorMessage}
-          </div>
-        )}
-
         <div className="mb-8">
           <div className="grid grid-cols-2 bg-card-color2 rounded-lg p-1 mb-6 border border-border-divider">
             <button 
@@ -224,7 +202,7 @@ export default function AddAirdropForm() {
             </button>
           </div>
 
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 gap-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">

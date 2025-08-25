@@ -159,8 +159,16 @@ export default function AddAirdropForm() {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    await submitAirdrop(formData, activeTab)
+  e.preventDefault()
+
+    const payload = {
+      ...formData,
+      price: Number(formData.price),
+      usd_income: Number(formData.usd_income),
+      link_claim: formData.claim
+    }
+
+    await submitAirdrop(payload, activeTab)
     resetForm()
   }
 
@@ -179,7 +187,7 @@ export default function AddAirdropForm() {
         <div className="mb-8">
           <div className="grid grid-cols-2 bg-card-color2 rounded-lg p-1 mb-6 border border-border-divider">
             <button 
-              className={`flex items-center justify-center gap-2 py-2 px-4 font-medium text-sm rounded-md ${
+              className={`flex cursor-pointer items-center justify-center gap-2 py-2 px-4 font-medium text-sm rounded-md ${
                 activeTab === 'free' 
                   ? 'bg-blue-600 text-white' 
                   : 'text-secondary hover:text-primary'
@@ -190,7 +198,7 @@ export default function AddAirdropForm() {
               Free Airdrop
             </button>
             <button 
-              className={`flex items-center justify-center gap-2 py-2 px-4 font-medium text-sm rounded-md ${
+              className={`flex cursor-pointer items-center justify-center gap-2 py-2 px-4 font-medium text-sm rounded-md ${
                 activeTab === 'paid' 
                   ? 'bg-blue-600 text-white' 
                   : 'text-secondary hover:text-primary'
@@ -334,7 +342,6 @@ export default function AddAirdropForm() {
                     value={formData.supply}
                     onChange={handleInputChange}
                     placeholder="e.g., 1.00B"
-                    required
                     className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -349,7 +356,6 @@ export default function AddAirdropForm() {
                     value={formData.market_cap}
                     onChange={handleInputChange}
                     placeholder="e.g., 270M"
-                    required
                     className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -367,7 +373,6 @@ export default function AddAirdropForm() {
                     value={formData.price}
                     onChange={handleInputChange}
                     placeholder="e.g., 0.01"
-                    required
                     className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -385,7 +390,6 @@ export default function AddAirdropForm() {
                       { value: 'no', label: 'No' }
                     ]}
                     placeholder="Select vesting option"
-                    required
                   />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -399,7 +403,6 @@ export default function AddAirdropForm() {
                     value={formData.usd_income}
                     onChange={handleInputChange}
                     placeholder="e.g., $100 usd"
-                    required
                     className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -416,7 +419,6 @@ export default function AddAirdropForm() {
                   value={formData.claim}
                   onChange={handleInputChange}
                   placeholder="https://example.com"
-                  required
                   className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -425,14 +427,14 @@ export default function AddAirdropForm() {
                 <button
                   type="button"
                   onClick={resetForm}
-                  className="px-6 py-3 rounded-lg text-secondary border border-border-divider hover:bg-button-hover text-sm font-medium"
+                  className="px-6 py-3 cursor-pointer rounded-lg text-secondary border border-border-divider hover:bg-button-hover text-sm font-medium"
                 >
                   Reset Form
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-6 py-3 rounded-lg text-sm font-medium flex items-center justify-center"
+                  className="bg-blue-600 hover:bg-blue-700 cursor-pointer disabled:bg-blue-400 text-white px-6 py-3 rounded-lg text-sm font-medium flex items-center justify-center"
                 >
                   {isSubmitting ? (
                     <>

@@ -7,12 +7,12 @@
   --border-color: #959090;
   --card-color2: #161e34d7;
   --border-divider: rgba(35, 34, 34, 0.53);
-  
+
   /* Dashboard specific colors */
   --header-bg: #ffffff;
   --header-border: #e5e7eb;
   --sidebar-bg: #ffffff;
-  --sidebar-border: #e5e7eb;
+  --sidebar-border: oklch(0.922 0 0);
   --text-primary: #111827;
   --text-secondary: #6b7280;
   --text-muted: #9ca3af;
@@ -34,7 +34,7 @@
   --border-color: #000000;
   --card-color2: #20325c39;
   --border-divider: rgba(208, 202, 202, 0.455);
-  
+
   /* Dashboard specific colors - dark mode */
   --header-bg: #1f2937;
   --header-border: #374151;
@@ -58,7 +58,6 @@
   background-color: var(--body-color);
 }
 
-/* Dashboard component styles */
 .header-bg {
   background-color: var(--header-bg);
 }
@@ -127,13 +126,12 @@
   border-color: var(--border-divider);
 }
 
-
 .blinking-cursor::after {
     content: '|';
     margin-left: 8px;
     animation: blink 1s step-start infinite;
   }
-  
+
   @keyframes blink {
     50% {
       opacity: 0;

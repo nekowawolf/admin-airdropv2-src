@@ -50,3 +50,28 @@ export const createAirdropPaid = async (data: AirdropPaidRequest) => {
 
   return response.json();
 };
+
+export const getAirdropFree = async () => {
+  const token = Cookies.get('token')
+
+  if (!token) {
+    throw new Error('No authentication token found')
+  }
+
+  const response = await fetch(`${API_BASE_URL}/airdrop/freeairdrop`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+  })
+
+  if (!response.ok) {
+    const errorData = await response.json()
+    throw new Error(errorData.message || 'Failed to fetch free airdrops')
+  }
+
+  const data = await response.json()
+
+  return data.data.filter((item: any) => item.status !== 'ended')
+}

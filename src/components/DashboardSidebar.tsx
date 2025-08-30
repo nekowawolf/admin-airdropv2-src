@@ -106,9 +106,9 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
 	return (
 		<>
 			{/* Desktop sidebar */}
-			<aside className="hidden md:flex md:flex-col md:h-screen w-64 shrink-0 sidebar-border border-r sidebar-bg">
-				{content}
-			</aside>
+			<aside className="hidden md:flex md:flex-col fixed inset-y-0 left-0 w-64 sidebar-bg sidebar-border border-r">
+                {content}
+            </aside>
 
 			{/* Mobile drawer */}
 			{isOpen ? (

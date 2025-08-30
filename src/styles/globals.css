@@ -6,6 +6,7 @@
   --card-color: #1a2540;
   --border-color: #959090;
   --card-color2: #161e34d7;
+  --card-color3: #929dffc6;
   --border-divider: rgba(35, 34, 34, 0.53);
 
   /* Dashboard specific colors */
@@ -33,6 +34,7 @@
   --card-color: #ffffff;
   --border-color: #000000;
   --card-color2: #20325c39;
+  --card-color3: #161e34d7;
   --border-divider: rgba(208, 202, 202, 0.455);
 
   /* Dashboard specific colors - dark mode */

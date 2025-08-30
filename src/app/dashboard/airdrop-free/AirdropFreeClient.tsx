@@ -12,6 +12,7 @@ import {
   PaginationNext,
   PaginationEllipsis
 } from "@/components/ui/pagination"
+import { Spinner } from "@/components/ui/shadcn-io/spinner"
 
 export default function AirdropFreePage() {
   useAuthGuard()
@@ -19,7 +20,7 @@ export default function AirdropFreePage() {
   const { data, loading, error } = useFetchAirdropFree()
   const [search, setSearch] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
-  const itemsPerPage = 5
+  const itemsPerPage = 10
 
   const filteredData = useMemo(() => {
     return data.filter(item =>
@@ -57,7 +58,14 @@ export default function AirdropFreePage() {
 
   return (
     <div className="space-y-6 min-h-screen p-6">
-      <h2 className="text-lg sm:text-2xl font-semibold text-primary">Airdrop Free</h2>
+      <div className="text-center sm:text-left">
+        <h2 className="text-lg sm:text-2xl font-semibold text-primary">
+          Airdrop Free
+        </h2>
+        <p className="text-xs sm:text-sm text-secondary">
+          List of free airdrop campaigns
+        </p>
+      </div>
 
       <input
         type="text"
@@ -67,38 +75,43 @@ export default function AirdropFreePage() {
         className="border border-border-divider bg-transparent text-primary rounded-lg px-4 py-2 w-full max-w-sm focus:outline-none focus:ring-2 focus:ring-text-accent"
       />
 
-      {loading && <p className="text-secondary">Loading...</p>}
+      {loading && (
+        <div className="flex justify-center py-10">
+          <Spinner variant="circle" size={40} className="text-blue-500" />
+        </div>
+      )}
+
       {error && <p className="text-red-500">{error}</p>}
 
       {!loading && !error && (
         <div className="overflow-x-auto rounded-lg border border-border-divider">
           <table className="w-full text-left">
-            <thead className="bg-[var(--card-color2)]">
+            <thead className="bg-[var(--card-color3)]">
               <tr>
-                <th className="px-4 py-2">Name</th>
-                <th className="px-4 py-2">Task</th>
-                <th className="px-4 py-2">Link</th>
-                <th className="px-4 py-2">Level</th>
-                <th className="px-4 py-2">Status</th>
-                <th className="px-4 py-2">Backed</th>
-                <th className="px-4 py-2">Funds</th>
-                <th className="px-4 py-2">Action</th>
+                <th className="px-6 py-2 min-w-[140px] whitespace-nowrap">Name</th>
+                <th className="px-6 py-2 min-w-[140px] whitespace-nowrap">Task</th>
+                <th className="px-6 py-2 min-w-[120px] whitespace-nowrap">Link</th>
+                <th className="px-6 py-2 min-w-[100px] whitespace-nowrap">Level</th>
+                <th className="px-6 py-2 min-w-[120px] whitespace-nowrap">Status</th>
+                <th className="px-6 py-2 min-w-[130px] whitespace-nowrap">Backed</th>
+                <th className="px-6 py-2 min-w-[120px] whitespace-nowrap">Funds</th>
+                <th className="px-6 py-2 min-w-[150px] whitespace-nowrap">Action</th>
               </tr>
             </thead>
             <tbody>
               {paginatedData.length > 0 ? (
                 paginatedData.map((item, index) => (
-                  <tr key={index}>
-                    <td className="px-4 py-2">{item.name}</td>
-                    <td className="px-4 py-2">{item.task}</td>
-                    <td className="px-4 py-2 text-accent">
-                      <a href={item.link} target="_blank" rel="noopener noreferrer">Visit</a>
+                  <tr key={index} className="border-t border-border-divider">
+                    <td className="px-6 py-2">{item.name}</td>
+                    <td className="px-6 py-2">{item.task}</td>
+                    <td className="px-6 py-2 text-accent">
+                      <a href={item.link} target="_blank" rel="noopener noreferrer" className='text-blue-500'>Visit</a>
                     </td>
-                    <td className="px-4 py-2">{item.level}</td>
-                    <td className="px-4 py-2">{item.status}</td>
-                    <td className="px-4 py-2">{item.backed}</td>
-                    <td className="px-4 py-2">{item.funds}</td>
-                    <td className="px-4 py-2 flex gap-2">
+                    <td className="px-6 py-2">{item.level}</td>
+                    <td className="px-6 py-2">{item.status}</td>
+                    <td className="px-6 py-2 whitespace-nowrap">{item.backed}</td>
+                    <td className="px-6 py-2">{item.funds}</td>
+                    <td className="px-6 py-2 flex gap-2">
                       <button className="px-3 py-1 bg-blue-600 text-white rounded">Edit</button>
                       <button className="px-3 py-1 bg-red-600 text-white rounded">Delete</button>
                     </td>

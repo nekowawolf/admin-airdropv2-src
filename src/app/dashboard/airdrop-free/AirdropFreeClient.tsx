@@ -47,9 +47,19 @@ export default function AirdropFreePage() {
 
   const getPaginationRange = () => {
     const range: (number | string)[] = []
-    for (let i = 1; i <= totalPages; i++) {
-      range.push(i)
+
+    if (totalPages <= 6) {
+      for (let i = 1; i <= totalPages; i++) range.push(i)
+    } else {
+      range.push(1)
+      if (currentPage > 3) range.push('...')
+      for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
+        range.push(i)
+      }
+      if (currentPage < totalPages - 2) range.push('...')
+      range.push(totalPages)
     }
+
     return range
   }
 
@@ -64,7 +74,6 @@ export default function AirdropFreePage() {
         </p>
       </div>
 
-      {/* ✅ Search */}
       <input
         type="text"
         placeholder="Search airdrops..."
@@ -73,17 +82,16 @@ export default function AirdropFreePage() {
         className="border border-border-divider bg-transparent text-primary rounded-lg px-4 py-2 w-full max-w-sm focus:outline-none focus:ring-2 focus:ring-text-accent"
       />
 
-      {/* ✅ Loading State */}
       {loading && (
         <div className="flex justify-center py-10">
           <Spinner variant="circle" size={40} className="text-blue-500" />
         </div>
       )}
 
-      {/* ✅ Error */}
       {error && <p className="text-red-500">{error}</p>}
 
-      {/* ✅ Table */}
+      {/* Table */}
+
       {!loading && !error && (
         <div className="overflow-x-auto rounded-lg border border-border-divider">
           <table className="w-full text-left">
@@ -128,57 +136,46 @@ export default function AirdropFreePage() {
         </div>
       )}
 
-      {/* ✅ Pagination */}
+     {/* Pagination */}
+
       {!loading && !error && totalPages > 1 && (
-        <Pagination>
-          <PaginationContent>
-            {/* Previous */}
+        <Pagination className="flex justify-center mt-4">
+          <PaginationContent className="flex flex-wrap justify-center gap-1">
             <PaginationItem>
               <PaginationPrevious
                 onClick={() => handlePageChange(currentPage - 1)}
-                className={cn(currentPage === 1 && "pointer-events-none opacity-50")}
+                className={cn(
+                  "px-2 py-1 text-xs sm:px-3 sm:py-2 sm:text-sm",
+                  currentPage === 1 && "pointer-events-none opacity-50"
+                )}
               />
             </PaginationItem>
 
-            {getPaginationRange().map((page, index) => {
-              const showEllipsisBefore = page === 5 && totalPages > 6 && currentPage < totalPages - 3
-              if (showEllipsisBefore) {
-                return (
-                  <PaginationItem key="ellipsis-before">
-                    <PaginationEllipsis />
-                  </PaginationItem>
-                )
-              }
+            {getPaginationRange().map((page, index) => (
+              <PaginationItem key={index}>
+                {page === '...' ? (
+                  <PaginationEllipsis className="text-xs sm:text-base" />
+                ) : (
+                  <PaginationLink
+                    isActive={currentPage === page}
+                    onClick={() => handlePageChange(Number(page))}
+                    className={cn(
+                      "px-2 py-1 text-xs sm:px-3 sm:py-2 sm:text-sm transition-none",
+                    )}
+                  >
+                    {page}
+                  </PaginationLink>
+                )}
+              </PaginationItem>
+            ))}
 
-              if (
-                page === 1 ||
-                page === totalPages ||
-                (typeof page === 'number' && page >= currentPage - 1 && page <= currentPage + 1) ||
-                (typeof page === 'number' && page <= 4)
-              ) {
-                if (typeof page === 'number') {
-                  return (
-                    <PaginationItem key={page}>
-                      <PaginationLink
-                        isActive={currentPage === page}
-                        onClick={() => handlePageChange(page)}
-                        className="transition-colors duration-200"
-                      >
-                        {page}
-                      </PaginationLink>
-                    </PaginationItem>
-                  )
-                }
-              }
-
-              return null
-            })}
-
-            {/* Next */}
             <PaginationItem>
               <PaginationNext
                 onClick={() => handlePageChange(currentPage + 1)}
-                className={cn(currentPage === totalPages && "pointer-events-none opacity-50")}
+                className={cn(
+                  "px-2 py-1 text-xs sm:px-3 sm:py-2 sm:text-sm",
+                  currentPage === totalPages && "pointer-events-none opacity-50"
+                )}
               />
             </PaginationItem>
           </PaginationContent>

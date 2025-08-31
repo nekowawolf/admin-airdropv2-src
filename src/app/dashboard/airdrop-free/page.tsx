@@ -1,9 +1,7 @@
-export const metadata = {
-  title: 'Admin | Airdrop Free',
-  description: 'Airdrop Free Dashboard',
-}
-
+import { dashboardMetadata } from '@/constants/metadataTemplates'
 import AirdropFreeClient from './AirdropFreeClient'
+
+export const metadata = dashboardMetadata('Airdrop Free', 'Airdrop Free Dashboard')
 
 export default function Page() {
   return <AirdropFreeClient />

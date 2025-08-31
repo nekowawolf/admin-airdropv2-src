@@ -1,10 +1,8 @@
+import { dashboardMetadata } from '@/constants/metadataTemplates'
 import ClientDashboardPage from './ClientDashboardPage'
 
-export const metadata = {
-  title: 'Admin | Dashboard',
-  description: 'Airdrop Dashboard',
-}
+export const metadata = dashboardMetadata('Dashboard', 'Airdrop Dashboard')
 
-export default function DashboardPage() {
+export default function Page() {
   return <ClientDashboardPage />
 }

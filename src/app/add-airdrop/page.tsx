@@ -1,10 +1,8 @@
+import { dashboardMetadata } from '@/constants/metadataTemplates'
 import AddAirdropForm from './AddAirdropForm'
 
-export const metadata = {
-  title: 'Admin | Add Airdrop',
-  description: 'Add new airdrop campaign',
-}
+export const metadata = dashboardMetadata('Add Airdrop', 'Add new airdrop campaign')
 
-export default function AddAirdropPage() {
+export default function Page() {
   return <AddAirdropForm />
 }

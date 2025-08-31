@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils"
 import { HiEllipsisVertical } from "react-icons/hi2"
 import { FaTrash } from "react-icons/fa"
 import { MdEdit } from "react-icons/md"
+import { createPortal } from "react-dom"
 
 export default function AirdropFreePage() {
   useAuthGuard()
@@ -28,6 +29,11 @@ export default function AirdropFreePage() {
 
   const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
+
+  const [dropdownPosition, setDropdownPosition] = useState<{ top: number; left: number }>({
+    top: 0,
+    left: 0
+  })
 
   useEffect(() => {
     setCurrentPage(1)
@@ -85,6 +91,15 @@ export default function AirdropFreePage() {
     }
 
     return range
+  }
+
+  const handleOpenDropdown = (e: React.MouseEvent<HTMLButtonElement>, index: number) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    setDropdownPosition({
+      top: rect.top + window.scrollY,
+      left: rect.left + window.scrollX - 144 
+    })
+    setOpenDropdownIndex(index)
   }
 
   const handleEdit = (item: any) => {
@@ -155,37 +170,11 @@ export default function AirdropFreePage() {
                     <td className="px-6 py-2">{item.funds}</td>
                     <td className="px-6 py-2 relative">
                       <button
-                        onClick={() => setOpenDropdownIndex(openDropdownIndex === index ? null : index)}
+                        onClick={(e) => handleOpenDropdown(e, index)}
                         className="p-2"
                       >
                         <HiEllipsisVertical size={20} />
                       </button>
-
-                      {openDropdownIndex === index && (
-                        <div
-                        ref={dropdownRef}
-                        className="fixed z-50 w-36 dropdown-bg divide-y divide-border-divider rounded-lg shadow-sm border border-border-divider"
-                      >
-                        <ul className="py-2 text-sm text-primary">
-                          <li>
-                            <button
-                              onClick={() => handleEdit(item)}
-                              className="flex items-center gap-2 w-full px-4 py-2 fill-[var(--card-color)]"
-                            >
-                              <MdEdit size={16} /> Edit
-                            </button>
-                          </li>
-                          <li>
-                            <button
-                              onClick={() => handleDelete(item.id)}
-                              className="flex items-center gap-2 w-full px-4 py-2 text-red-600"
-                            >
-                              <FaTrash size={16} /> Delete
-                            </button>
-                          </li>
-                        </ul>
-                      </div>
-                      )}
                     </td>
                   </tr>
                 ))
@@ -198,6 +187,39 @@ export default function AirdropFreePage() {
           </table>
         </div>
       )}
+
+      {openDropdownIndex !== null &&
+        createPortal(
+          <div
+            ref={dropdownRef}
+            className="absolute z-30 w-36 dropdown-bg divide-y divide-border-divider rounded-lg shadow-sm border border-border-divider"
+            style={{
+              top: `${dropdownPosition.top}px`,
+              left: `${dropdownPosition.left}px`
+            }}
+          >
+            <ul className="py-2 text-sm text-primary">
+              <li>
+                <button
+                  onClick={() => handleEdit(paginatedData[openDropdownIndex])}
+                  className="flex items-center gap-2 w-full px-4 py-2"
+                >
+                  <MdEdit size={16} /> Edit
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => handleDelete(paginatedData[openDropdownIndex].id)}
+                  className="flex items-center gap-2 w-full px-4 py-2 text-red-600"
+                >
+                  <FaTrash size={16} /> Delete
+                </button>
+              </li>
+            </ul>
+          </div>,
+          document.body
+        )
+      }
 
       {/* Pagination */}
       {!loading && !error && totalPages > 1 && (

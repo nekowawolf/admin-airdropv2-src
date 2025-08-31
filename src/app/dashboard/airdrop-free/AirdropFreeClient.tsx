@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { useAuthGuard } from '@/hooks/useAuthGuard'
 import { useFetchAirdropFree } from '@/hooks/useFetchAirdrop'
 import {
@@ -22,6 +22,10 @@ export default function AirdropFreePage() {
   const [search, setSearch] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 10
+
+    useEffect(() => {
+    setCurrentPage(1)
+  }, [search])
 
   const filteredData = useMemo(() => {
     return data.filter(item =>

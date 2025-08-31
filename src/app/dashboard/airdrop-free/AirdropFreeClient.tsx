@@ -164,7 +164,7 @@ export default function AirdropFreePage() {
                       {openDropdownIndex === index && (
                         <div
                         ref={dropdownRef}
-                        className="absolute top-0 right-full mr-1 w-36 sidebar-bg z-10"
+                        className="fixed z-50 w-36 dropdown-bg divide-y divide-border-divider rounded-lg shadow-sm border border-border-divider"
                       >
                         <ul className="py-2 text-sm text-primary">
                           <li>

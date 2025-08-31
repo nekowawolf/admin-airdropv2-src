@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState, useMemo, useRef } from 'react'
 import { useAuthGuard } from '@/hooks/useAuthGuard'
 import { useFetchAirdropFree } from '@/hooks/useFetchAirdrop'
 import {
@@ -14,6 +14,9 @@ import {
 } from "@/components/ui/pagination"
 import { Spinner } from "@/components/ui/shadcn-io/spinner"
 import { cn } from "@/lib/utils"
+import { HiEllipsisVertical } from "react-icons/hi2"
+import { FaTrash } from "react-icons/fa"
+import { MdEdit } from "react-icons/md"
 
 export default function AirdropFreePage() {
   useAuthGuard()
@@ -23,15 +26,32 @@ export default function AirdropFreePage() {
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 10
 
-    useEffect(() => {
+  const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
     setCurrentPage(1)
   }, [search])
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setOpenDropdownIndex(null)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
 
   const filteredData = useMemo(() => {
     return data.filter(item =>
       item.name.toLowerCase().includes(search.toLowerCase()) ||
       item.task.toLowerCase().includes(search.toLowerCase()) ||
       item.level.toLowerCase().includes(search.toLowerCase()) ||
+      item.backed.toLowerCase().includes(search.toLowerCase()) ||
+      item.funds.toLowerCase().includes(search.toLowerCase()) ||
       item.status.toLowerCase().includes(search.toLowerCase())
     )
   }, [search, data])
@@ -67,6 +87,16 @@ export default function AirdropFreePage() {
     return range
   }
 
+  const handleEdit = (item: any) => {
+    console.log("Edit:", item)
+    setOpenDropdownIndex(null)
+  }
+
+  const handleDelete = (id: string) => {
+    console.log("Delete:", id)
+    setOpenDropdownIndex(null)
+  }
+
   return (
     <div className="space-y-6 min-h-screen p-6">
       <div className="text-center sm:text-left">
@@ -95,7 +125,6 @@ export default function AirdropFreePage() {
       {error && <p className="text-red-500">{error}</p>}
 
       {/* Table */}
-
       {!loading && !error && (
         <div className="overflow-x-auto rounded-lg border border-border-divider">
           <table className="w-full text-left">
@@ -108,7 +137,7 @@ export default function AirdropFreePage() {
                 <th className="px-6 py-2 min-w-[120px] whitespace-nowrap">Status</th>
                 <th className="px-6 py-2 min-w-[130px] whitespace-nowrap">Backed</th>
                 <th className="px-6 py-2 min-w-[120px] whitespace-nowrap">Funds</th>
-                <th className="px-6 py-2 min-w-[150px] whitespace-nowrap">Action</th>
+                <th className="px-6 py-2 min-w-[80px] whitespace-nowrap">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -118,15 +147,45 @@ export default function AirdropFreePage() {
                     <td className="px-6 py-2">{item.name}</td>
                     <td className="px-6 py-2">{item.task}</td>
                     <td className="px-6 py-2 text-accent">
-                      <a href={item.link} target="_blank" rel="noopener noreferrer" className='text-blue-500'>Visit</a>
+                      <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-blue-500">Visit</a>
                     </td>
                     <td className="px-6 py-2">{item.level}</td>
                     <td className="px-6 py-2">{item.status}</td>
                     <td className="px-6 py-2 whitespace-nowrap">{item.backed}</td>
                     <td className="px-6 py-2">{item.funds}</td>
-                    <td className="px-6 py-2 flex gap-2">
-                      <button className="px-3 py-1 bg-blue-600 text-white rounded">Edit</button>
-                      <button className="px-3 py-1 bg-red-600 text-white rounded">Delete</button>
+                    <td className="px-6 py-2 relative">
+                      <button
+                        onClick={() => setOpenDropdownIndex(openDropdownIndex === index ? null : index)}
+                        className="p-2"
+                      >
+                        <HiEllipsisVertical size={20} />
+                      </button>
+
+                      {openDropdownIndex === index && (
+                        <div
+                        ref={dropdownRef}
+                        className="absolute top-0 right-full mr-1 w-36 sidebar-bg z-10"
+                      >
+                        <ul className="py-2 text-sm text-primary">
+                          <li>
+                            <button
+                              onClick={() => handleEdit(item)}
+                              className="flex items-center gap-2 w-full px-4 py-2 fill-[var(--card-color)]"
+                            >
+                              <MdEdit size={16} /> Edit
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              onClick={() => handleDelete(item.id)}
+                              className="flex items-center gap-2 w-full px-4 py-2 text-red-600"
+                            >
+                              <FaTrash size={16} /> Delete
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+                      )}
                     </td>
                   </tr>
                 ))
@@ -140,8 +199,7 @@ export default function AirdropFreePage() {
         </div>
       )}
 
-     {/* Pagination */}
-
+      {/* Pagination */}
       {!loading && !error && totalPages > 1 && (
         <Pagination className="flex justify-center mt-4">
           <PaginationContent className="flex flex-wrap justify-center gap-1">

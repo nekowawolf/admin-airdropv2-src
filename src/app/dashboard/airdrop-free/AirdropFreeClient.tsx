@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo, useRef } from 'react'
 import { useAuthGuard } from '@/hooks/useAuthGuard'
-import { useFetchAirdropFree } from '@/hooks/useFetchAirdrop'
+import { getAirdropFree, deleteAirdropFree } from '@/services/airdropService'
 import {
   Pagination,
   PaginationContent,
@@ -18,27 +18,44 @@ import { HiEllipsisVertical } from "react-icons/hi2"
 import { FaTrash } from "react-icons/fa"
 import { MdEdit } from "react-icons/md"
 import { createPortal } from "react-dom"
+import { toast } from 'sonner'
 
 export default function AirdropFreePage() {
   useAuthGuard()
 
-  const { data = [], loading, error } = useFetchAirdropFree()
+  // ===== STATE =====
+  const [data, setData] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [search, setSearch] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 10
-
   const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const [dropdownPosition, setDropdownPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 })
 
-  const [dropdownPosition, setDropdownPosition] = useState<{ top: number; left: number }>({
-    top: 0,
-    left: 0
-  })
+  // ===== FETCH DATA =====
+  const fetchData = async () => {
+    try {
+      setLoading(true)
+      const result = await getAirdropFree()
+      setData(result.reverse())
+    } catch (err: any) {
+      setError(err.message || 'Failed to fetch airdrops')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   useEffect(() => {
     setCurrentPage(1)
   }, [search])
 
+  // ===== HANDLE CLICK OUTSIDE DROPDOWN =====
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -46,11 +63,10 @@ export default function AirdropFreePage() {
       }
     }
     document.addEventListener("mousedown", handleClickOutside)
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
+    return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
+  // ===== FILTER & PAGINATION =====
   const filteredData = useMemo(() => {
     return data.filter(item =>
       item.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -70,34 +86,29 @@ export default function AirdropFreePage() {
   }, [filteredData, currentPage])
 
   const handlePageChange = (page: number) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page)
-    }
+    if (page >= 1 && page <= totalPages) setCurrentPage(page)
   }
 
   const getPaginationRange = () => {
     const range: (number | string)[] = []
-
     if (totalPages <= 6) {
       for (let i = 1; i <= totalPages; i++) range.push(i)
     } else {
       range.push(1)
       if (currentPage > 3) range.push('...')
-      for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
-        range.push(i)
-      }
+      for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) range.push(i)
       if (currentPage < totalPages - 2) range.push('...')
       range.push(totalPages)
     }
-
     return range
   }
 
+  // ===== DROPDOWN ACTION =====
   const handleOpenDropdown = (e: React.MouseEvent<HTMLButtonElement>, index: number) => {
     const rect = e.currentTarget.getBoundingClientRect()
     setDropdownPosition({
       top: rect.top + window.scrollY,
-      left: rect.left + window.scrollX - 144 
+      left: rect.left + window.scrollX - 144
     })
     setOpenDropdownIndex(index)
   }
@@ -107,20 +118,25 @@ export default function AirdropFreePage() {
     setOpenDropdownIndex(null)
   }
 
-  const handleDelete = (id: string) => {
-    console.log("Delete:", id)
-    setOpenDropdownIndex(null)
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this airdrop?")) return
+
+    try {
+      await deleteAirdropFree(id)
+      toast.success("Airdrop deleted successfully!")
+      await fetchData() 
+      setOpenDropdownIndex(null)
+    } catch (err: any) {
+      toast.error(err.message || "Failed to delete airdrop.")
+    }
   }
 
+  // ===== RENDER =====
   return (
     <div className="space-y-6 min-h-screen p-6">
       <div className="text-center sm:text-left">
-        <h2 className="text-lg sm:text-2xl font-semibold text-primary">
-          Airdrop Free
-        </h2>
-        <p className="text-xs sm:text-sm text-secondary">
-          List of free airdrop campaigns
-        </p>
+        <h2 className="text-lg sm:text-2xl font-semibold text-primary">Airdrop Free</h2>
+        <p className="text-xs sm:text-sm text-secondary">List of free airdrop campaigns</p>
       </div>
 
       <input
@@ -137,7 +153,7 @@ export default function AirdropFreePage() {
         </div>
       )}
 
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-red-500">{error}</p>}  
 
       {/* Table */}
       {!loading && !error && (
@@ -145,14 +161,14 @@ export default function AirdropFreePage() {
           <table className="w-full text-left">
             <thead className="bg-[var(--card-color3)]">
               <tr>
-                <th className="px-6 py-2 min-w-[140px] whitespace-nowrap">Name</th>
-                <th className="px-6 py-2 min-w-[140px] whitespace-nowrap">Task</th>
-                <th className="px-6 py-2 min-w-[120px] whitespace-nowrap">Link</th>
-                <th className="px-6 py-2 min-w-[100px] whitespace-nowrap">Level</th>
-                <th className="px-6 py-2 min-w-[120px] whitespace-nowrap">Status</th>
-                <th className="px-6 py-2 min-w-[130px] whitespace-nowrap">Backed</th>
-                <th className="px-6 py-2 min-w-[120px] whitespace-nowrap">Funds</th>
-                <th className="px-6 py-2 min-w-[80px] whitespace-nowrap">Action</th>
+                <th className="px-6 py-2 min-w-[140px]">Name</th>
+                <th className="px-6 py-2 min-w-[140px]">Task</th>
+                <th className="px-6 py-2 min-w-[120px]">Link</th>
+                <th className="px-6 py-2 min-w-[100px]">Level</th>
+                <th className="px-6 py-2 min-w-[120px]">Status</th>
+                <th className="px-6 py-2 min-w-[130px]">Backed</th>
+                <th className="px-6 py-2 min-w-[120px]">Funds</th>
+                <th className="px-6 py-2 min-w-[80px]">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -166,13 +182,10 @@ export default function AirdropFreePage() {
                     </td>
                     <td className="px-6 py-2">{item.level}</td>
                     <td className="px-6 py-2">{item.status}</td>
-                    <td className="px-6 py-2 whitespace-nowrap">{item.backed}</td>
+                    <td className="px-6 py-2">{item.backed}</td>
                     <td className="px-6 py-2">{item.funds}</td>
                     <td className="px-6 py-2 relative">
-                      <button
-                        onClick={(e) => handleOpenDropdown(e, index)}
-                        className="p-2"
-                      >
+                      <button onClick={(e) => handleOpenDropdown(e, index)} className="p-2">
                         <HiEllipsisVertical size={20} />
                       </button>
                     </td>
@@ -244,7 +257,7 @@ export default function AirdropFreePage() {
                     isActive={currentPage === page}
                     onClick={() => handlePageChange(Number(page))}
                     className={cn(
-                      "px-2 py-1 text-xs sm:px-3 sm:py-2 sm:text-sm transition-none",
+                      "px-2 py-1 text-xs sm:px-3 sm:py-2 sm:text-sm transition-none"
                     )}
                   >
                     {page}

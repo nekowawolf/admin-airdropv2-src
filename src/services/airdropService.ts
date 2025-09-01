@@ -75,3 +75,25 @@ export const getAirdropFree = async () => {
 
   return data.data.filter((item: any) => item.status !== 'ended')
 }
+
+export const deleteAirdropFree = async (id: string) => {
+  const token = Cookies.get('token');
+
+  if (!token) {
+    throw new Error('No authentication token found');
+  }
+
+  const response = await fetch(`${API_BASE_URL}/airdrop/freeairdrop/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || 'Failed to delete free airdrop');
+  }
+
+  return response.json();
+};

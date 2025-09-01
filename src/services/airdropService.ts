@@ -97,3 +97,51 @@ export const deleteAirdropFree = async (id: string) => {
 
   return response.json();
 };
+
+export const updateAirdropFree = async (id: string, data: AirdropFreeRequest) => {
+  const token = Cookies.get('token');
+  
+  if (!token) {
+    throw new Error('No authentication token found');
+  }
+  
+  const response = await fetch(`${API_BASE_URL}/airdrop/freeairdrop/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify(data)
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || 'Failed to update free airdrop');
+  }
+
+  return response.json();
+};
+
+export const getAirdropFreeById = async (id: string) => {
+  const token = Cookies.get('token');
+
+  if (!token) {
+    throw new Error('No authentication token found');
+  }
+
+  const response = await fetch(`${API_BASE_URL}/airdrop/freeairdrop/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || 'Failed to fetch airdrop');
+  }
+
+  const data = await response.json();
+  return data.data;
+};

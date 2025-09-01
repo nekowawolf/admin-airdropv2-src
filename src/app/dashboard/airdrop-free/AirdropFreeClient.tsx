@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useMemo, useRef } from 'react'
 import { useAuthGuard } from '@/hooks/useAuthGuard'
+import { useRouter } from 'next/navigation'
 import { getAirdropFree, deleteAirdropFree } from '@/services/airdropService'
 import {
   Pagination,
@@ -22,6 +23,7 @@ import { toast } from 'sonner'
 
 export default function AirdropFreePage() {
   useAuthGuard()
+  const router = useRouter()
 
   // ===== STATE =====
   const [data, setData] = useState<any[]>([])
@@ -117,7 +119,7 @@ export default function AirdropFreePage() {
   }
 
   const handleEdit = (item: any) => {
-    console.log("Edit:", item)
+    router.push(`/edit-airdrop/${item.id}`)
     setOpenDropdownIndex(null)
   }
 

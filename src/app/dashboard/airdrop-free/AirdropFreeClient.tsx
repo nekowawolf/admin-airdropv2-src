@@ -182,7 +182,7 @@ export default function AirdropFreePage() {
                     </td>
                     <td className="px-6 py-2">{item.level}</td>
                     <td className="px-6 py-2">{item.status}</td>
-                    <td className="px-6 py-2">{item.backed}</td>
+                    <td className="px-6 py-2 whitespace-nowrap">{item.backed}</td>
                     <td className="px-6 py-2">{item.funds}</td>
                     <td className="px-6 py-2 relative">
                       <button onClick={(e) => handleOpenDropdown(e, index)} className="p-2">

@@ -35,6 +35,7 @@ export default function AirdropFreePage() {
   const [dropdownPosition, setDropdownPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 })
   const [showConfirmModal, setShowConfirmModal] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [selectedName, setSelectedName] = useState<string | null>(null)
 
   // ===== FETCH DATA =====
   const fetchData = async () => {
@@ -120,8 +121,9 @@ export default function AirdropFreePage() {
     setOpenDropdownIndex(null)
   }
 
-  const handleDeleteClick = (id: string) => {
+  const handleDeleteClick = (id: string, name: string) => {
     setSelectedId(id)
+    setSelectedName(name)
     setShowConfirmModal(true)
     setOpenDropdownIndex(null)
   }
@@ -231,7 +233,7 @@ export default function AirdropFreePage() {
               </li>
               <li>
                 <button
-                  onClick={() => handleDeleteClick(paginatedData[openDropdownIndex].id)}
+                  onClick={() => handleDeleteClick(paginatedData[openDropdownIndex].id, paginatedData[openDropdownIndex].name)}
                   className="flex items-center gap-2 w-full px-4 py-2 text-red-600"
                 >
                   <FaTrash size={16} /> Delete
@@ -250,7 +252,10 @@ export default function AirdropFreePage() {
             <div className="dropdown-bg rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
               <FaTrash size={32} className="text-red-600 mx-auto mb-4" />
               <h3 className="text-primary text-lg font-semibold mb-2">Delete Airdrop</h3>
-              <p className="text-secondary mb-6">Are you sure you want to delete this airdrop?</p>
+              <p className="text-secondary mb-6">
+                Are you sure you want to delete this airdrop:{" "}
+                <span className="font-semibold text-primary">{selectedName}</span>?
+              </p>
               <div className="flex justify-center gap-4">
                 <button
                   onClick={confirmDelete}

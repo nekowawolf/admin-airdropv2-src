@@ -119,17 +119,18 @@ export default function AirdropFreePage() {
   }
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this airdrop?")) return
+  if (!confirm("Are you sure you want to delete this airdrop?")) return
 
-    try {
-      await deleteAirdropFree(id)
-      toast.success("Airdrop deleted successfully!")
-      await fetchData() 
-      setOpenDropdownIndex(null)
-    } catch (err: any) {
-      toast.error(err.message || "Failed to delete airdrop.")
-    }
+  try {
+    setOpenDropdownIndex(null)
+    await deleteAirdropFree(id)
+    toast.success("Airdrop deleted successfully!")
+    setData(prev => prev.filter(item => item.id !== id))
+
+  } catch (err: any) {
+    toast.error(err.message || "Failed to delete airdrop.")
   }
+}
 
   // ===== RENDER =====
   return (

@@ -33,6 +33,8 @@ export default function AirdropFreePage() {
   const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const [dropdownPosition, setDropdownPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 })
+  const [showConfirmModal, setShowConfirmModal] = useState(false)
+  const [selectedId, setSelectedId] = useState<string | null>(null)
 
   // ===== FETCH DATA =====
   const fetchData = async () => {
@@ -118,19 +120,25 @@ export default function AirdropFreePage() {
     setOpenDropdownIndex(null)
   }
 
-  const handleDelete = async (id: string) => {
-  if (!confirm("Are you sure you want to delete this airdrop?")) return
-
-  try {
+  const handleDeleteClick = (id: string) => {
+    setSelectedId(id)
+    setShowConfirmModal(true)
     setOpenDropdownIndex(null)
-    await deleteAirdropFree(id)
-    toast.success("Airdrop deleted successfully!")
-    setData(prev => prev.filter(item => item.id !== id))
-
-  } catch (err: any) {
-    toast.error(err.message || "Failed to delete airdrop.")
   }
-}
+
+  const confirmDelete = async () => {
+    if (!selectedId) return
+    try {
+      await deleteAirdropFree(selectedId)
+      toast.success("Airdrop deleted successfully!")
+      setData(prev => prev.filter(item => item.id !== selectedId))
+    } catch (err: any) {
+      toast.error(err.message || "Failed to delete airdrop.")
+    } finally {
+      setShowConfirmModal(false)
+      setSelectedId(null)
+    }
+  }
 
   // ===== RENDER =====
   return (
@@ -223,13 +231,41 @@ export default function AirdropFreePage() {
               </li>
               <li>
                 <button
-                  onClick={() => handleDelete(paginatedData[openDropdownIndex].id)}
+                  onClick={() => handleDeleteClick(paginatedData[openDropdownIndex].id)}
                   className="flex items-center gap-2 w-full px-4 py-2 text-red-600"
                 >
                   <FaTrash size={16} /> Delete
                 </button>
               </li>
             </ul>
+          </div>,
+          document.body
+        )
+      }
+
+      {/* Confirm Delete Modal */}
+      {showConfirmModal &&
+        createPortal(
+          <div className="fixed inset-0 flex items-center justify-center bg-[var(--overlay-bg)] z-50">
+            <div className="dropdown-bg rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+              <FaTrash size={32} className="text-red-600 mx-auto mb-4" />
+              <h3 className="text-primary text-lg font-semibold mb-2">Delete Airdrop</h3>
+              <p className="text-secondary mb-6">Are you sure you want to delete this airdrop?</p>
+              <div className="flex justify-center gap-4">
+                <button
+                  onClick={confirmDelete}
+                  className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700"
+                >
+                  Yes
+                </button>
+                <button
+                  onClick={() => setShowConfirmModal(false)}
+                  className="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400"
+                >
+                  No
+                </button>
+              </div>
+            </div>
           </div>,
           document.body
         )

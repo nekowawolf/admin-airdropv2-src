@@ -41,7 +41,7 @@ export default function EditAirdropPage() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center py-10 mt-36">
         <Spinner variant="circle" size={40} className="text-blue-500" />
       </div>
     )

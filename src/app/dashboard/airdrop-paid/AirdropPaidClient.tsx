@@ -1,28 +1,23 @@
 'use client'
 
 import { useAuthGuard } from '@/hooks/useAuthGuard'
+import { useAirdropData } from '@/hooks/useAirdropData'
+import AirdropTable from '@/components/AirdropTable'
 
 export default function AirdropPaidPage() {
   useAuthGuard()
+  
+  const { data, loading, error, handleDelete } = useAirdropData('paid')
 
   return (
-    <div className="space-y-6">
-      <div className="text-center sm:text-left">
-        <h2 className="text-lg sm:text-2xl font-semibold text-primary">
-          Airdrop Paid
-        </h2>
-        <p className="text-xs sm:text-sm text-secondary">
-          List of paid airdrop campaigns
-        </p>
-      </div>
-
-    <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-      
-    </section>
-
-    <section className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-      
-    </section>
-  </div>
+    <AirdropTable
+      data={data}
+      loading={loading}
+      error={error}
+      onDelete={handleDelete}
+      editRoute="/edit-paid-airdrop"
+      title="Airdrop Paid"
+      subtitle="List of paid airdrop campaigns"
+    />
   )
 }

@@ -1,8 +1,9 @@
-import { dashboardMetadata } from '@/constants/metadataTemplates'
-import AddAirdropForm from './AddAirdropForm'
-
-export const metadata = dashboardMetadata('Add Airdrop', 'Add new airdrop campaign')
+import AddAirdropForm from '@/components/AddAirdropForm'
 
 export default function Page() {
-  return <AddAirdropForm />
+  return (
+    <div className="p-6">
+      <AddAirdropForm />
+    </div>
+  )
 }

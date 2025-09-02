@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { getAirdropFreeById } from '@/services/airdropService'
+import { getAirdropPaidById } from '@/services/airdropService'
 import EditAirdropForm from '@/components/EditAirdropForm'
 import { Spinner } from "@/components/ui/shadcn-io/spinner"
 import { toast } from 'sonner'
@@ -20,7 +20,7 @@ export default function EditAirdropPage() {
     const fetchAirdropData = async () => {
       try {
         setLoading(true)
-        const airdrop = await getAirdropFreeById(id)
+        const airdrop = await getAirdropPaidById(id)
         setAirdropData(airdrop)
       } catch (err: any) {
         setError(err.message || 'Failed to fetch airdrop data')
@@ -36,7 +36,7 @@ export default function EditAirdropPage() {
 
   const handleSuccess = () => {
     toast.success('Airdrop updated successfully!')
-    router.push('/dashboard/airdrop-free')
+    router.push('/dashboard/airdrop-paid')
   }
 
   if (loading) {
@@ -54,7 +54,7 @@ export default function EditAirdropPage() {
           <h2 className="text-xl font-semibold text-primary mb-2">Error</h2>
           <p className="text-secondary mb-4">{error}</p>
           <button
-            onClick={() => router.push('/dashboard/airdrop-free')}
+            onClick={() => router.push('/dashboard/airdrop-paid')}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
           >
             Back to Dashboard
@@ -71,7 +71,7 @@ export default function EditAirdropPage() {
           <h2 className="text-xl font-semibold text-primary mb-2">Airdrop Not Found</h2>
           <p className="text-secondary mb-4">The airdrop you're looking for doesn't exist.</p>
           <button
-            onClick={() => router.push('/dashboard/airdrop-free')}
+            onClick={() => router.push('/dashboard/airdrop-paid')}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
           >
             Back to Dashboard
@@ -83,11 +83,11 @@ export default function EditAirdropPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <EditAirdropForm
-        airdropData={airdropData}
-        type="free"
-        onSuccess={handleSuccess}
-      />
+       <EditAirdropForm
+          airdropData={airdropData}
+          type="paid"
+          onSuccess={handleSuccess}
+        />
     </div>
   )
 }

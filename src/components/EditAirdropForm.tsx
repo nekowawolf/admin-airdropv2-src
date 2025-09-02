@@ -68,7 +68,6 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
         />
       </button>
 
-      {/* Dropdown menu */}
       <div 
         id={id}
         className={`z-10 absolute top-full left-0 right-0 mt-1 dropdown-bg divide-y divide-border-divider rounded-lg shadow-sm border border-border-divider ${
@@ -107,10 +106,11 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
 
 interface EditAirdropFormProps {
   airdropData: any
+  type: 'paid' | 'free'
   onSuccess?: () => void
 }
 
-export default function EditAirdropForm({ airdropData, onSuccess }: EditAirdropFormProps) {
+export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAirdropFormProps) {
   useAuthGuard()
   const router = useRouter()
   const [formData, setFormData] = useState<AirdropFormData>({
@@ -129,7 +129,7 @@ export default function EditAirdropForm({ airdropData, onSuccess }: EditAirdropF
     claim: airdropData?.link_claim || '',
   })
 
-  const { isSubmitting, successMessage, errorMessage, editAirdrop } = useEditAirdrop()
+  const { isSubmitting, editAirdrop } = useEditAirdrop(type)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -170,10 +170,10 @@ export default function EditAirdropForm({ airdropData, onSuccess }: EditAirdropF
     <div className="space-y-12 mt-6 sm:mt-0">
       <div className="text-center sm:text-left">
         <h2 className="text-lg sm:text-2xl font-semibold text-primary">
-          Edit Airdrop
+          Edit {type === 'free' ? 'Free Airdrop' : 'Paid Airdrop'}
         </h2>
         <p className="text-xs sm:text-sm text-secondary">
-          Update airdrop campaign information
+          Update {type === 'free' ? 'free airdrop' : 'paid airdrop'} campaign information
         </p>
       </div>
 
@@ -182,12 +182,18 @@ export default function EditAirdropForm({ airdropData, onSuccess }: EditAirdropF
           <div className="mb-6">
             <div className="flex items-center gap-2 bg-card-color2 rounded-lg p-3 border border-border-divider">
               <FiGift className="w-4 h-4 text-blue-600" />
-              <span className="text-sm font-medium text-primary">Free Airdrop</span>
+              <span className="text-sm font-medium text-primary">
+                {type === 'free' ? 'Free Airdrop' : 'Paid Airdrop'}
+              </span>
             </div>
           </div>
 
+          {/* Form */}
           <form className="space-y-6" onSubmit={handleSubmit}>
+            {/* Semua input sama seperti sebelumnya */}
+            {/* Project Name */}
             <div className="grid grid-cols-1 gap-6">
+              {/* Nama Project & Task */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
                   <label className="text-secondary text-sm font-medium" htmlFor="name">
@@ -221,6 +227,7 @@ export default function EditAirdropForm({ airdropData, onSuccess }: EditAirdropF
                 </div>
               </div>
 
+              {/* Link */}
               <div className="flex flex-col gap-2">
                 <label className="text-secondary text-sm font-medium" htmlFor="link">
                   Project Link *
@@ -237,6 +244,7 @@ export default function EditAirdropForm({ airdropData, onSuccess }: EditAirdropF
                 />
               </div>
 
+              {/* Dropdown Level & Status */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
                   <label className="text-secondary text-sm font-medium" htmlFor="level">
@@ -275,6 +283,7 @@ export default function EditAirdropForm({ airdropData, onSuccess }: EditAirdropF
                 </div>
               </div>
 
+              {/* Backed */}
               <div className="flex flex-col gap-2">
                 <label className="text-secondary text-sm font-medium" htmlFor="backed">
                   Backed By *
@@ -291,6 +300,7 @@ export default function EditAirdropForm({ airdropData, onSuccess }: EditAirdropF
                 />
               </div>
 
+              {/* Funds, Supply, Market Cap */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="flex flex-col gap-2">
                   <label className="text-secondary text-sm font-medium" htmlFor="funds">
@@ -337,6 +347,7 @@ export default function EditAirdropForm({ airdropData, onSuccess }: EditAirdropF
                 </div>
               </div>
 
+              {/* Price, Vesting, USD Income */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="flex flex-col gap-2">
                   <label className="text-secondary text-sm font-medium" htmlFor="price">
@@ -384,6 +395,7 @@ export default function EditAirdropForm({ airdropData, onSuccess }: EditAirdropF
                 </div>
               </div>
 
+              {/* Claim */}
               <div className="flex flex-col gap-2">
                 <label className="text-secondary text-sm font-medium" htmlFor="claim">
                   Claim *
@@ -399,6 +411,7 @@ export default function EditAirdropForm({ airdropData, onSuccess }: EditAirdropF
                 />
               </div>
               
+              {/* Buttons */}
               <div className="flex justify-end gap-4 pt-6 border-t border-border-divider">
                 <button
                   type="button"

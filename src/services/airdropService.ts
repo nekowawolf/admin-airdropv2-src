@@ -54,9 +54,7 @@ export const createAirdropPaid = async (data: AirdropPaidRequest) => {
 export const getAirdropFree = async () => {
   const token = Cookies.get('token')
 
-  if (!token) {
-    throw new Error('No authentication token found')
-  }
+  if (!token) throw new Error('No authentication token found')
 
   const response = await fetch(`${API_BASE_URL}/airdrop/freeairdrop`, {
     method: 'GET',
@@ -72,20 +70,7 @@ export const getAirdropFree = async () => {
   }
 
   const data = await response.json()
-
-  const airdrops = Array.isArray(data.data) ? data.data : []
-  return airdrops.filter((item: any) => 
-    item && 
-    item !== null && 
-    item !== undefined && 
-    item.status === 'active' && 
-    item.name && 
-    item.task && 
-    item.level && 
-    item.status && 
-    item.backed && 
-    item.funds 
-  )
+  return Array.isArray(data.data) ? data.data : []
 }
 
 export const deleteAirdropFree = async (id: string) => {
@@ -161,9 +146,7 @@ export const getAirdropFreeById = async (id: string) => {
 export const getAirdropPaid = async () => {
   const token = Cookies.get('token')
 
-  if (!token) {
-    throw new Error('No authentication token found')
-  }
+  if (!token) throw new Error('No authentication token found')
 
   const response = await fetch(`${API_BASE_URL}/airdrop/paidairdrop`, {
     method: 'GET',
@@ -179,20 +162,7 @@ export const getAirdropPaid = async () => {
   }
 
   const data = await response.json()
-
-  const airdrops = Array.isArray(data.data) ? data.data : []
-  return airdrops.filter((item: any) => 
-    item && 
-    item !== null && 
-    item !== undefined && 
-    item.status === 'active' && 
-    item.name && 
-    item.task && 
-    item.level && 
-    item.status &&
-    item.backed &&
-    item.funds
-  )
+  return Array.isArray(data.data) ? data.data : []
 }
 
 export const deleteAirdropPaid = async (id: string) => {

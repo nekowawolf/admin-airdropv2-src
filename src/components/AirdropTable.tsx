@@ -205,7 +205,11 @@ export default function AirdropTable({
                        )}
                      </td>
                      <td className="px-6 py-2">{item.level || '-'}</td>
-                     <td className="px-6 py-2">{item.status || '-'}</td>
+                     <td className="px-6 py-2">
+                      <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
+                        {item.status || '-'}
+                      </span>
+                     </td>
                      <td className="px-6 py-2 whitespace-nowrap">{item.backed || '-'}</td>
                      <td className="px-6 py-2">{item.funds || '-'}</td>
                      <td className="px-6 py-2 relative">

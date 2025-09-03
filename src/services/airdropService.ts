@@ -234,3 +234,49 @@ export const getAirdropPaidById = async (id: string) => {
   const data = await response.json();
   return data.data;
 };
+
+export const getAirdropEnded = async () => {
+  const token = Cookies.get('token');
+
+  if (!token) throw new Error('No authentication token found');
+
+  try {
+    const [freeResponse, paidResponse] = await Promise.all([
+      fetch(`${API_BASE_URL}/airdrop/freeairdrop`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      }),
+      fetch(`${API_BASE_URL}/airdrop/paidairdrop`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+    ]);
+
+    if (!freeResponse.ok || !paidResponse.ok) {
+      throw new Error('Failed to fetch airdrops');
+    }
+
+    const freeData = await freeResponse.json();
+    const paidData = await paidResponse.json();
+
+    const combinedData = [
+      ...(Array.isArray(freeData.data) ? freeData.data : []),
+      ...(Array.isArray(paidData.data) ? paidData.data : [])
+    ];
+
+    return combinedData.filter(item => 
+      item && 
+      item.status === 'ended' &&
+      item.name && 
+      item.task
+    );
+  } catch (err: any) {
+    throw new Error(err.message || 'Failed to fetch ended airdrops');
+  }
+};

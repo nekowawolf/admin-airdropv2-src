@@ -6,14 +6,15 @@ import EndedAirdropTable from '@/components/AirdropTableEnded'
 
 export default function EndedAirdropsPage() {
   useAuthGuard()
-
-  const { data, loading, error } = useAirdropEndedData()
+  const { data, loading, error, onDelete } = useAirdropEndedData()
 
   return (
     <EndedAirdropTable
       data={data}
       loading={loading}
       error={error}
+      onDelete={onDelete}
+      editRoute="/dashboard/airdrop-ended/edit"
     />
   )
 }

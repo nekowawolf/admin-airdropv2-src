@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getAirdropEnded } from '@/services/airdropService'
+import { getAirdropEnded, deleteAirdrop } from '@/services/airdropService'
 
 export const useAirdropEndedData = () => {
   const [data, setData] = useState<any[]>([])
@@ -10,13 +10,23 @@ export const useAirdropEndedData = () => {
     try {
       setLoading(true)
       const result = await getAirdropEnded()
-      
       const validData = Array.isArray(result) ? result : []
       setData(validData.reverse())
     } catch (err: any) {
       setError(err.message || 'Failed to fetch ended airdrops')
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteAirdrop(id)
+      // Remove the deleted item from local state
+      setData(prev => prev.filter(item => item.id !== id))
+      return Promise.resolve()
+    } catch (err: any) {
+      throw new Error(err.message || 'Failed to delete airdrop')
     }
   }
 
@@ -28,6 +38,7 @@ export const useAirdropEndedData = () => {
     data,
     loading,
     error,
-    refetch: fetchData
+    refetch: fetchData,
+    onDelete: handleDelete
   }
 }

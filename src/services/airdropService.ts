@@ -269,3 +269,25 @@ export const getAirdropEnded = async () => {
     throw new Error(err.message || 'Failed to fetch ended airdrops');
   }
 };
+
+export const deleteAirdrop = async (id: string) => {
+  const token = Cookies.get('token');
+  
+  if (!token) {
+    throw new Error('No authentication token found');
+  }
+
+  const response = await fetch(`${API_BASE_URL}/airdrop/allairdrop/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || 'Failed to delete airdrop');
+  }
+
+  return response.json();
+};

@@ -122,12 +122,6 @@ export default function EndedAirdropTable({
   }
 
   const handleDeleteClick = (id: string, name: string) => {
-    if (!onDelete) {
-      toast.info("Delete functionality is not available yet")
-      setOpenDropdownIndex(null)
-      return
-    }
-    
     setSelectedId(id)
     setSelectedName(name)
     setShowConfirmModal(true)
@@ -215,37 +209,37 @@ export default function EndedAirdropTable({
               {paginatedData.length > 0 ? (
                 paginatedData.map((item, index) => (
                   <tr key={index} className="border-t border-border-divider">
-                    <td className="px-6 py-2">{item.name || '-'}</td>
-                    <td className="px-6 py-2">{item.task || '-'}</td>
+                    <td className="px-6 py-2">{item.name || 'N/A'}</td>
+                    <td className="px-6 py-2">{item.task || 'N/A'}</td>
                     <td className="px-6 py-2 text-accent">
                       {item.link ? (
                         <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-blue-500">Visit</a>
                       ) : (
-                        <span className="text-gray-500">-</span>
+                        <span className="text-gray-500">N/A</span>
                       )}
                     </td>
-                    <td className="px-6 py-2">{item.level || '-'}</td>
+                    <td className="px-6 py-2">{item.level || 'N/A'}</td>
                     <td className="px-6 py-2">
                       <span className="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">
-                        {item.status || '-'}
+                        {item.status || 'N/A'}
                       </span>
                     </td>
-                    <td className="px-6 py-2 whitespace-nowrap">{item.backed || '-'}</td>
-                    <td className="px-6 py-2">{item.funds || '-'}</td>
-                    <td className="px-6 py-2">{item.supply || '-'}</td>
-                    <td className="px-6 py-2">{item.market_cap || '-'}</td>
-                    <td className="px-6 py-2">{item.vesting || '-'}</td>
+                    <td className="px-6 py-2 whitespace-nowrap">{item.backed || 'N/A'}</td>
+                    <td className="px-6 py-2">{item.funds || 'N/A'}</td>
+                    <td className="px-6 py-2">{item.supply || 'N/A'}</td>
+                    <td className="px-6 py-2">{item.market_cap || 'N/A'}</td>
+                    <td className="px-6 py-2">{item.vesting || 'N/A'}</td>
                     <td className="px-6 py-2 text-accent">
                       {item.link_claim ? (
                         <a href={item.link_claim} target="_blank" rel="noopener noreferrer" className="text-blue-500">Claim</a>
                       ) : (
-                        <span className="text-gray-500">-</span>
+                        <span className="text-gray-500">N/A</span>
                       )}
                     </td>
-                    <td className="px-6 py-2">{item.price ? formatCurrency(item.price) : '-'}</td>
-                    <td className="px-6 py-2">{item.usd_income ? formatCurrency(item.usd_income) : '-'}</td>
-                    <td className="px-6 py-2">{item.created_at ? formatDate(item.created_at) : '-'}</td>
-                    <td className="px-6 py-2">{item.ended_at ? formatDate(item.ended_at) : '-'}</td>
+                    <td className="px-6 py-2">{item.price ? formatCurrency(item.price) : 'N/A'}</td>
+                    <td className="px-6 py-2">{item.usd_income ? formatCurrency(item.usd_income) : 'N/A'}</td>
+                    <td className="px-6 py-2">{item.created_at ? formatDate(item.created_at) : 'N/A'}</td>
+                    <td className="px-6 py-2">{item.ended_at ? formatDate(item.ended_at) : 'N/A'}</td>
                     <td className="px-6 py-2 relative">
                       <button onClick={(e) => handleOpenDropdown(e, index)} className="p-2">
                         <HiEllipsisVertical size={20} />

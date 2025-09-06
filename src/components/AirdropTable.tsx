@@ -195,23 +195,23 @@ export default function AirdropTable({
                              {paginatedData.length > 0 ? (
                  paginatedData.map((item, index) => (
                    <tr key={index} className="border-t border-border-divider">
-                     <td className="px-6 py-2">{item.name || '-'}</td>
-                     <td className="px-6 py-2">{item.task || '-'}</td>
+                     <td className="px-6 py-2">{item.name || 'N/A'}</td>
+                     <td className="px-6 py-2">{item.task || 'N/A'}</td>
                      <td className="px-6 py-2 text-accent">
                        {item.link ? (
                          <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-blue-500">Visit</a>
                        ) : (
-                         <span className="text-gray-500">-</span>
+                         <span className="text-gray-500">N/A</span>
                        )}
                      </td>
-                     <td className="px-6 py-2">{item.level || '-'}</td>
+                     <td className="px-6 py-2">{item.level || 'N/A'}</td>
                      <td className="px-6 py-2">
                       <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
-                        {item.status || '-'}
+                        {item.status || 'N/A'}
                       </span>
                      </td>
-                     <td className="px-6 py-2 whitespace-nowrap">{item.backed || '-'}</td>
-                     <td className="px-6 py-2">{item.funds || '-'}</td>
+                     <td className="px-6 py-2 whitespace-nowrap">{item.backed || 'N/A'}</td>
+                     <td className="px-6 py-2">{item.funds || 'N/A'}</td>
                      <td className="px-6 py-2 relative">
                        <button onClick={(e) => handleOpenDropdown(e, index)} className="p-2">
                          <HiEllipsisVertical size={20} />

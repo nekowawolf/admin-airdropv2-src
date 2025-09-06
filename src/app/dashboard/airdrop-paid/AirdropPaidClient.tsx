@@ -15,7 +15,7 @@ export default function AirdropPaidPage() {
       loading={loading}
       error={error}
       onDelete={handleDelete}
-      editRoute="/edit-paid-airdrop"
+      editRoute="/edit-airdrop-paid"
       title="Airdrop Paid"
       subtitle="List of paid airdrop campaigns"
     />

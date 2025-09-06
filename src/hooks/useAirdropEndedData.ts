@@ -1,4 +1,3 @@
-// useAirdropEndedData.ts
 import { useState, useEffect } from 'react'
 import { getAirdropEnded } from '@/services/airdropService'
 
@@ -11,14 +10,8 @@ export const useAirdropEndedData = () => {
     try {
       setLoading(true)
       const result = await getAirdropEnded()
-      const validData = Array.isArray(result) ? result.filter(item => 
-        item && 
-        item !== null && 
-        item !== undefined && 
-        item.status === 'ended' && 
-        item.name && 
-        item.task
-      ) : []
+      
+      const validData = Array.isArray(result) ? result : []
       setData(validData.reverse())
     } catch (err: any) {
       setError(err.message || 'Failed to fetch ended airdrops')

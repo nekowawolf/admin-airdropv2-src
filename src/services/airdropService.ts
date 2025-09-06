@@ -241,41 +241,30 @@ export const getAirdropEnded = async () => {
   if (!token) throw new Error('No authentication token found');
 
   try {
-    const [freeResponse, paidResponse] = await Promise.all([
-      fetch(`${API_BASE_URL}/airdrop/freeairdrop`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
-      }),
-      fetch(`${API_BASE_URL}/airdrop/paidairdrop`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
-      })
-    ]);
+    const response = await fetch(`${API_BASE_URL}/airdrop/allairdrop`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
 
-    if (!freeResponse.ok || !paidResponse.ok) {
+    if (!response.ok) {
       throw new Error('Failed to fetch airdrops');
     }
 
-    const freeData = await freeResponse.json();
-    const paidData = await paidResponse.json();
+    const responseData = await response.json();
+    
+    const endedData = Array.isArray(responseData.data) 
+      ? responseData.data.filter((item: any) => 
+          item && 
+          item.status === 'ended' &&
+          item.name && 
+          item.task
+        )
+      : [];
 
-    const combinedData = [
-      ...(Array.isArray(freeData.data) ? freeData.data : []),
-      ...(Array.isArray(paidData.data) ? paidData.data : [])
-    ];
-
-    return combinedData.filter(item => 
-      item && 
-      item.status === 'ended' &&
-      item.name && 
-      item.task
-    );
+    return endedData;
   } catch (err: any) {
     throw new Error(err.message || 'Failed to fetch ended airdrops');
   }

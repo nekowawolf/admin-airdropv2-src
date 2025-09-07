@@ -116,7 +116,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
     task: airdropData?.task || '',
     link: airdropData?.link || '',
     level: airdropData?.level || '',
-    status: 'ended', // Fixed karena ini untuk Ended Airdrop
+    status: 'ended',
     backed: airdropData?.backed || '',
     funds: airdropData?.funds || '',
     supply: airdropData?.supply || '',
@@ -151,7 +151,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
       price: Number(formData.price),
       usd_income: Number(formData.usd_income),
       link_claim: formData.claim,
-      status: 'ended' // Pastikan tetap ended
+      status: 'ended'
     }
 
   const success = await editAirdrop(airdropData.id, payload)
@@ -186,10 +186,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
             </div>
           </div>
 
-          {/* Form */}
           <form className="space-y-6" onSubmit={handleSubmit}>
-            {/* Gunakan field sama seperti EditAirdropForm kecuali status (fixed) */}
-            {/* Project Name & Task */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
                 <label className="text-secondary text-sm font-medium" htmlFor="name">
@@ -206,6 +203,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                   className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
+
               <div className="flex flex-col gap-2">
                 <label className="text-secondary text-sm font-medium" htmlFor="task">
                   Task Type *
@@ -223,7 +221,6 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
               </div>
             </div>
 
-            {/* Link */}
             <div className="flex flex-col gap-2">
               <label className="text-secondary text-sm font-medium" htmlFor="link">
                 Project Link *
@@ -240,7 +237,6 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
               />
             </div>
 
-            {/* Difficulty Level */}
             <div className="flex flex-col gap-2">
               <label className="text-secondary text-sm font-medium" htmlFor="level">
                 Difficulty Level *
@@ -260,7 +256,6 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
               />
             </div>
 
-            {/* Backed */}
             <div className="flex flex-col gap-2">
               <label className="text-secondary text-sm font-medium" htmlFor="backed">
                 Backed By *
@@ -277,10 +272,118 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
               />
             </div>
 
-            {/* Fields lain sama dengan form sebelumnya */}
-            {/* ... (Funds, Supply, Market Cap, Price, Vesting, USD Income, Claim) */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="flex flex-col gap-2">
+                  <label className="text-secondary text-sm font-medium" htmlFor="funds">
+                    Funds Raised *
+                  </label>
+                  <input
+                    type="text"
+                    id="funds"
+                    name="funds"
+                    value={formData.funds}
+                    onChange={handleInputChange}
+                    placeholder="e.g., 53.37M"
+                    required
+                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
 
-            {/* Buttons */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-secondary text-sm font-medium" htmlFor="supply">
+                    Total Supply *
+                  </label>
+                  <input
+                    type="text"
+                    id="supply"
+                    name="supply"
+                    value={formData.supply}
+                    onChange={handleInputChange}
+                    placeholder="e.g., 1.00B"
+                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label className="text-secondary text-sm font-medium" htmlFor="market_cap">
+                    Market Cap *
+                  </label>
+                  <input
+                    type="text"
+                    id="market_cap"
+                    name="market_cap"
+                    value={formData.market_cap}
+                    onChange={handleInputChange}
+                    placeholder="e.g., 270M"
+                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="flex flex-col gap-2">
+                  <label className="text-secondary text-sm font-medium" htmlFor="price">
+                    Price *
+                  </label>
+                  <input
+                    type="text"
+                    id="price"
+                    name="price"
+                    value={formData.price}
+                    onChange={handleInputChange}
+                    placeholder="e.g., 0.01"
+                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-secondary text-sm font-medium" htmlFor="vesting">
+                  Vesting *
+                </label>
+                <CustomDropdown
+                  id="vesting"
+                  name="vesting"
+                  value={formData.vesting}
+                  onChange={(value) => handleDropdownChange('vesting', value)}
+                  options={[
+                    { value: 'yes', label: 'Yes' },
+                    { value: 'no', label: 'No' }
+                  ]}
+                  placeholder="Select vesting option"
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-secondary text-sm font-medium" htmlFor="usd_income">
+                  USD income *
+                </label>
+                <input
+                  type="text"
+                  id="usd_income"
+                  name="usd_income"
+                  value={formData.usd_income}
+                  onChange={handleInputChange}
+                  placeholder="e.g., $100 usd"
+                  className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+              
+              <div className="flex flex-col gap-2">
+                <label className="text-secondary text-sm font-medium" htmlFor="claim">
+                  Claim *
+                </label>
+                <input
+                  type="text"
+                  id="claim"
+                  name="claim"
+                  value={formData.claim}
+                  onChange={handleInputChange}
+                  placeholder="https://example.com"
+                  className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
             <div className="flex justify-end gap-4 pt-6 border-t border-border-divider">
               <button
                 type="button"

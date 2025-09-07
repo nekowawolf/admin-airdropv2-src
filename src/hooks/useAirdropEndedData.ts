@@ -22,7 +22,6 @@ export const useAirdropEndedData = () => {
   const handleDelete = async (id: string) => {
     try {
       await deleteAirdrop(id)
-      // Remove the deleted item from local state
       setData(prev => prev.filter(item => item.id !== id))
       return Promise.resolve()
     } catch (err: any) {

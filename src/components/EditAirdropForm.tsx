@@ -188,12 +188,8 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
             </div>
           </div>
 
-          {/* Form */}
           <form className="space-y-6" onSubmit={handleSubmit}>
-            {/* Semua input sama seperti sebelumnya */}
-            {/* Project Name */}
             <div className="grid grid-cols-1 gap-6">
-              {/* Nama Project & Task */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
                   <label className="text-secondary text-sm font-medium" htmlFor="name">
@@ -210,6 +206,7 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                     className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
+
                 <div className="flex flex-col gap-2">
                   <label className="text-secondary text-sm font-medium" htmlFor="task">
                     Task Type *
@@ -227,7 +224,6 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                 </div>
               </div>
 
-              {/* Link */}
               <div className="flex flex-col gap-2">
                 <label className="text-secondary text-sm font-medium" htmlFor="link">
                   Project Link *
@@ -244,7 +240,6 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                 />
               </div>
 
-              {/* Dropdown Level & Status */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
                   <label className="text-secondary text-sm font-medium" htmlFor="level">
@@ -283,7 +278,6 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                 </div>
               </div>
 
-              {/* Backed */}
               <div className="flex flex-col gap-2">
                 <label className="text-secondary text-sm font-medium" htmlFor="backed">
                   Backed By *
@@ -300,7 +294,6 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                 />
               </div>
 
-              {/* Funds, Supply, Market Cap */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="flex flex-col gap-2">
                   <label className="text-secondary text-sm font-medium" htmlFor="funds">
@@ -317,6 +310,7 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                     className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
+
                 <div className="flex flex-col gap-2">
                   <label className="text-secondary text-sm font-medium" htmlFor="supply">
                     Total Supply *
@@ -331,6 +325,7 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                     className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
+
                 <div className="flex flex-col gap-2">
                   <label className="text-secondary text-sm font-medium" htmlFor="market_cap">
                     Market Cap *
@@ -347,7 +342,6 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                 </div>
               </div>
 
-              {/* Price, Vesting, USD Income */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="flex flex-col gap-2">
                   <label className="text-secondary text-sm font-medium" htmlFor="price">
@@ -363,6 +357,7 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                     className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
+
                 <div className="flex flex-col gap-2">
                   <label className="text-secondary text-sm font-medium" htmlFor="vesting">
                     Vesting *
@@ -379,6 +374,7 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                     placeholder="Select vesting option"
                   />
                 </div>
+
                 <div className="flex flex-col gap-2">
                   <label className="text-secondary text-sm font-medium" htmlFor="usd_income">
                     USD income *
@@ -395,7 +391,6 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                 </div>
               </div>
 
-              {/* Claim */}
               <div className="flex flex-col gap-2">
                 <label className="text-secondary text-sm font-medium" htmlFor="claim">
                   Claim *
@@ -411,7 +406,6 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                 />
               </div>
               
-              {/* Buttons */}
               <div className="flex justify-end gap-4 pt-6 border-t border-border-divider">
                 <button
                   type="button"

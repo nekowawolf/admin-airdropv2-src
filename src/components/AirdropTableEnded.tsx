@@ -215,7 +215,7 @@ export default function EndedAirdropTable({
                       {item.link ? (
                         <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-blue-500">Visit</a>
                       ) : (
-                        <span className="text-gray-500">N/A</span>
+                        <span className="text-primary">N/A</span>
                       )}
                     </td>
                     <td className="px-6 py-2">{item.level || 'N/A'}</td>
@@ -233,7 +233,7 @@ export default function EndedAirdropTable({
                       {item.link_claim ? (
                         <a href={item.link_claim} target="_blank" rel="noopener noreferrer" className="text-blue-500">Claim</a>
                       ) : (
-                        <span className="text-gray-500">N/A</span>
+                        <span className="text-primary">N/A</span>
                       )}
                     </td>
                     <td className="px-6 py-2">{item.price ? formatCurrency(item.price) : 'N/A'}</td>

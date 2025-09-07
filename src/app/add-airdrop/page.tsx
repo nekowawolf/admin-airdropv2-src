@@ -5,7 +5,7 @@ export const metadata = dashboardMetadata('Add Airdrop', 'Add new airdrop campai
 
 export default function Page() {
   return (
-    <div className="p-6">
+    <div>
       <AddAirdropForm />
     </div>
   )

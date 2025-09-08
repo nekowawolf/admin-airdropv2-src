@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { toast } from 'sonner'
 import { updateAirdrop } from '@/services/airdropService'
 
 export function useEditAirdrop() {
@@ -14,14 +13,12 @@ export function useEditAirdrop() {
 
     try {
       await updateAirdrop(id, data)
-      toast.success('Airdrop updated successfully!')
       setSuccessMessage('Airdrop updated successfully!')
       return Promise.resolve()
     } catch (err: any) {
       console.error('Error updating airdrop:', err)
       const errorMsg = err.message || 'Failed to update airdrop. Please try again.'
       setErrorMessage(errorMsg)
-      toast.error(errorMsg)
       return Promise.reject(err)
     } finally {
       setIsSubmitting(false)

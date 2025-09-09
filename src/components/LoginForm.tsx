@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import Cookies from 'js-cookie'
+import { login } from '@/services/authService'
 
 export default function LoginForm() {
   const [username, setUsername] = useState('')
@@ -13,34 +13,11 @@ export default function LoginForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!username || !password) {
-      toast.error('All fields are required.')
-      return
-    }
-
     try {
       setLoading(true)
-
-      const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
-      const res = await fetch(`${API_BASE_URL}/airdrop/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      })
-
-      if (!res.ok) {
-        const errorData = await res.json()
-        throw new Error(errorData.message || 'Login failed.')
-      }
-
-      const data = await res.json()
-      if (data.token) {
-        Cookies.set('token', data.token, { expires: 1, secure: true, sameSite: 'strict' })
-        toast.success('Login successfully!')
-        router.push('/dashboard')
-      } else {
-        throw new Error('Invalid token received.')
-      }
+      const data = await login(username, password)
+      toast.success('Login successfully!')
+      router.push('/dashboard')
     } catch (err: any) {
       toast.error(err.message)
     } finally {

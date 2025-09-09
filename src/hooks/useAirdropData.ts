@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { getAirdropFree, getAirdropPaid, deleteAirdropFree, deleteAirdropPaid } from '@/services/airdropService'
+import { getAirdropFree, deleteAirdropFree } from '@/services/freeService'
+import { getAirdropPaid, deleteAirdropPaid } from '@/services/paidService'
 
 type AirdropType = 'free' | 'paid'
 

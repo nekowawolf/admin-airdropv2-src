@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getAirdropEnded, deleteAirdrop } from '@/services/airdropService'
+import { getAirdropEnded, deleteAirdropEnded } from '@/services/endedService'
 
 export const useAirdropEndedData = () => {
   const [data, setData] = useState<any[]>([])
@@ -21,7 +21,7 @@ export const useAirdropEndedData = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      await deleteAirdrop(id)
+      await deleteAirdropEnded(id)
       setData(prev => prev.filter(item => item.id !== id))
       return Promise.resolve()
     } catch (err: any) {

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { updateAirdrop } from '@/services/airdropService'
+import { updateAirdropEnded } from '@/services/endedService'
 
 export function useEditAirdrop() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -12,7 +12,7 @@ export function useEditAirdrop() {
     setErrorMessage('')
 
     try {
-      await updateAirdrop(id, data)
+      await updateAirdropEnded(id, data)
       setSuccessMessage('Airdrop updated successfully!')
       return Promise.resolve()
     } catch (err: any) {

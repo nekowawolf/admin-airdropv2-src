@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { updateAirdropFree, updateAirdropPaid } from '@/services/airdropService'
+import { updateAirdropFree } from '@/services/freeService'
+import { updateAirdropPaid } from '@/services/paidService'
 import { AirdropFreeRequest, AirdropPaidRequest } from '@/types/airdrop'
 
 type AirdropType = 'free' | 'paid'

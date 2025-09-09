@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { getAirdropPaidById } from '@/services/airdropService'
+import { getAirdropPaidById } from '@/services/paidService'
 import EditAirdropForm from '@/components/EditAirdropForm'
 import { Spinner } from "@/components/ui/shadcn-io/spinner"
 import { toast } from 'sonner'

@@ -55,9 +55,9 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                                 Analytics
                             </Link>
                             <Link
-                                href="/dashboard/airdrop-free"
+                                href="/dashboard/airdrop/free"
                                 className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
-                                    isActive('/dashboard/airdrop-free')
+                                    isActive('/dashboard/airdrop/free')
                                         ? 'text-accent font-semibold'
                                         : 'text-secondary hover:text-accent'
                                 }`}
@@ -65,9 +65,9 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                                 Airdrop Free
                             </Link>
                             <Link
-                                href="/dashboard/airdrop-paid"
+                                href="/dashboard/airdrop/paid"
                                 className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
-                                    isActive('/dashboard/airdrop-paid')
+                                    isActive('/dashboard/airdrop/paid')
                                         ? 'text-accent font-semibold'
                                         : 'text-secondary hover:text-accent'
                                 }`}
@@ -75,9 +75,9 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                                 Airdrop Paid
                             </Link>
                             <Link
-                                href="/dashboard/airdrop-ended"
+                                href="/dashboard/airdrop/ended"
                                 className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
-                                    isActive('/dashboard/airdrop-ended')
+                                    isActive('/dashboard/airdrop/ended')
                                         ? 'text-accent font-semibold'
                                         : 'text-secondary hover:text-accent'
                                 }`}

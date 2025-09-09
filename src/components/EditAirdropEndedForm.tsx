@@ -2,7 +2,7 @@
 
 import { useAuthGuard } from '@/hooks/useAuthGuard'
 import { useState, useRef, useEffect } from 'react'
-import { FiGift } from 'react-icons/fi'
+import { FaFreeCodeCamp } from "react-icons/fa";
 import { IoIosArrowUp } from "react-icons/io"
 import { useEditAirdrop } from '@/hooks/useEditAirdropEnded'
 import { useRouter } from 'next/navigation'
@@ -179,7 +179,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
         <div className="mb-8">
           <div className="mb-6">
             <div className="flex items-center gap-2 bg-card-color2 rounded-lg p-3 border border-border-divider">
-              <FiGift className="w-4 h-4 text-blue-600" />
+              <FaFreeCodeCamp className="w-6 h-6 text-red-600" />
               <span className="text-sm font-medium text-primary">
                 Ended Airdrop
               </span>

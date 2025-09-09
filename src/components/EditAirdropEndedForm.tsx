@@ -221,40 +221,59 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
               </div>
             </div>
 
-            <div className="flex flex-col gap-2">
-              <label className="text-secondary text-sm font-medium" htmlFor="link">
-                Project Link *
-              </label>
-              <input
-                type="url"
-                id="link"
-                name="link"
-                value={formData.link}
-                onChange={handleInputChange}
-                placeholder="https://example.com"
-                required
-                className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+              <div className="flex flex-col gap-2">
+                <label className="text-secondary text-sm font-medium" htmlFor="link">
+                  Project Link *
+                </label>
+                <input
+                  type="url"
+                  id="link"
+                  name="link"
+                  value={formData.link}
+                  onChange={handleInputChange}
+                  placeholder="https://example.com"
+                  required
+                  className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
 
-            <div className="flex flex-col gap-2">
-              <label className="text-secondary text-sm font-medium" htmlFor="level">
-                Difficulty Level *
-              </label>
-              <CustomDropdown
-                id="level"
-                name="level"
-                value={formData.level}
-                onChange={(value) => handleDropdownChange('level', value)}
-                options={[
-                  { value: 'easy', label: 'Easy' },
-                  { value: 'medium', label: 'Medium' },
-                  { value: 'hard', label: 'Hard' }
-                ]}
-                placeholder="Select difficulty level"
-                required
-              />
-            </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="flex flex-col gap-2">
+                  <label className="text-secondary text-sm font-medium" htmlFor="level">
+                    Difficulty Level *
+                  </label>
+                  <CustomDropdown
+                    id="level"
+                    name="level"
+                    value={formData.level}
+                    onChange={(value) => handleDropdownChange('level', value)}
+                    options={[
+                      { value: 'easy', label: 'Easy' },
+                      { value: 'medium', label: 'Medium' },
+                      { value: 'hard', label: 'Hard' }
+                    ]}
+                    placeholder="Select difficulty level"
+                    required
+                  />
+                </div>
+                
+                <div className="flex flex-col gap-2">
+                  <label className="text-secondary text-sm font-medium" htmlFor="status">
+                    Status *
+                  </label>
+                  <CustomDropdown
+                    id="status"
+                    name="status"
+                    value={formData.status}
+                    onChange={(value) => handleDropdownChange('status', value)}
+                    options={[
+                      { value: 'active', label: 'Active' },
+                      { value: 'ended', label: 'Ended' }
+                    ]}
+                    required
+                  />
+                </div>
+              </div>
 
             <div className="flex flex-col gap-2">
               <label className="text-secondary text-sm font-medium" htmlFor="backed">

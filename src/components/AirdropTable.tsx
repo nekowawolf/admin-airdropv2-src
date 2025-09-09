@@ -192,7 +192,7 @@ export default function AirdropTable({
               </tr>
             </thead>
             <tbody>
-                             {paginatedData.length > 0 ? (
+            {paginatedData.length > 0 ? (
                  paginatedData.map((item, index) => (
                    <tr key={index} className="border-t border-border-divider">
                      <td className="px-6 py-2">{item.name || 'N/A'}</td>
@@ -248,7 +248,7 @@ export default function AirdropTable({
                   <MdEdit size={16} /> Edit
                 </button>
               </li>
-                             <li>
+              <li>
                  <button
                    onClick={() => handleDeleteClick(paginatedData[openDropdownIndex].id, paginatedData[openDropdownIndex].name || 'Unknown')}
                    className="flex items-center gap-2 w-full px-4 py-2 text-red-600"

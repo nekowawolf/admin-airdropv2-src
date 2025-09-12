@@ -3,8 +3,10 @@
 import { useAuthGuard } from '@/hooks/useAuthGuard'
 import { useAirdropData } from '@/hooks/useAirdropData'
 import { useAirdropEndedData } from '@/hooks/useAirdropEndedData'
+import { useBackerData } from '@/hooks/useChartData'
 import StatCard from '@/components/StatCard'
-import { Gift, TimerOff, DollarSign, Rocket } from 'lucide-react'
+import BackerChart from '@/components/Chart'
+import { Gift, TimerOff, DollarSign, Rocket, Users, TrendingUp, BarChart3 } from 'lucide-react'
 import { Spinner } from '@/components/ui/shadcn-io/spinner'
 
 function LoadingText() {
@@ -21,6 +23,7 @@ export default function ClientDashboardPage() {
   const { data: freeData, loading: loadingFree } = useAirdropData('free')
   const { data: paidData, loading: loadingPaid } = useAirdropData('paid')
   const { data: endedData, loading: loadingEnded } = useAirdropEndedData()
+  const { data: backerData, loading: loadingBacker } = useBackerData()
 
   const totalAllTime =
     (freeData?.length || 0) +
@@ -47,8 +50,7 @@ export default function ClientDashboardPage() {
         </p>
       </div>
 
-      {/* Cards */}
-      
+      {/* Stats Cards */}
       <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         <StatCard
           title="Total Airdrops"
@@ -67,7 +69,7 @@ export default function ClientDashboardPage() {
         />
 
         <StatCard
-          title="Total Airdrops Ended"
+          title="Ended Airdrops "
           value={loadingEnded ? <LoadingText /> : totalEnded}
           icon={<TimerOff />}
         />
@@ -81,6 +83,58 @@ export default function ClientDashboardPage() {
           }
           icon={<DollarSign />}
         />
+      </section>
+
+      {/* Charts */}
+      <section className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <div className="p-4 rounded-2xl shadow-md bg-[var(--fill-color)] border border-border-divider">
+          <div className="flex items-center gap-2 mb-4">
+            <Users size={20} className="text-blue-500" />
+            <h3 className="text-lg font-semibold text-primary">Backer Statistics</h3>
+          </div>
+          <div className="h-64 md:h-72">
+            <BackerChart 
+              data={backerData} 
+              loading={loadingBacker} 
+              height={256}
+              title=""
+            />
+          </div>
+          <p className="text-xs text-muted-foreground mt-2 text-center">
+            Shows the most active investors based on number of projects backed
+          </p>
+        </div>
+
+        <div className="p-4 rounded-2xl shadow-md bg-[var(--fill-color)] border border-border-divider">
+          <div className="flex items-center gap-2 mb-4">
+            <BarChart3 size={20} className="text-green-500" />
+            <h3 className="text-lg font-semibold text-primary">Airdrop Status Distribution</h3>
+          </div>
+          <div className="h-64 md:h-72 flex items-center justify-center text-muted-foreground">
+            <div className="text-center">
+              <TrendingUp size={48} className="mx-auto mb-2 opacity-50" />
+              <p>Additional chart coming soon</p>
+              <p className="text-xs mt-1">You can add another chart here</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="p-4 rounded-2xl shadow-md bg-[var(--fill-color)] border border-border-divider">
+        <h3 className="text-lg font-semibold text-primary mb-4">Recent Activity</h3>
+        <div className="space-y-3 max-h-60 overflow-y-auto">
+          {endedData && endedData.slice(0, 5).map((item, index) => (
+            <div key={index} className="p-3 rounded-lg bg-[var(--hover-bg)] border border-border-divider">
+              <div className="flex justify-between items-center">
+                <span className="font-medium">{item.name}</span>
+                <span className="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded-full">
+                  Ended
+                </span>
+              </div>
+              <p className="text-sm text-muted-foreground mt-1">Backed by: {item.backed}</p>
+            </div>
+          ))}
+        </div>
       </section>
     </div>
   )

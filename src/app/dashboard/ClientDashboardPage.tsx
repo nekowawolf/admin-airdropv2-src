@@ -5,9 +5,14 @@ import { useAirdropData } from '@/hooks/useAirdropData'
 import { useAirdropEndedData } from '@/hooks/useAirdropEndedData'
 import StatCard from '@/components/StatCard'
 import { Gift, TimerOff, DollarSign, Rocket } from 'lucide-react'
+import { Spinner } from '@/components/ui/shadcn-io/spinner'
 
 function LoadingText() {
-  return <span className="text-xs text-muted-foreground">Loading...</span>
+  return (
+    <div className="flex items-center gap-1 text-muted-foreground">
+      <Spinner variant="ellipsis" size={20} />
+    </div>
+  )
 }
 
 export default function ClientDashboardPage() {
@@ -57,7 +62,7 @@ export default function ClientDashboardPage() {
 
         <StatCard
           title="Active Airdrops"
-          value={loadingFree || loadingPaid || loadingEnded ? 'Loading...' : totalActive}
+          value={loadingFree || loadingPaid || loadingEnded ?  <LoadingText /> : totalActive}
           icon={<Rocket />}
         />
 

@@ -4,7 +4,7 @@ import { useAuthGuard } from '@/hooks/useAuthGuard'
 import { useAirdropData } from '@/hooks/useAirdropData'
 import { useAirdropEndedData } from '@/hooks/useAirdropEndedData'
 import StatCard from '@/components/StatCard'
-import { Gift, TimerOff, DollarSign } from 'lucide-react'
+import { Gift, TimerOff, DollarSign, Rocket } from 'lucide-react'
 
 function LoadingText() {
   return <span className="text-xs text-muted-foreground">Loading...</span>
@@ -23,6 +23,7 @@ export default function ClientDashboardPage() {
     (endedData?.length || 0)
 
   const totalEnded = endedData?.length || 0
+  const totalActive = totalAllTime - totalEnded
 
   const totalUsdIncome = [
     ...(freeData || []),
@@ -43,7 +44,7 @@ export default function ClientDashboardPage() {
 
       {/* Cards */}
       
-      <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+      <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         <StatCard
           title="Total Airdrops"
           value={
@@ -52,6 +53,12 @@ export default function ClientDashboardPage() {
               : totalAllTime
           }
           icon={<Gift />}
+        />
+
+        <StatCard
+          title="Active Airdrops"
+          value={loadingFree || loadingPaid || loadingEnded ? 'Loading...' : totalActive}
+          icon={<Rocket />}
         />
 
         <StatCard

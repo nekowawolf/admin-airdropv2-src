@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getBackerStats, BackerData } from '@/services/chartService'
+import { getMonthlyAirdropStatsByYear, MonthlyAirdropData } from '@/services/chartService'
 
 export const useBackerData = () => {
   const [data, setData] = useState<BackerData[]>([])
@@ -21,6 +22,35 @@ export const useBackerData = () => {
   useEffect(() => {
     fetchData()
   }, [])
+
+  return {
+    data,
+    loading,
+    error,
+    refetch: fetchData
+  }
+}
+
+export const useMonthlyAirdropData = (year?: number | null) => {
+  const [data, setData] = useState<MonthlyAirdropData[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  const fetchData = async () => {
+    try {
+      setLoading(true)
+      const result = await getMonthlyAirdropStatsByYear(year || undefined)
+      setData(result)
+    } catch (err: any) {
+      setError(err.message || 'Failed to fetch monthly airdrop data')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [year])
 
   return {
     data,

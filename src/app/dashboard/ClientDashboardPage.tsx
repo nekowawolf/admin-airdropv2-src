@@ -4,10 +4,13 @@ import { useAuthGuard } from '@/hooks/useAuthGuard'
 import { useAirdropData } from '@/hooks/useAirdropData'
 import { useAirdropEndedData } from '@/hooks/useAirdropEndedData'
 import { useBackerData } from '@/hooks/useChartData'
+import { useMonthlyAirdropData } from '@/hooks/useChartData'
 import StatCard from '@/components/StatCard'
 import BackerChart from '@/components/Chart'
-import { Gift, TimerOff, DollarSign, Rocket, Users, TrendingUp, BarChart3 } from 'lucide-react'
+import MonthlyAirdropChart from '@/components/MonthlyAirdropChart'
+import { Gift, TimerOff, DollarSign, Rocket, Users, BarChart3 } from 'lucide-react'
 import { Spinner } from '@/components/ui/shadcn-io/spinner'
+import { useState } from 'react'
 
 function LoadingText() {
   return (
@@ -24,6 +27,9 @@ export default function ClientDashboardPage() {
   const { data: paidData, loading: loadingPaid } = useAirdropData('paid')
   const { data: endedData, loading: loadingEnded } = useAirdropEndedData()
   const { data: backerData, loading: loadingBacker } = useBackerData()
+  
+  const [selectedYear, setSelectedYear] = useState<number | null>(null)
+  const { data: monthlyData, loading: loadingMonthly } = useMonthlyAirdropData(selectedYear)
 
   const totalAllTime =
     (freeData?.length || 0) +
@@ -38,6 +44,10 @@ export default function ClientDashboardPage() {
     ...(paidData || []),
     ...(endedData || []),
   ].reduce((sum, item) => sum + (item.usd_income || 0), 0)
+
+  const handleYearChange = (year: number | null) => {
+    setSelectedYear(year)
+  }
 
   return (
     <div className="space-y-6">
@@ -85,8 +95,9 @@ export default function ClientDashboardPage() {
         />
       </section>
 
-      {/* Charts */}
+      {/* Charts Section */}
       <section className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        {/* Backer Chart */}
         <div className="p-4 rounded-2xl shadow-md bg-[var(--fill-color)] border border-border-divider">
           <div className="flex items-center gap-2 mb-4">
             <Users size={20} className="text-blue-500" />
@@ -105,21 +116,29 @@ export default function ClientDashboardPage() {
           </p>
         </div>
 
+        {/* Monthly Airdrop Chart */}
         <div className="p-4 rounded-2xl shadow-md bg-[var(--fill-color)] border border-border-divider">
           <div className="flex items-center gap-2 mb-4">
             <BarChart3 size={20} className="text-green-500" />
-            <h3 className="text-lg font-semibold text-primary">Airdrop Status Distribution</h3>
+            <h3 className="text-lg font-semibold text-primary">Monthly Airdrop Activity</h3>
           </div>
-          <div className="h-64 md:h-72 flex items-center justify-center text-muted-foreground">
-            <div className="text-center">
-              <TrendingUp size={48} className="mx-auto mb-2 opacity-50" />
-              <p>Additional chart coming soon</p>
-              <p className="text-xs mt-1">You can add another chart here</p>
-            </div>
+          <div className="h-64 md:h-72">
+            <MonthlyAirdropChart 
+              data={monthlyData} 
+              loading={loadingMonthly} 
+              height={256}
+              onYearChange={handleYearChange}
+            />
           </div>
+          <p className="text-xs text-muted-foreground mt-2 text-center">
+            {selectedYear 
+              ? `Showing data for year ${selectedYear}` 
+              : 'Showing all data (use filter to select specific year)'}
+          </p>
         </div>
       </section>
 
+      {/* Recent Activity */}
       <section className="p-4 rounded-2xl shadow-md bg-[var(--fill-color)] border border-border-divider">
         <h3 className="text-lg font-semibold text-primary mb-4">Recent Activity</h3>
         <div className="space-y-3 max-h-60 overflow-y-auto">
@@ -134,6 +153,11 @@ export default function ClientDashboardPage() {
               <p className="text-sm text-muted-foreground mt-1">Backed by: {item.backed}</p>
             </div>
           ))}
+          {(!endedData || endedData.length === 0) && (
+            <div className="text-center text-muted-foreground py-4">
+              No recent activity
+            </div>
+          )}
         </div>
       </section>
     </div>

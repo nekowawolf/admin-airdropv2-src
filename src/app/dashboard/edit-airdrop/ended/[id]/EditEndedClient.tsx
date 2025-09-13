@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { getAirdropEndedById } from '@/services/endedService'
-import EditAirdropForm from '@/components/EditAirdropEndedForm'
+import EditAirdropForm from '@/components/airdrops/EditAirdropEndedForm'
 import { Spinner } from "@/components/ui/shadcn-io/spinner"
 import { toast } from 'sonner'
 

@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import LoginForm from '@/components/LoginForm'
+import LoginForm from '@/components/auth/LoginForm'
 import Cookies from 'js-cookie'
 
 export default function LoginPage() {

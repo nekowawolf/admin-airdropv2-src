@@ -2,7 +2,7 @@
 
 import { useAuthGuard } from '@/hooks/useAuthGuard'
 import { useAirdropData } from '@/hooks/useAirdropData'
-import AirdropTable from '@/components/AirdropTable'
+import AirdropTable from '@/components/airdrops/AirdropTable'
 
 export default function AirdropPaidPage() {
   useAuthGuard()

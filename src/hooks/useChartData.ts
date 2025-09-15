@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getBackerStats, BackerData } from '@/services/chartService'
 import { getMonthlyAirdropStatsByYear, MonthlyAirdropData } from '@/services/chartService'
+import { getProjectMetrics, ProjectMetric } from '@/services/chartService'
 
 export const useBackerData = () => {
   const [data, setData] = useState<BackerData[]>([])
@@ -51,6 +52,35 @@ export const useMonthlyAirdropData = (year?: number | null) => {
   useEffect(() => {
     fetchData()
   }, [year])
+
+  return {
+    data,
+    loading,
+    error,
+    refetch: fetchData
+  }
+}
+
+export const useProjectMetrics = () => {
+  const [data, setData] = useState<ProjectMetric[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  const fetchData = async () => {
+    try {
+      setLoading(true)
+      const result = await getProjectMetrics()
+      setData(result)
+    } catch (err: any) {
+      setError(err.message || 'Failed to fetch project metrics')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   return {
     data,

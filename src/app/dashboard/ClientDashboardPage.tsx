@@ -3,12 +3,12 @@
 import { useAuthGuard } from '@/hooks/useAuthGuard'
 import { useAirdropData } from '@/hooks/useAirdropData'
 import { useAirdropEndedData } from '@/hooks/useAirdropEndedData'
-import { useBackerData } from '@/hooks/useChartData'
-import { useMonthlyAirdropData } from '@/hooks/useChartData'
 import StatCard from '@/components/dashboard/chart/StatCard'
 import BackerChart from '@/components/dashboard/chart/BackerChart'
 import MonthlyAirdropChart from '@/components/dashboard/chart/MonthlyAirdropChart'
-import { Gift, TimerOff, DollarSign, Rocket, Users, BarChart3 } from 'lucide-react'
+import ProjectMetricsChart from '@/components/dashboard/chart/ProjectMetricsChart'
+import { Gift, TimerOff, DollarSign, Rocket, Users, BarChart3, TrendingUp } from 'lucide-react'
+import { useBackerData, useMonthlyAirdropData, useProjectMetrics } from '@/hooks/useChartData'
 import { Spinner } from '@/components/ui/shadcn-io/spinner'
 import { useState } from 'react'
 
@@ -27,6 +27,7 @@ export default function ClientDashboardPage() {
   const { data: paidData, loading: loadingPaid } = useAirdropData('paid')
   const { data: endedData, loading: loadingEnded } = useAirdropEndedData()
   const { data: backerData, loading: loadingBacker } = useBackerData()
+  const { data: projectMetrics, loading: loadingMetrics } = useProjectMetrics()
   
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
   const { data: monthlyData, loading: loadingMonthly } = useMonthlyAirdropData(selectedYear)
@@ -137,6 +138,25 @@ export default function ClientDashboardPage() {
           </p>
         </div>
       </section>
+
+      {/* Top Funding & Income Chart */}
+      <section className="p-4 rounded-2xl shadow-md bg-[var(--fill-color)] border border-border-divider">
+        <div className="flex items-center gap-2 mb-4">
+          <TrendingUp size={20} className="text-purple-500" />
+          <h3 className="text-lg font-semibold text-primary">Top Projects by Funding & Income</h3>
+        </div>
+        <div className="h-96">
+          <ProjectMetricsChart 
+            data={projectMetrics} 
+            loading={loadingMetrics} 
+            height={384}
+          />
+        </div>
+        <p className="text-xs text-muted-foreground mt-2 text-center">
+          Shows top projects by income with funding details and backer count
+        </p>
+      </section>
+
 
       {/* Recent Activity */}
       <section className="p-4 rounded-2xl shadow-md bg-[var(--fill-color)] border border-border-divider">

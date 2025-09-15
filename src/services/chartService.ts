@@ -14,6 +14,13 @@ export interface MonthlyAirdropData {
   ended: number
 }
 
+export interface ProjectMetric {
+  name: string
+  funding: number
+  backed: string
+  income: number
+}
+
 export const getBackerStats = async (): Promise<BackerData[]> => {
   try {
     const endedData = await getAirdropEnded()
@@ -108,6 +115,45 @@ export const getMonthlyAirdropStatsByYear = async (year?: number): Promise<Month
       })
   } catch (error) {
     console.error('Failed to fetch monthly airdrop stats by year:', error)
+    return []
+  }
+}
+
+export const getProjectMetrics = async (): Promise<ProjectMetric[]> => {
+  try {
+    const [ endedData] = await Promise.all([
+      getAirdropEnded()
+    ])
+
+    const allData = [
+      ...endedData
+    ].filter(item => item.status === 'ended')
+
+    return allData
+      .filter(item => item && item.name)
+      .map(item => {
+        let fundingValue = 0;
+        if (item.funds) {
+          if (item.funds.includes('M')) {
+            fundingValue = parseFloat(item.funds.replace('M', '')) * 1000000;
+          } else if (item.funds.includes('K')) {
+            fundingValue = parseFloat(item.funds.replace('K', '')) * 1000;
+          } else {
+            fundingValue = parseFloat(item.funds) || 0;
+          }
+        }
+
+        return {
+          name: item.name,
+          funding: fundingValue,
+          backed: item.backed || 'Unknown',
+          income: parseFloat(item.usd_income?.toString() || '0') || 0
+        }
+      })
+      .sort((a, b) => b.income - a.income)
+      .slice(0, 10) 
+  } catch (error) {
+    console.error('Failed to fetch project metrics:', error)
     return []
   }
 }

@@ -19,6 +19,8 @@ export interface ProjectMetric {
   funding: number
   backed: string
   income: number
+  created_at?: string  
+  ended_at?: string   
 }
 
 export const getBackerStats = async (): Promise<BackerData[]> => {
@@ -121,7 +123,7 @@ export const getMonthlyAirdropStatsByYear = async (year?: number): Promise<Month
 
 export const getProjectMetrics = async (): Promise<ProjectMetric[]> => {
   try {
-    const [ endedData] = await Promise.all([
+    const [endedData] = await Promise.all([
       getAirdropEnded()
     ])
 
@@ -147,7 +149,9 @@ export const getProjectMetrics = async (): Promise<ProjectMetric[]> => {
           name: item.name,
           funding: fundingValue,
           backed: item.backed || 'Unknown',
-          income: parseFloat(item.usd_income?.toString() || '0') || 0
+          income: parseFloat(item.usd_income?.toString() || '0') || 0,
+          created_at: item.created_at,  
+          ended_at: item.ended_at      
         }
       })
       .sort((a, b) => b.income - a.income)

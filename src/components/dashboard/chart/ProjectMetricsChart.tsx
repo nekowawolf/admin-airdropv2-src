@@ -18,6 +18,8 @@ interface ProjectMetric {
   funding: number
   backed: string
   income: number
+  created_at?: string  
+  ended_at?: string   
 }
 
 interface ProjectMetricsChartProps {
@@ -45,6 +47,8 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
       backers: item.backed,
       funding: item.funding,
       income: item.income,
+      created_at: item.created_at, 
+      ended_at: item.ended_at  
     }))
 
     chartInstance.current = new Chart(ctx, {
@@ -80,11 +84,25 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
               },
               label: function(context) {
                 const project = projectDetails[context.dataIndex]
-                return [
+                const labels = [
                   `Income: $${project.income.toLocaleString()}`,
                   `Funding: $${project.funding.toLocaleString()}`,
                   `Backed: ${project.backers}`
                 ]
+                
+                if (project.created_at) {
+                  const createdDate = new Date(project.created_at)
+                  const formattedCreated = `${createdDate.getDate().toString().padStart(2, '0')}/${(createdDate.getMonth() + 1).toString().padStart(2, '0')}/${createdDate.getFullYear()}`
+                  labels.push(`Created: ${formattedCreated}`)
+                }
+                
+                if (project.ended_at) {
+                  const endedDate = new Date(project.ended_at)
+                  const formattedEnded = `${endedDate.getDate().toString().padStart(2, '0')}/${(endedDate.getMonth() + 1).toString().padStart(2, '0')}/${endedDate.getFullYear()}`
+                  labels.push(`Ended: ${formattedEnded}`)
+                }
+                
+                return labels
               }
             }
           }

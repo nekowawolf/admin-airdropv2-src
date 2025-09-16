@@ -16,7 +16,7 @@ import {
 import { Line } from 'react-chartjs-2'
 import { MonthlyAirdropData } from '@/services/chartService'
 import { Spinner } from '@/components/ui/shadcn-io/spinner'
-import { Calendar, Filter, ChevronDown } from 'lucide-react'
+import { Calendar, Filter } from 'lucide-react'
 import { IoIosArrowUp } from "react-icons/io"
 
 ChartJS.register(
@@ -250,7 +250,11 @@ export default function MonthlyAirdropChart({
           title="Filter by year"
         >
           <Filter size={16} />
-          <ChevronDown size={14} />
+          <IoIosArrowUp 
+            className={`h-4 w-4 transition-transform duration-200 ${
+              showFilter ? 'transform rotate-0' : 'transform rotate-180'
+            }`}
+          />
         </button>
       </div>
 

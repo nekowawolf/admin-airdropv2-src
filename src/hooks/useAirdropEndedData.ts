@@ -11,7 +11,14 @@ export const useAirdropEndedData = () => {
       setLoading(true)
       const result = await getAirdropEnded()
       const validData = Array.isArray(result) ? result : []
-      setData(validData.reverse())
+
+      const sortedData = validData.sort((a, b) => {
+        const dateA = new Date(a.ended_at || 0).getTime()
+        const dateB = new Date(b.ended_at || 0).getTime()
+        return dateB - dateA 
+      })
+
+      setData(sortedData)
     } catch (err: any) {
       setError(err.message || 'Failed to fetch ended airdrops')
     } finally {

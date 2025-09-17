@@ -139,17 +139,17 @@ export default function ClientDashboardPage() {
         </div>
       </section>
 
-      {/* Top Funding & Income Chart */}
+      {/* Funding & Income Chart */}
       <section className="p-4 rounded-2xl shadow-md bg-[var(--fill-color)] border border-border-divider">
         <div className="flex items-center gap-2 mb-4">
           <TrendingUp size={20} className="text-purple-500" />
-          <h3 className="text-lg font-semibold text-primary">Top Projects by Funding & Income</h3>
+          <h3 className="text-lg font-semibold text-primary">List Projects by Funding & Income</h3>
         </div>
-        <div className="h-96">
+        <div className="h-[30rem]"> 
           <ProjectMetricsChart 
             data={projectMetrics} 
             loading={loadingMetrics} 
-            height={384}
+            height={400}
           />
         </div>
         <p className="text-xs text-muted-foreground mt-2 text-center">

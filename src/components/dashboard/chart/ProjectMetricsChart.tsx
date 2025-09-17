@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import {
   Chart,
   BarController,
@@ -10,6 +10,16 @@ import {
   Title
 } from 'chart.js'
 import { Spinner } from '@/components/ui/shadcn-io/spinner'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationPrevious,
+  PaginationNext,
+  PaginationEllipsis
+} from "@/components/ui/pagination"
+import { cn } from "@/lib/utils"
 
 Chart.register(BarController, BarElement, LinearScale, CategoryScale, Tooltip, Legend, Title)
 
@@ -31,9 +41,35 @@ interface ProjectMetricsChartProps {
 export default function ProjectMetricsChart({ data, loading, height = 300 }: ProjectMetricsChartProps) {
   const chartRef = useRef<HTMLCanvasElement>(null)
   const chartInstance = useRef<Chart | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 10
+
+  const totalPages = Math.ceil(data.length / itemsPerPage)
+  const paginatedData = data.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  )
+
+  const getPaginationRange = () => {
+    const range: (number | string)[] = []
+    if (totalPages <= 6) {
+      for (let i = 1; i <= totalPages; i++) range.push(i)
+    } else {
+      range.push(1)
+      if (currentPage > 3) range.push('...')
+      for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) range.push(i)
+      if (currentPage < totalPages - 2) range.push('...')
+      range.push(totalPages)
+    }
+    return range
+  }
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) setCurrentPage(page)
+  }
 
   useEffect(() => {
-    if (!chartRef.current || !data.length) return
+    if (!chartRef.current || !paginatedData.length) return
 
     if (chartInstance.current) {
       chartInstance.current.destroy()
@@ -42,7 +78,7 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
     const ctx = chartRef.current.getContext('2d')
     if (!ctx) return
 
-    const projectDetails = data.map(item => ({
+    const projectDetails = paginatedData.map(item => ({
       name: item.name,
       backers: item.backed,
       funding: item.funding,
@@ -54,11 +90,11 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
     chartInstance.current = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: data.map(item => item.name),
+        labels: paginatedData.map(item => item.name),
         datasets: [
           {
             label: 'Income (USD)',
-            data: data.map(item => item.income),
+            data: paginatedData.map(item => item.income),
             backgroundColor: 'rgba(79, 70, 229, 0.7)',
             borderColor: 'rgba(79, 70, 229, 1)',
             borderWidth: 1,
@@ -140,7 +176,7 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
         chartInstance.current.destroy()
       }
     }
-  }, [data])
+  }, [paginatedData])
 
   if (loading) {
     return (
@@ -159,8 +195,61 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
   }
 
   return (
-    <div style={{ height: `${height}px` }}>
-      <canvas ref={chartRef} />
+    <div className="flex flex-col h-full">
+      <div className="flex-grow" style={{ height: `${height}px` }}>
+        <canvas ref={chartRef} />
+      </div>
+      
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="mt-4 pt-4 border-t border-border-divider">
+          <Pagination className="w-full">
+            <PaginationContent className="flex flex-wrap justify-center gap-1 w-full">
+              <PaginationItem>
+                <PaginationPrevious
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  className={cn(
+                    "px-2 py-1 text-xs sm:px-3 sm:py-2 sm:text-sm",
+                    currentPage === 1 && "pointer-events-none opacity-50"
+                  )}
+                />
+              </PaginationItem>
+
+              {getPaginationRange().map((page, index) => (
+                <PaginationItem key={index}>
+                  {page === '...' ? (
+                    <PaginationEllipsis className="text-xs sm:text-base" />
+                  ) : (
+                    <PaginationLink
+                      isActive={currentPage === page}
+                      onClick={() => handlePageChange(Number(page))}
+                      className={cn(
+                        "px-2 py-1 text-xs sm:px-3 sm:py-2 sm:text-sm transition-none"
+                      )}
+                    >
+                      {page}
+                    </PaginationLink>
+                  )}
+                </PaginationItem>
+              ))}
+
+              <PaginationItem>
+                <PaginationNext
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  className={cn(
+                    "px-2 py-1 text-xs sm:px-3 sm:py-2 sm:text-sm",
+                    currentPage === totalPages && "pointer-events-none opacity-50"
+                  )}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+          
+          <div className="text-center text-xs text-muted-foreground mt-2">
+            Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, data.length)} of {data.length} projects
+          </div>
+        </div>
+      )}
     </div>
   )
 }

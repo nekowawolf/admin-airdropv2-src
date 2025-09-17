@@ -155,7 +155,6 @@ export const getProjectMetrics = async (): Promise<ProjectMetric[]> => {
         }
       })
       .sort((a, b) => b.income - a.income)
-      .slice(0, 10) 
   } catch (error) {
     console.error('Failed to fetch project metrics:', error)
     return []

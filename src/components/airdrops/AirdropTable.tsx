@@ -295,47 +295,54 @@ export default function AirdropTable({
 
       {/* Pagination */}
       {!loading && !error && totalPages > 1 && (
-        <Pagination className="flex justify-center mt-4">
-          <PaginationContent className="flex flex-wrap justify-center gap-1">
-            <PaginationItem>
-              <PaginationPrevious
-                onClick={() => handlePageChange(currentPage - 1)}
-                className={cn(
-                  "px-2 py-1 text-xs sm:px-3 sm:py-2 sm:text-sm",
-                  currentPage === 1 && "pointer-events-none opacity-50"
-                )}
-              />
-            </PaginationItem>
-
-            {getPaginationRange().map((page, index) => (
-              <PaginationItem key={index}>
-                {page === '...' ? (
-                  <PaginationEllipsis className="text-xs sm:text-base" />
-                ) : (
-                  <PaginationLink
-                    isActive={currentPage === page}
-                    onClick={() => handlePageChange(Number(page))}
-                    className={cn(
-                      "px-2 py-1 text-xs sm:px-3 sm:py-2 sm:text-sm transition-none"
-                    )}
-                  >
-                    {page}
-                  </PaginationLink>
-                )}
+        <>
+          <Pagination className="flex justify-center mt-4">
+            <PaginationContent className="flex flex-wrap justify-center gap-1">
+              <PaginationItem>
+                <PaginationPrevious
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  className={cn(
+                    "px-2 py-1 text-xs sm:px-3 sm:py-2 sm:text-sm",
+                    currentPage === 1 && "pointer-events-none opacity-50"
+                  )}
+                />
               </PaginationItem>
-            ))}
 
-            <PaginationItem>
-              <PaginationNext
-                onClick={() => handlePageChange(currentPage + 1)}
-                className={cn(
-                  "px-2 py-1 text-xs sm:px-3 sm:py-2 sm:text-sm",
-                  currentPage === totalPages && "pointer-events-none opacity-50"
-                )}
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+              {getPaginationRange().map((page, index) => (
+                <PaginationItem key={index}>
+                  {page === '...' ? (
+                    <PaginationEllipsis className="text-xs sm:text-base" />
+                  ) : (
+                    <PaginationLink
+                      isActive={currentPage === page}
+                      onClick={() => handlePageChange(Number(page))}
+                      className={cn(
+                        "px-2 py-1 text-xs sm:px-3 sm:py-2 sm:text-sm transition-none"
+                      )}
+                    >
+                      {page}
+                    </PaginationLink>
+                  )}
+                </PaginationItem>
+              ))}
+
+              <PaginationItem>
+                <PaginationNext
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  className={cn(
+                    "px-2 py-1 text-xs sm:px-3 sm:py-2 sm:text-sm",
+                    currentPage === totalPages && "pointer-events-none opacity-50"
+                  )}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+
+          {/* Pagination Info */}
+          <div className="text-center text-xs text-muted-foreground mt-2 text-secondary">
+            Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, filteredData.length)} of {filteredData.length} projects
+          </div>
+        </>
       )}
     </div>
   )

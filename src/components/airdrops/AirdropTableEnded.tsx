@@ -323,6 +323,7 @@ export default function EndedAirdropTable({
 
       {/* Pagination */}
       {!loading && !error && totalPages > 1 && (
+      <>
         <Pagination className="flex justify-center mt-4">
           <PaginationContent className="flex flex-wrap justify-center gap-1">
             <PaginationItem>
@@ -364,6 +365,12 @@ export default function EndedAirdropTable({
             </PaginationItem>
           </PaginationContent>
         </Pagination>
+        
+        {/* Pagination Info */}
+        <div className="text-center text-xs text-muted-foreground mt-2 text-secondary">
+          Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, filteredData.length)} of {filteredData.length} projects
+        </div>
+      </>
       )}
     </div>
   )

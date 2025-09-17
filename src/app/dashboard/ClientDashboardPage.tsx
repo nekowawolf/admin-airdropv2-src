@@ -10,7 +10,7 @@ import ProjectMetricsChart from '@/components/dashboard/chart/ProjectMetricsChar
 import { Gift, TimerOff, DollarSign, Rocket, Users, BarChart3, TrendingUp } from 'lucide-react'
 import { useBackerData, useMonthlyAirdropData, useProjectMetrics } from '@/hooks/useChartData'
 import { Spinner } from '@/components/ui/shadcn-io/spinner'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 
 function LoadingText() {
   return (
@@ -32,19 +32,24 @@ export default function ClientDashboardPage() {
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
   const { data: monthlyData, loading: loadingMonthly } = useMonthlyAirdropData(selectedYear)
 
-  const totalAllTime =
+  const totalAllTime = useMemo(() => 
     (freeData?.length || 0) +
     (paidData?.length || 0) +
-    (endedData?.length || 0)
+    (endedData?.length || 0),
+    [freeData, paidData, endedData]
+  )
 
-  const totalEnded = endedData?.length || 0
-  const totalActive = totalAllTime - totalEnded
+  const totalEnded = useMemo(() => endedData?.length || 0, [endedData])
+  const totalActive = useMemo(() => totalAllTime - totalEnded, [totalAllTime, totalEnded])
 
-  const totalUsdIncome = [
-    ...(freeData || []),
-    ...(paidData || []),
-    ...(endedData || []),
-  ].reduce((sum, item) => sum + (item.usd_income || 0), 0)
+  const totalUsdIncome = useMemo(() => 
+    [
+      ...(freeData || []),
+      ...(paidData || []),
+      ...(endedData || []),
+    ].reduce((sum, item) => sum + (item.usd_income || 0), 0),
+    [freeData, paidData, endedData]
+  )
 
   const handleYearChange = (year: number | null) => {
     setSelectedYear(year)

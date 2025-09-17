@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, useCallback } from 'react'
 import {
   Chart,
   BarController,
@@ -42,6 +42,7 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
   const chartRef = useRef<HTMLCanvasElement>(null)
   const chartInstance = useRef<Chart | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
+  const [isInitialized, setIsInitialized] = useState(false)
   const itemsPerPage = 10
 
   const totalPages = Math.ceil(data.length / itemsPerPage)
@@ -50,7 +51,7 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
     currentPage * itemsPerPage
   )
 
-  const getPaginationRange = () => {
+  const getPaginationRange = useCallback(() => {
     const range: (number | string)[] = []
     if (totalPages <= 6) {
       for (let i = 1; i <= totalPages; i++) range.push(i)
@@ -62,14 +63,14 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
       range.push(totalPages)
     }
     return range
-  }
+  }, [currentPage, totalPages])
 
-  const handlePageChange = (page: number) => {
+  const handlePageChange = useCallback((page: number) => {
     if (page >= 1 && page <= totalPages) setCurrentPage(page)
-  }
+  }, [totalPages])
 
-  useEffect(() => {
-    if (!chartRef.current || !paginatedData.length) return
+  const initializeChart = useCallback(() => {
+    if (!chartRef.current || !paginatedData.length || isInitialized) return
 
     if (chartInstance.current) {
       chartInstance.current.destroy()
@@ -171,12 +172,36 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
       }
     })
 
-    return () => {
+    setIsInitialized(true)
+  }, [paginatedData, isInitialized])
+
+  const updateChartData = useCallback(() => {
+    if (!chartInstance.current || !paginatedData.length) return
+
+    chartInstance.current.data.labels = paginatedData.map(item => item.name)
+    chartInstance.current.data.datasets[0].data = paginatedData.map(item => item.income)
+    chartInstance.current.update()
+  }, [paginatedData])
+
+  useEffect(() => {
+    if (loading) {
       if (chartInstance.current) {
         chartInstance.current.destroy()
+        chartInstance.current = null
+        setIsInitialized(false)
       }
+      return
     }
-  }, [paginatedData])
+
+    if (!isInitialized) {
+      initializeChart()
+    } else {
+      updateChartData()
+    }
+
+    return () => {
+    }
+  }, [loading, paginatedData, isInitialized, initializeChart, updateChartData])
 
   if (loading) {
     return (

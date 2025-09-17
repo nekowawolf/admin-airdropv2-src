@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { getBackerStats, BackerData } from '@/services/chartService'
 import { getMonthlyAirdropStatsByYear, MonthlyAirdropData } from '@/services/chartService'
 import { getProjectMetrics, ProjectMetric } from '@/services/chartService'
@@ -65,14 +65,19 @@ export const useProjectMetrics = () => {
   const [data, setData] = useState<ProjectMetric[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const hasFetched = useRef(false)
 
   const fetchData = async () => {
+    if (hasFetched.current) return
+    
     try {
       setLoading(true)
+      hasFetched.current = true
       const result = await getProjectMetrics()
       setData(result)
     } catch (err: any) {
       setError(err.message || 'Failed to fetch project metrics')
+      hasFetched.current = false
     } finally {
       setLoading(false)
     }
@@ -86,6 +91,9 @@ export const useProjectMetrics = () => {
     data,
     loading,
     error,
-    refetch: fetchData
+    refetch: () => {
+      hasFetched.current = false
+      fetchData()
+    }
   }
 }

@@ -43,6 +43,7 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
   const chartInstance = useRef<Chart | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [isInitialized, setIsInitialized] = useState(false)
+  const projectDetailsRef = useRef<any[]>([])
   const itemsPerPage = 10
 
   const totalPages = Math.ceil(data.length / itemsPerPage)
@@ -68,6 +69,22 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
   const handlePageChange = useCallback((page: number) => {
     if (page >= 1 && page <= totalPages) setCurrentPage(page)
   }, [totalPages])
+
+  useEffect(() => {
+    projectDetailsRef.current = paginatedData.map(item => ({
+      name: item.name,
+      backers: item.backed,
+      funding: item.funding,
+      income: item.income,
+      created_at: item.created_at,
+      ended_at: item.ended_at,
+      task: (item as any).task,
+      supply: (item as any).supply,
+      market_cap: (item as any).market_cap,
+      vesting: (item as any).vesting,
+      price: (item as any).price
+    }))
+  }, [paginatedData])
 
   const initializeChart = useCallback(() => {
     if (!chartRef.current || !paginatedData.length || isInitialized) return
@@ -121,11 +138,13 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
           tooltip: {
             callbacks: {
               title: function(context) {
-                const project = projectDetails[context[0].dataIndex]
-                return project.name
+                const project = projectDetailsRef.current[context[0].dataIndex]
+                return project?.name || ''
               },
               label: function(context) {
-                const project = projectDetails[context.dataIndex]
+                const project = projectDetailsRef.current[context.dataIndex]
+                if (!project) return []
+                
                 const labels = [
                   `Income: $${project.income.toLocaleString()}`,
                   `Funding: $${project.funding.toLocaleString()}`,

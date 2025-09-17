@@ -281,7 +281,7 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
             </PaginationContent>
           </Pagination>
           
-          <div className="text-center text-xs text-muted-foreground mt-2">
+          <div className="text-center text-xs text-muted-foreground mt-2 text-secondary">
             Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, data.length)} of {data.length} projects
           </div>
         </div>

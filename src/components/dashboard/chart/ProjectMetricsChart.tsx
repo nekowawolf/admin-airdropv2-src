@@ -85,7 +85,12 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
       funding: item.funding,
       income: item.income,
       created_at: item.created_at, 
-      ended_at: item.ended_at  
+      ended_at: item.ended_at,
+      task: (item as any).task,   
+      supply: (item as any).supply,
+      market_cap: (item as any).market_cap,
+      vesting: (item as any).vesting,
+      price: (item as any).price
     }))
 
     chartInstance.current = new Chart(ctx, {
@@ -126,19 +131,25 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
                   `Funding: $${project.funding.toLocaleString()}`,
                   `Backed: ${project.backers}`
                 ]
-                
+
+                if (project.task) labels.push(`Task: ${project.task}`)
+                if (project.supply) labels.push(`Supply: ${project.supply}`)
+                if (project.market_cap) labels.push(`Market Cap: ${project.market_cap}`)
+                if (project.vesting) labels.push(`Vesting: ${project.vesting}`)
+                if (project.price) labels.push(`Listing Price: $${project.price}`)
+
                 if (project.created_at) {
                   const createdDate = new Date(project.created_at)
                   const formattedCreated = `${createdDate.getDate().toString().padStart(2, '0')}/${(createdDate.getMonth() + 1).toString().padStart(2, '0')}/${createdDate.getFullYear()}`
                   labels.push(`Created: ${formattedCreated}`)
                 }
-                
+
                 if (project.ended_at) {
                   const endedDate = new Date(project.ended_at)
                   const formattedEnded = `${endedDate.getDate().toString().padStart(2, '0')}/${(endedDate.getMonth() + 1).toString().padStart(2, '0')}/${endedDate.getFullYear()}`
                   labels.push(`Ended: ${formattedEnded}`)
                 }
-                
+
                 return labels
               }
             }

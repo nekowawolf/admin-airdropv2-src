@@ -20,7 +20,12 @@ export interface ProjectMetric {
   backed: string
   income: number
   created_at?: string  
-  ended_at?: string   
+  ended_at?: string
+  task?: string
+  supply?: string
+  market_cap?: string
+  vesting?: string
+  price?: number
 }
 
 export const getBackerStats = async (): Promise<BackerData[]> => {
@@ -151,7 +156,12 @@ export const getProjectMetrics = async (): Promise<ProjectMetric[]> => {
           backed: item.backed || 'Unknown',
           income: parseFloat(item.usd_income?.toString() || '0') || 0,
           created_at: item.created_at,  
-          ended_at: item.ended_at      
+          ended_at: item.ended_at,
+          task: item.task,
+          supply: item.supply,
+          market_cap: item.market_cap,
+          vesting: item.vesting,
+          price: item.price ? parseFloat(item.price.toString()) : undefined
         }
       })
       .sort((a, b) => b.income - a.income)

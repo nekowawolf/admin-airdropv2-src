@@ -96,20 +96,6 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
     const ctx = chartRef.current.getContext('2d')
     if (!ctx) return
 
-    const projectDetails = paginatedData.map(item => ({
-      name: item.name,
-      backers: item.backed,
-      funding: item.funding,
-      income: item.income,
-      created_at: item.created_at, 
-      ended_at: item.ended_at,
-      task: (item as any).task,   
-      supply: (item as any).supply,
-      market_cap: (item as any).market_cap,
-      vesting: (item as any).vesting,
-      price: (item as any).price
-    }))
-
     chartInstance.current = new Chart(ctx, {
       type: 'bar',
       data: {

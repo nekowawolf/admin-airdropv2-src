@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { toggleDarkMode, isDarkMode } from '@/utils/darkmode'
-import Cookies from 'js-cookie'
+import { logout } from '@/services/authService'
 
 type HeaderProps = {
 	onToggleSidebar?: () => void
@@ -18,9 +18,13 @@ export default function DashboardHeader({ onToggleSidebar }: HeaderProps) {
 	const menuRef = useRef<HTMLDivElement>(null)
 
 	const handleLogout = () => {
-		Cookies.remove('token')
-		toast.success('Logout successfully!')
-		router.push('/login')
+		try {
+			const result = logout()
+			toast.success(result.message)
+			router.push('/login')
+		} catch (error) {
+			toast.error('Logout failed')
+		}
 	}
 
 	const handleToggleDarkMode = () => {

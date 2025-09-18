@@ -30,3 +30,13 @@ export const login = async (username: string, password: string) => {
     throw new Error('Invalid token received.')
   }
 }
+
+export const logout = () => {
+  try {
+    Cookies.remove('token')
+    
+    return { success: true, message: 'Logout successfully!' }
+  } catch (error) {
+    throw new Error('Logout failed')
+  }
+}

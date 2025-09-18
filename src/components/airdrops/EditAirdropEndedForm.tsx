@@ -1,6 +1,5 @@
 'use client'
 
-import { useAuthGuard } from '@/hooks/useAuthGuard'
 import { useState, useRef, useEffect } from 'react'
 import { FaFreeCodeCamp } from "react-icons/fa";
 import { IoIosArrowUp } from "react-icons/io"
@@ -109,7 +108,6 @@ interface EditAirdropEndedFormProps {
 }
 
 export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAirdropEndedFormProps) {
-  useAuthGuard()
   const router = useRouter()
   const [formData, setFormData] = useState({
     name: airdropData?.name || '',

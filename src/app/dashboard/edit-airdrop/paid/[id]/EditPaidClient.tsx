@@ -5,9 +5,12 @@ import { useParams, useRouter } from 'next/navigation'
 import { getAirdropPaidById } from '@/services/paidService'
 import EditAirdropForm from '@/components/airdrops/EditAirdropForm'
 import { Spinner } from "@/components/ui/shadcn-io/spinner"
+import { useAuthGuard } from '@/hooks/useAuthGuard'
 import { toast } from 'sonner'
 
 export default function EditAirdropPage() {
+  useAuthGuard()
+
   const params = useParams()
   const router = useRouter()
   const [airdropData, setAirdropData] = useState<any>(null)

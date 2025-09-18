@@ -1,6 +1,5 @@
 'use client'
 
-import { useAuthGuard } from '@/hooks/useAuthGuard'
 import { useState, useRef, useEffect } from 'react'
 import { FiGift } from 'react-icons/fi'
 import { IoIosArrowUp } from "react-icons/io"
@@ -111,7 +110,6 @@ interface EditAirdropFormProps {
 }
 
 export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAirdropFormProps) {
-  useAuthGuard()
   const router = useRouter()
   const [formData, setFormData] = useState<AirdropFormData>({
     name: airdropData?.name || '',

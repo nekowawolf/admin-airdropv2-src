@@ -17,9 +17,9 @@ export default function DashboardHeader({ onToggleSidebar }: HeaderProps) {
 	const [isDark, setIsDark] = useState(false)
 	const menuRef = useRef<HTMLDivElement>(null)
 
-	const handleLogout = () => {
+	const handleLogout = async () => {
 		try {
-			const result = logout()
+			const result = await logout()
 			toast.success(result.message)
 			router.push('/login')
 		} catch (error) {

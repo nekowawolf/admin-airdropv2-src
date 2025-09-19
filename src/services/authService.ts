@@ -19,22 +19,62 @@ export const login = async (username: string, password: string) => {
   }
 
   const data = await res.json()
-  if (data.token) {
-    Cookies.set('token', data.token, {
-      expires: 1,
+
+  if (data.access_token && data.refresh_token) {
+    Cookies.set('access_token', data.access_token, {
+      expires: 1 / 96,
+      secure: true,
+      sameSite: 'strict',
+    })
+    Cookies.set('refresh_token', data.refresh_token, {
+      expires: 7,
       secure: true,
       sameSite: 'strict',
     })
     return data
   } else {
-    throw new Error('Invalid token received.')
+    throw new Error('Invalid tokens received.')
   }
 }
 
-export const logout = () => {
+export const refreshAccessToken = async () => {
+  const refreshToken = Cookies.get('refresh_token')
+  if (!refreshToken) throw new Error('No refresh token found')
+
+  const res = await fetch(`${API_BASE_URL}/airdrop/refresh`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ refresh_token: refreshToken }),
+  })
+
+  if (!res.ok) throw new Error('Failed to refresh token')
+  const data = await res.json()
+
+  if (data.access_token) {
+    Cookies.set('access_token', data.access_token, {
+      expires: 1 / 96,
+      secure: true,
+      sameSite: 'strict',
+    })
+  }
+  return data.access_token
+}
+
+export const logout = async () => {
   try {
-    Cookies.remove('token')
-    
+    const refreshToken = Cookies.get('refresh_token')
+
+    if (refreshToken) {
+      await fetch(`${API_BASE_URL}/airdrop/logout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refresh_token: refreshToken }),
+      })
+    }
+
+    Cookies.remove('access_token')
+    Cookies.remove('refresh_token')
+
     return { success: true, message: 'Logout successfully!' }
   } catch (error) {
     throw new Error('Logout failed')

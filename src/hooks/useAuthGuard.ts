@@ -9,7 +9,7 @@ export function useAuthGuard() {
   const router = useRouter()
   
   useEffect(() => {
-    const token = Cookies.get('token')
+    const token = Cookies.get('access_token')
     if (!token) {
       toast.error('Login first to continue')
       router.push('/login')

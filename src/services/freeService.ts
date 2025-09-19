@@ -4,7 +4,7 @@ import { AirdropFreeRequest } from '@/types/airdrop';
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const createAirdropFree = async (data: AirdropFreeRequest) => {
-  const token = Cookies.get('token');
+  const token = Cookies.get('access_token');
   
   if (!token) {
     throw new Error('No authentication token found');
@@ -28,7 +28,7 @@ export const createAirdropFree = async (data: AirdropFreeRequest) => {
 };
 
 export const getAirdropFree = async () => {
-  const token = Cookies.get('token')
+  const token = Cookies.get('access_token')
 
   if (!token) throw new Error('No authentication token found')
 
@@ -50,7 +50,7 @@ export const getAirdropFree = async () => {
 }
 
 export const updateAirdropFree = async (id: string, data: AirdropFreeRequest) => {
-  const token = Cookies.get('token');
+  const token = Cookies.get('access_token');
   
   if (!token) {
     throw new Error('No authentication token found');
@@ -74,7 +74,7 @@ export const updateAirdropFree = async (id: string, data: AirdropFreeRequest) =>
 };
 
 export const getAirdropFreeById = async (id: string) => {
-  const token = Cookies.get('token');
+  const token = Cookies.get('access_token');
 
   if (!token) {
     throw new Error('No authentication token found');
@@ -98,7 +98,7 @@ export const getAirdropFreeById = async (id: string) => {
 };
 
 export const deleteAirdropFree = async (id: string) => {
-  const token = Cookies.get('token');
+  const token = Cookies.get('access_token');
 
   if (!token) {
     throw new Error('No authentication token found');

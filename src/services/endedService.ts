@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const getAirdropEnded = async () => {
-  const token = Cookies.get('token');
+  const token = Cookies.get('access_token');
 
   if (!token) throw new Error('No authentication token found');
 
@@ -38,7 +38,7 @@ export const getAirdropEnded = async () => {
 };
 
 export const updateAirdropEnded = async (id: string, data: any) => {
-  const token = Cookies.get('token');
+  const token = Cookies.get('access_token');
   
   if (!token) {
     throw new Error('No authentication token found');
@@ -62,7 +62,7 @@ export const updateAirdropEnded = async (id: string, data: any) => {
 };
 
 export const getAirdropEndedById = async (id: string) => {
-  const token = Cookies.get('token');
+  const token = Cookies.get('access_token');
 
   if (!token) {
     throw new Error('No authentication token found');
@@ -86,7 +86,7 @@ export const getAirdropEndedById = async (id: string) => {
 };
 
 export const deleteAirdropEnded = async (id: string) => {
-  const token = Cookies.get('token');
+  const token = Cookies.get('access_token');
   
   if (!token) {
     throw new Error('No authentication token found');

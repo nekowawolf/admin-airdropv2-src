@@ -80,3 +80,32 @@ export const logout = async () => {
     throw new Error('Logout failed')
   }
 }
+
+export const authFetch = async (url: string, options: RequestInit = {}) => {
+  let token = Cookies.get('access_token')
+  if (!token) throw new Error('No access token found')
+
+  let headers = {
+    ...options.headers,
+    Authorization: `Bearer ${token}`,
+  }
+
+  let res = await fetch(url, { ...options, headers })
+
+  if (res.status === 401) {
+    try {
+      const newToken = await refreshAccessToken()
+      if (newToken) {
+        headers = {
+          ...options.headers,
+          Authorization: `Bearer ${newToken}`,
+        }
+        res = await fetch(url, { ...options, headers })
+      }
+    } catch (err) {
+      throw new Error('Session expired, please login again')
+    }
+  }
+
+  return res
+}

@@ -241,7 +241,7 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
                   <label className="text-secondary text-sm font-medium" htmlFor="level">
-                    Difficulty Level *
+                    Funding Level *
                   </label>
                   <CustomDropdown
                     id="level"
@@ -249,11 +249,11 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                     value={formData.level}
                     onChange={(value) => handleDropdownChange('level', value)}
                     options={[
-                      { value: 'easy', label: 'Easy' },
-                      { value: 'medium', label: 'Medium' },
-                      { value: 'hard', label: 'Hard' }
+                      { value: 'easy', label: 'Low (N/A-5M>)' },
+                      { value: 'medium', label: 'Mid (5M-20M>)' },
+                      { value: 'hard', label: 'High (20M-50M>)' }
                     ]}
-                    placeholder="Select difficulty level"
+                    placeholder="Select Funding Level"
                     required
                   />
                 </div>

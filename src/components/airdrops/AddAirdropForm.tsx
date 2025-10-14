@@ -117,9 +117,9 @@ export default function AddAirdropForm() {
     funds: '',
     supply: '',
     market_cap: '',
-    price: '',
+    price: 0,
     vesting: '',
-    usd_income: '',
+    usd_income: 0,
     claim: '',
   })
 
@@ -151,9 +151,9 @@ export default function AddAirdropForm() {
       funds: '',
       supply: '',
       market_cap: '',
-      price: '',
+      price: 0,
       vesting: '',
-      usd_income: '',
+      usd_income: 0,
       claim: '',
     })
   }

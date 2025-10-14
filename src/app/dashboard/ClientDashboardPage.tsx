@@ -163,9 +163,9 @@ export default function ClientDashboardPage() {
       </section>
 
 
-      {/* Recent Activity */}
+      {/* Completed Airdrops */}
       <section className="p-4 rounded-2xl shadow-md bg-[var(--fill-color)] border border-border-divider">
-        <h3 className="text-lg font-semibold text-primary mb-4">Recent Activity</h3>
+        <h3 className="text-lg font-semibold text-primary mb-4">Completed Airdrops</h3>
         <div className="space-y-3 max-h-60 overflow-y-auto">
           {endedData && endedData.slice(0, 5).map((item, index) => (
             <div key={index} className="p-3 rounded-lg bg-[var(--hover-bg)] border border-border-divider">
@@ -180,7 +180,7 @@ export default function ClientDashboardPage() {
           ))}
           {(!endedData || endedData.length === 0) && (
             <div className="text-center text-muted-foreground py-4">
-              No recent activity
+              No Completed Airdrops
             </div>
           )}
         </div>

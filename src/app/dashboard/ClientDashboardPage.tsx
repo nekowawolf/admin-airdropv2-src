@@ -55,6 +55,14 @@ export default function ClientDashboardPage() {
     setSelectedYear(year)
   }
 
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    })
+  }
+
   return (
     <div className="space-y-6">
       <div className="text-center sm:text-left">
@@ -170,12 +178,14 @@ export default function ClientDashboardPage() {
           {endedData && endedData.slice(0, 5).map((item, index) => (
             <div key={index} className="p-3 rounded-lg bg-[var(--hover-bg)] border border-border-divider">
               <div className="flex justify-between items-center">
-                <span className="font-medium">{item.name}</span>
+                <span className="font-bold">{item.name}</span>
                 <span className="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded-full">
                   Ended
                 </span>
               </div>
               <p className="text-sm text-muted-foreground mt-1">Backed by: {item.backed}</p>
+              <p className="text-sm text-muted-foreground mt-1">Funding: {item.funds}</p>
+              <p className="text-sm text-muted-foreground mt-1">Ended: {item.ended_at ? formatDate(item.ended_at) : 'N/A'}</p>
             </div>
           ))}
           {(!endedData || endedData.length === 0) && (

@@ -195,6 +195,7 @@ export default function EndedAirdropTable({
                 <th className="px-6 py-2 min-w-[130px]">Backed</th>
                 <th className="px-6 py-2 min-w-[120px]">Funds</th>
                 <th className="px-6 py-2 min-w-[100px]">Supply</th>
+                <th className="px-6 py-2 min-w-[100px]">FDV</th>
                 <th className="px-6 py-2 min-w-[100px]">MarketCap</th>
                 <th className="px-6 py-2 min-w-[100px]">Vesting</th>
                 <th className="px-6 py-2 min-w-[120px]">LinkClaim</th>
@@ -227,6 +228,7 @@ export default function EndedAirdropTable({
                     <td className="px-6 py-2 whitespace-nowrap">{item.backed || 'N/A'}</td>
                     <td className="px-6 py-2">{item.funds || 'N/A'}</td>
                     <td className="px-6 py-2">{item.supply || 'N/A'}</td>
+                    <td className="px-6 py-2">{item.fdv || 'N/A'}</td>
                     <td className="px-6 py-2">{item.market_cap || 'N/A'}</td>
                     <td className="px-6 py-2">{item.vesting || 'N/A'}</td>
                     <td className="px-6 py-2 text-accent">

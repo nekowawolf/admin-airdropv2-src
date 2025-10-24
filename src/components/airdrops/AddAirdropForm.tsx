@@ -116,6 +116,7 @@ export default function AddAirdropForm() {
     backed: '',
     funds: '',
     supply: '',
+    fdv: '',
     market_cap: '',
     price: 0,
     vesting: '',
@@ -150,6 +151,7 @@ export default function AddAirdropForm() {
       backed: '',
       funds: '',
       supply: '',
+      fdv: '',
       market_cap: '',
       price: 0,
       vesting: '',
@@ -299,23 +301,23 @@ export default function AddAirdropForm() {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2">
-                <label className="text-secondary text-sm font-medium" htmlFor="backed">
-                  Backed By *
-                </label>
-                <input
-                  type="text"
-                  id="backed"
-                  name="backed"
-                  value={formData.backed}
-                  onChange={handleInputChange}
-                  placeholder="e.g., HashKey Capital, ConsenSys"
-                  required
-                  className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="flex flex-col gap-2">
+                  <label className="text-secondary text-sm font-medium" htmlFor="backed">
+                    Backed By *
+                  </label>
+                  <input
+                    type="text"
+                    id="backed"
+                    name="backed"
+                    value={formData.backed}
+                    onChange={handleInputChange}
+                    placeholder="e.g., HashKey Capital, ConsenSys"
+                    required
+                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="flex flex-col gap-2">
                   <label className="text-secondary text-sm font-medium" htmlFor="funds">
                     Funds Raised *
@@ -331,6 +333,9 @@ export default function AddAirdropForm() {
                     className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="flex flex-col gap-2">
                   <label className="text-secondary text-sm font-medium" htmlFor="supply">
                     Total Supply *
@@ -345,6 +350,23 @@ export default function AddAirdropForm() {
                     className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
+
+                <div className="flex flex-col gap-2">
+                  <label className="text-secondary text-sm font-medium" htmlFor="fdv">
+                    FDV *
+                  </label>
+                  <input
+                    type="text"
+                    id="fdv"
+                    name="fdv"
+                    value={formData.fdv}
+                    onChange={handleInputChange}
+                    placeholder="e.g., 2.00B"
+                    required
+                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
                 <div className="flex flex-col gap-2">
                   <label className="text-secondary text-sm font-medium" htmlFor="market_cap">
                     Market Cap *

@@ -7,6 +7,7 @@ export interface AirdropBase {
   backed: string
   funds: string
   supply: string
+  fdv: string
   market_cap: string
   vesting: string
   claim: string

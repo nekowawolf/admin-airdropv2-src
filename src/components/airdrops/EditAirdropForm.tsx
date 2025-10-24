@@ -120,6 +120,7 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
     backed: airdropData?.backed || '',
     funds: airdropData?.funds || '',
     supply: airdropData?.supply || '',
+    fdv: airdropData?.fdv || '',
     market_cap: airdropData?.market_cap || '',
     price: airdropData?.price?.toString() || '',
     vesting: airdropData?.vesting || '',

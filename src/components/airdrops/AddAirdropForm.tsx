@@ -362,7 +362,6 @@ export default function AddAirdropForm() {
                     value={formData.fdv}
                     onChange={handleInputChange}
                     placeholder="e.g., 2.00B"
-                    required
                     className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>

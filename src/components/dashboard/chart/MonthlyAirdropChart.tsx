@@ -136,7 +136,6 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
 export default function MonthlyAirdropChart({ 
   data, 
   loading, 
-  title = 'Monthly Airdrop Activity', 
   height = 300,
   onYearChange
 }: MonthlyAirdropChartProps) {
@@ -183,7 +182,6 @@ export default function MonthlyAirdropChart({
       },
       title: {
         display: true,
-        text: title,
         font: {
           size: 14
         }

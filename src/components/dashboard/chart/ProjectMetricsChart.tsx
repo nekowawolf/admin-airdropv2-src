@@ -22,6 +22,7 @@ import {
 import { cn } from "@/lib/utils"
 
 Chart.register(BarController, BarElement, LinearScale, CategoryScale, Tooltip, Legend, Title)
+Chart.defaults.color = '#9ca3af'
 
 interface ProjectMetric {
   name: string

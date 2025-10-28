@@ -176,12 +176,9 @@ export default function ClientDashboardPage() {
         <h3 className="text-lg font-semibold text-primary mb-4">Completed Airdrops</h3>
         <div className="space-y-3 max-h-60 overflow-y-auto">
           {endedData && endedData.slice(0, 5).map((item, index) => (
-            <div key={index} className="p-3 rounded-lg bg-[var(--hover-bg)] border border-border-divider">
+            <div key={index} className="p-3 rounded-lg border border-border-divider">
               <div className="flex justify-between items-center">
                 <span className="font-bold">{item.name}</span>
-                <span className="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded-full">
-                  Ended
-                </span>
               </div>
               <p className="text-sm text-muted-foreground mt-1">Backed by: {item.backed}</p>
               <p className="text-sm text-muted-foreground mt-1">Funding: {item.funds}</p>

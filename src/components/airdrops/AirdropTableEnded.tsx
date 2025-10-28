@@ -183,7 +183,7 @@ export default function EndedAirdropTable({
 
       {/* Table */}
       {!loading && !error && (
-        <div className="overflow-x-auto rounded-lg border border-border-divider">
+        <div className="overflow-x-auto rounded-lg bg-[var(--fill-color)] border border-border-divider">
           <table className="w-full text-left">
             <thead className="bg-[var(--card-color3)]">
               <tr>

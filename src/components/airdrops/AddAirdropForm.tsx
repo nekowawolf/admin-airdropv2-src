@@ -55,7 +55,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
         type="button"
         id={`${id}-button`}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full text-left bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 inline-flex items-center justify-between"
+        className="w-full text-left card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 inline-flex items-center justify-between"
       >
         <span className={value ? "text-primary" : "text-muted"}>
           {selectedOption ? selectedOption.label : placeholder}
@@ -185,9 +185,9 @@ export default function AddAirdropForm() {
         </p>
       </div>
 
-      <div className="bg-card-color border border-border-color rounded-xl p-6 pb-1 shadow-lg w-full sm:w-5/6 mx-auto mb-8">
+      <div className="bg-[var(--fill-color)] border border-border-color rounded-xl p-6 pb-1 shadow-lg w-full sm:w-5/6 mx-auto mb-8">
         <div className="mb-8">
-          <div className="grid grid-cols-2 bg-card-color2 rounded-lg p-1 mb-6 border border-border-divider">
+          <div className="grid grid-cols-2 card-color2 rounded-lg p-1 mb-6 border border-border-divider">
             <button 
               className={`flex cursor-pointer items-center justify-center gap-2 py-2 px-4 font-medium text-sm rounded-md ${
                 activeTab === 'free' 
@@ -227,7 +227,7 @@ export default function AddAirdropForm() {
                     onChange={handleInputChange}
                     placeholder="Enter project name"
                     required
-                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -242,7 +242,7 @@ export default function AddAirdropForm() {
                     onChange={handleInputChange}
                     placeholder="e.g., daily, quest, testnet"
                     required
-                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
@@ -259,7 +259,7 @@ export default function AddAirdropForm() {
                   onChange={handleInputChange}
                   placeholder="https://example.com"
                   required
-                  className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -314,7 +314,7 @@ export default function AddAirdropForm() {
                     onChange={handleInputChange}
                     placeholder="e.g., HashKey Capital, ConsenSys"
                     required
-                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
@@ -330,7 +330,7 @@ export default function AddAirdropForm() {
                     onChange={handleInputChange}
                     placeholder="e.g., 53.37M"
                     required
-                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
@@ -347,7 +347,7 @@ export default function AddAirdropForm() {
                     value={formData.supply}
                     onChange={handleInputChange}
                     placeholder="e.g., 1.00B"
-                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
@@ -362,7 +362,7 @@ export default function AddAirdropForm() {
                     value={formData.fdv}
                     onChange={handleInputChange}
                     placeholder="e.g., 2.00B"
-                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
@@ -377,7 +377,7 @@ export default function AddAirdropForm() {
                     value={formData.market_cap}
                     onChange={handleInputChange}
                     placeholder="e.g., 270M"
-                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
@@ -394,7 +394,7 @@ export default function AddAirdropForm() {
                     value={formData.price}
                     onChange={handleInputChange}
                     placeholder="e.g., 0.01"
-                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -424,7 +424,7 @@ export default function AddAirdropForm() {
                     value={formData.usd_income}
                     onChange={handleInputChange}
                     placeholder="e.g., $100 usd"
-                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
@@ -440,7 +440,7 @@ export default function AddAirdropForm() {
                   value={formData.claim}
                   onChange={handleInputChange}
                   placeholder="https://example.com"
-                  className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               

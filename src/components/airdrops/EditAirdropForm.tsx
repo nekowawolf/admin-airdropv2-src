@@ -55,7 +55,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
         type="button"
         id={`${id}-button`}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full text-left bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 inline-flex items-center justify-between"
+        className="w-full text-left card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 inline-flex items-center justify-between"
       >
         <span className={value ? "text-primary" : "text-muted"}>
           {selectedOption ? selectedOption.label : placeholder}
@@ -176,10 +176,10 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
         </p>
       </div>
 
-      <div className="bg-card-color border border-border-color rounded-xl p-6 pb-1 shadow-lg w-full sm:w-5/6 mx-auto mb-8">
+      <div className="bg-[var(--fill-color)] border border-border-color rounded-xl p-6 pb-1 shadow-lg w-full sm:w-5/6 mx-auto mb-8">
         <div className="mb-8">
           <div className="mb-6">
-            <div className="flex items-center gap-2 bg-card-color2 rounded-lg p-3 border border-border-divider">
+            <div className="flex items-center gap-2 card-color2 rounded-lg p-3 border border-border-divider">
               <FiGift className="w-4 h-4 text-blue-600" />
               <span className="text-sm font-medium text-primary">
                 {type === 'free' ? 'Free Airdrop' : 'Paid Airdrop'}
@@ -202,7 +202,7 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                     onChange={handleInputChange}
                     placeholder="Enter project name"
                     required
-                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
@@ -218,7 +218,7 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                     onChange={handleInputChange}
                     placeholder="e.g., daily, quest, testnet"
                     required
-                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
@@ -235,7 +235,7 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                   onChange={handleInputChange}
                   placeholder="https://example.com"
                   required
-                  className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -290,7 +290,7 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                     onChange={handleInputChange}
                     placeholder="e.g., HashKey Capital, ConsenSys"
                     required
-                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
@@ -306,7 +306,7 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                     onChange={handleInputChange}
                     placeholder="e.g., 53.37M"
                     required
-                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
@@ -323,7 +323,7 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                     value={formData.supply}
                     onChange={handleInputChange}
                     placeholder="e.g., 1.00B"
-                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
@@ -338,7 +338,7 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                     value={formData.fdv}
                     onChange={handleInputChange}
                     placeholder="e.g., 2.00B"
-                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
@@ -353,7 +353,7 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                     value={formData.market_cap}
                     onChange={handleInputChange}
                     placeholder="e.g., 270M"
-                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
@@ -370,7 +370,7 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                     value={formData.price}
                     onChange={handleInputChange}
                     placeholder="e.g., 0.01"
-                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
@@ -402,7 +402,7 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                     value={formData.usd_income}
                     onChange={handleInputChange}
                     placeholder="e.g., $100 usd"
-                    className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
@@ -418,7 +418,7 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                   value={formData.claim}
                   onChange={handleInputChange}
                   placeholder="https://example.com"
-                  className="bg-card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               

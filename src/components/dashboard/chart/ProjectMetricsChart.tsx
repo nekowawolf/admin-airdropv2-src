@@ -80,6 +80,7 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
       ended_at: item.ended_at,
       task: (item as any).task,
       supply: (item as any).supply,
+      fdv: (item as any).fdv, 
       market_cap: (item as any).market_cap,
       vesting: (item as any).vesting,
       price: (item as any).price
@@ -139,6 +140,7 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
 
                 if (project.task) labels.push(`Task: ${project.task}`)
                 if (project.supply) labels.push(`Supply: ${project.supply}`)
+                if (project.fdv) labels.push(`FDV: ${project.fdv}`)
                 if (project.market_cap) labels.push(`Market Cap: ${project.market_cap}`)
                 if (project.vesting) labels.push(`Vesting: ${project.vesting}`)
                 if (project.price) labels.push(`Listing Price: $${project.price}`)

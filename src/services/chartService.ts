@@ -23,6 +23,7 @@ export interface ProjectMetric {
   ended_at?: string
   task?: string
   supply?: string
+  fdv?: string
   market_cap?: string
   vesting?: string
   price?: number
@@ -159,6 +160,7 @@ export const getProjectMetrics = async (): Promise<ProjectMetric[]> => {
           ended_at: item.ended_at,
           task: item.task,
           supply: item.supply,
+          fdv: item.fdv,
           market_cap: item.market_cap,
           vesting: item.vesting,
           price: item.price ? parseFloat(item.price.toString()) : undefined

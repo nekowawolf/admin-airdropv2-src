@@ -347,8 +347,11 @@ export default function EndedAirdropTable({
                     isActive={currentPage === page}
                     onClick={() => handlePageChange(Number(page))}
                     className={cn(
-                      "px-2 py-1 text-xs sm:px-3 sm:py-2 sm:text-sm transition-none"
-                    )}
+                        "px-2 py-1 text-xs sm:px-3 sm:py-2 sm:text-sm transition-none",
+                        currentPage === page
+                         ? "text-primary hover-bg-accent border-[var(--border-divider)] shadow-sm"
+                         : "text-[var(--text-secondary)] hover:bg-[var(--hover-bg)] hover:text-[var(--text-accent)]"
+                      )}
                   >
                     {page}
                   </PaginationLink>

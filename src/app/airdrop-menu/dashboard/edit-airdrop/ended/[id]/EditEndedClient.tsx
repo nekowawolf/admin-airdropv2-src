@@ -40,7 +40,7 @@ export default function EditAirdropEndedPage() {
 
   const handleSuccess = () => {
     toast.success('Airdrop updated successfully!')
-    router.push('/dashboard/airdrop/ended')
+    router.push('/airdrop-menu/dashboard/airdrop/ended')
   }
 
   if (loading) {

@@ -174,7 +174,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
         </p>
       </div>
 
-      <div className="bg-card-color border border-border-color rounded-xl p-6 pb-1 shadow-lg w-full sm:w-5/6 mx-auto mb-8">
+      <div className="bg-[var(--fill-color)] border border-border-color rounded-xl p-6 pb-1 shadow-lg w-full sm:w-5/6 mx-auto mb-8">
         <div className="mb-8">
           <div className="mb-6">
             <div className="flex items-center gap-2 card-color2 rounded-lg p-3 border border-border-divider">

@@ -10,7 +10,7 @@ export default function LoginPage() {
 
    useEffect(() => {
     const token = Cookies.get('token')
-    if (token) router.push('/dashboard')
+    if (token) router.push('/airdrop-menu/dashboard')
   }, [router])
 
   const handleClose = () => {

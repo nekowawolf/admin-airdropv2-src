@@ -1,10 +1,12 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { RxDashboard } from 'react-icons/rx'
 import { IoIosAddCircleOutline } from 'react-icons/io'
+import { HiMiniRocketLaunch } from 'react-icons/hi2'
+import { FaLayerGroup } from 'react-icons/fa'
 
 type SidebarProps = {
     isOpen?: boolean
@@ -14,14 +16,82 @@ type SidebarProps = {
 export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
     const pathname = usePathname()
 
-    const isDashboardActive =
-        pathname === '/dashboard' || pathname.startsWith('/dashboard/airdrop')
-    const isAddAirdropActive = pathname === '/dashboard/add-airdrop'
+    const [openAirdrop, setOpenAirdrop] = useState(false)
+    const [openDashboard, setOpenDashboard] = useState(false)
+    const [openCommunity, setOpenCommunity] = useState(false)
+    const [openCommunityDashboard, setOpenCommunityDashboard] = useState(false)
 
-    const [openDropdown, setOpenDropdown] = useState(false)
+    // === HANDLE ACTIVE SECTIONS ===
+    useEffect(() => {
+        setOpenAirdrop(false)
+        setOpenDashboard(false)
+        setOpenCommunity(false)
+        setOpenCommunityDashboard(false)
 
-    const handleDropdown = () => setOpenDropdown((v) => !v)
+        // === AIRDROP PATH ===
+        if (pathname.startsWith('/airdrop-menu/dashboard')) {
+            setOpenAirdrop(true)
+            if (!pathname.includes('/add-airdrop')) {
+                setOpenDashboard(true)
+            }
+        }
 
+        // === COMMUNITY PATH ===
+        if (pathname.startsWith('/community-menu/dashboard')) {
+            setOpenCommunity(true)
+            if (!pathname.includes('/add-community')) {
+                setOpenCommunityDashboard(true)
+            }
+        }
+    }, [pathname])
+
+    // === HANDLERS ===
+    const handleAirdropDropdown = () => {
+        setOpenAirdrop((prev) => {
+            const next = !prev
+            if (next) {
+                setOpenCommunity(false)
+                setOpenCommunityDashboard(false)
+            }
+            return next
+        })
+    }
+
+    const handleDashboardDropdown = () => setOpenDashboard((v) => !v)
+
+    const handleCommunityDropdown = () => {
+        setOpenCommunity((prev) => {
+            const next = !prev
+            if (next) {
+                setOpenAirdrop(false)
+                setOpenDashboard(false)
+            }
+            return next
+        })
+    }
+
+    const handleCommunityDashboardDropdown = () =>
+        setOpenCommunityDashboard((v) => !v)
+
+    // === ACTIVE PATH DETECTION ===
+    const isAnalyticsActive = pathname === '/airdrop-menu/dashboard'
+    const isFreeActive = pathname === '/airdrop-menu/dashboard/airdrop/free'
+    const isPaidActive = pathname === '/airdrop-menu/dashboard/airdrop/paid'
+    const isEndedActive = pathname === '/airdrop-menu/dashboard/airdrop/ended'
+    const isAddAirdropActive =
+        pathname === '/airdrop-menu/dashboard/add-airdrop'
+    const isDashboardPathActive =
+        pathname.startsWith('/airdrop-menu/dashboard') &&
+        !pathname.includes('/add-airdrop')
+
+    const isCommunityAnalyticActive = pathname === '/community-menu/dashboard'
+    const isAddCommunityActive =
+        pathname === '/community-menu/dashboard/add-community'
+    const isCommunityDashboardPathActive =
+        pathname.startsWith('/community-menu/dashboard') &&
+        !pathname.includes('/add-community')
+
+    // === SIDEBAR CONTENT ===
     const content = (
         <>
             {/* Sidebar Header */}
@@ -42,95 +112,227 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                     Menu
                 </p>
 
-                {/* Dashboard with dropdown */}
+                {/* === Airdrop Group === */}
                 <div>
                     <button
                         type="button"
-                        onClick={handleDropdown}
-                        className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left ${
-                            isDashboardActive
-                                ? 'hover-bg-accent text-accent'
-                                : 'text-secondary hover:hover-bg'
+                        onClick={handleAirdropDropdown}
+                        className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
+                            pathname.startsWith('/airdrop-menu/dashboard')
+                                ? 'border-accent text-accent bg-accent/10'
+                                : openAirdrop
+                                ? 'border-accent text-accent bg-accent/10'
+                                : 'border-transparent text-secondary hover:hover-bg'
                         }`}
                     >
-                        <RxDashboard
+                        <HiMiniRocketLaunch
                             className={`${
-                                isDashboardActive
+                                pathname.startsWith('/airdrop-menu/dashboard')
+                                    ? 'text-accent'
+                                    : openAirdrop
                                     ? 'text-accent'
                                     : 'text-muted'
                             }`}
                             size={18}
                         />
-                        <span>Dashboard</span>
+                        <span>Airdrop</span>
                         <i
-                            className={`fa-solid fa-caret-down ml-auto text-xs ${
-                                openDropdown ? 'rotate-180' : ''
+                            className={`fa-solid fa-caret-down ml-auto text-xs transition-transform ${
+                                openAirdrop ? 'rotate-180' : ''
                             }`}
                         />
                     </button>
-                    {openDropdown && (
-                        <div className="pl-11 mt-1 space-y-1">
-                            <Link
-                                href="/dashboard"
-                                className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
-                                    pathname === '/dashboard'
-                                        ? 'text-accent font-semibold'
-                                        : 'text-secondary hover:text-accent'
+
+                    {openAirdrop && (
+                        <div className="pl-8 mt-2 space-y-1">
+                            <button
+                                type="button"
+                                onClick={handleDashboardDropdown}
+                                className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
+                                    isDashboardPathActive
+                                        ? 'border-accent text-accent bg-accent/10'
+                                        : 'border-transparent text-secondary hover:hover-bg'
                                 }`}
                             >
-                                Analytics
-                            </Link>
+                                <RxDashboard
+                                    className={`${
+                                        isDashboardPathActive
+                                            ? 'text-accent'
+                                            : 'text-muted'
+                                    }`}
+                                    size={18}
+                                />
+                                <span>Dashboard</span>
+                                <i
+                                    className={`fa-solid fa-caret-down ml-auto text-xs transition-transform ${
+                                        openDashboard ? 'rotate-180' : ''
+                                    }`}
+                                />
+                            </button>
+
+                            {openDashboard && (
+                                <div className="pl-8 mt-1 space-y-1">
+                                    <Link
+                                        href="/airdrop-menu/dashboard"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isAnalyticsActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Analytics
+                                    </Link>
+                                    <Link
+                                        href="/airdrop-menu/dashboard/airdrop/free"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isFreeActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Airdrop Free
+                                    </Link>
+                                    <Link
+                                        href="/airdrop-menu/dashboard/airdrop/paid"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isPaidActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Airdrop Paid
+                                    </Link>
+                                    <Link
+                                        href="/airdrop-menu/dashboard/airdrop/ended"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isEndedActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Airdrop Ended
+                                    </Link>
+                                </div>
+                            )}
+
                             <Link
-                                href="/dashboard/airdrop/free"
-                                className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
-                                    pathname === '/dashboard/airdrop/free'
-                                        ? 'text-accent font-semibold'
-                                        : 'text-secondary hover:text-accent'
+                                href="/airdrop-menu/dashboard/add-airdrop"
+                                className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors border-l-4 ${
+                                    isAddAirdropActive
+                                        ? 'border-accent text-accent bg-accent/10'
+                                        : 'border-transparent text-secondary hover:hover-bg'
                                 }`}
                             >
-                                Airdrop Free
-                            </Link>
-                            <Link
-                                href="/dashboard/airdrop/paid"
-                                className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
-                                    pathname === '/dashboard/airdrop/paid'
-                                        ? 'text-accent font-semibold'
-                                        : 'text-secondary hover:text-accent'
-                                }`}
-                            >
-                                Airdrop Paid
-                            </Link>
-                            <Link
-                                href="/dashboard/airdrop/ended"
-                                className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
-                                    pathname === '/dashboard/airdrop/ended'
-                                        ? 'text-accent font-semibold'
-                                        : 'text-secondary hover:text-accent'
-                                }`}
-                            >
-                                Airdrop Ended
+                                <IoIosAddCircleOutline
+                                    className={`${
+                                        isAddAirdropActive
+                                            ? 'text-accent'
+                                            : 'text-muted'
+                                    }`}
+                                    size={18}
+                                />
+                                <span>Add Airdrop</span>
                             </Link>
                         </div>
                     )}
                 </div>
 
-                {/* Add Airdrop */}
-                <Link
-                    href="/dashboard/add-airdrop"
-                    className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${
-                        isAddAirdropActive
-                            ? 'hover-bg-accent text-accent'
-                            : 'text-secondary hover:hover-bg'
-                    }`}
-                >
-                    <IoIosAddCircleOutline
-                        className={`${
-                            isAddAirdropActive ? 'text-accent' : 'text-muted'
+                {/* === Community Group === */}
+                <div>
+                    <button
+                        type="button"
+                        onClick={handleCommunityDropdown}
+                        className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
+                            pathname.startsWith('/community-menu/dashboard')
+                                ? 'border-accent text-accent bg-accent/10'
+                                : openCommunity
+                                ? 'border-accent text-accent bg-accent/10'
+                                : 'border-transparent text-secondary hover:hover-bg'
                         }`}
-                        size={18}
-                    />
-                    <span>Add Airdrop</span>
-                </Link>
+                    >
+                        <FaLayerGroup
+                            className={`${
+                                pathname.startsWith('/community-menu/dashboard')
+                                    ? 'text-accent'
+                                    : openCommunity
+                                    ? 'text-accent'
+                                    : 'text-muted'
+                            }`}
+                            size={18}
+                        />
+                        <span>Community</span>
+                        <i
+                            className={`fa-solid fa-caret-down ml-auto text-xs transition-transform ${
+                                openCommunity ? 'rotate-180' : ''
+                            }`}
+                        />
+                    </button>
+
+                    {openCommunity && (
+                        <div className="pl-8 mt-2 space-y-1">
+                            <button
+                                type="button"
+                                onClick={handleCommunityDashboardDropdown}
+                                className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
+                                    isCommunityDashboardPathActive
+                                        ? 'border-accent text-accent bg-accent/10'
+                                        : 'border-transparent text-secondary hover:hover-bg'
+                                }`}
+                            >
+                                <RxDashboard
+                                    className={`${
+                                        isCommunityDashboardPathActive
+                                            ? 'text-accent'
+                                            : 'text-muted'
+                                    }`}
+                                    size={18}
+                                />
+                                <span>Dashboard</span>
+                                <i
+                                    className={`fa-solid fa-caret-down ml-auto text-xs transition-transform ${
+                                        openCommunityDashboard
+                                            ? 'rotate-180'
+                                            : ''
+                                    }`}
+                                />
+                            </button>
+
+                            {openCommunityDashboard && (
+                                <div className="pl-8 mt-1 space-y-1">
+                                    <Link
+                                        href="/community-menu/dashboard"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isCommunityAnalyticActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Analytic
+                                    </Link>
+                                </div>
+                            )}
+
+                            <Link
+                                href="/community-menu/dashboard/add-community"
+                                className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors border-l-4 ${
+                                    isAddCommunityActive
+                                        ? 'border-accent text-accent bg-accent/10'
+                                        : 'border-transparent text-secondary hover:hover-bg'
+                                }`}
+                            >
+                                <IoIosAddCircleOutline
+                                    className={`${
+                                        isAddCommunityActive
+                                            ? 'text-accent'
+                                            : 'text-muted'
+                                    }`}
+                                    size={18}
+                                />
+                                <span>Add Community</span>
+                            </Link>
+                        </div>
+                    )}
+                </div>
             </nav>
         </>
     )

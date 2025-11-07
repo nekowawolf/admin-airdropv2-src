@@ -14,7 +14,7 @@ export default function EndedAirdropsPage() {
       loading={loading}
       error={error}
       onDelete={onDelete}
-      editRoute="/dashboard/edit-airdrop/ended"
+      editRoute="/airdrop-menu/dashboard/edit-airdrop/ended"
     />
   )
 }

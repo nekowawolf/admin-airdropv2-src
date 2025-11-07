@@ -32,7 +32,7 @@ export default function EndedAirdropTable({
   loading,
   error,
   onDelete,
-  editRoute = "/dashboard"
+  editRoute,
 }: EndedAirdropTableProps) {
   const router = useRouter()
   
@@ -115,9 +115,7 @@ export default function EndedAirdropTable({
   }
 
   const handleEdit = (item: any) => {
-    if (editRoute) {
-      router.push(`${editRoute}/${item.id}`)
-    }
+    router.push(`${editRoute}/${item.id}`)
     setOpenDropdownIndex(null)
   }
 

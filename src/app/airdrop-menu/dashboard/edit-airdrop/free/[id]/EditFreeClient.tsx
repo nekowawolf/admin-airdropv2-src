@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { getAirdropPaidById } from '@/services/paidService'
+import { getAirdropFreeById } from '@/services/freeService'
 import EditAirdropForm from '@/components/airdrops/EditAirdropForm'
 import { Spinner } from "@/components/ui/shadcn-io/spinner"
 import { useAuthGuard } from '@/hooks/useAuthGuard'
@@ -23,7 +23,7 @@ export default function EditAirdropPage() {
     const fetchAirdropData = async () => {
       try {
         setLoading(true)
-        const airdrop = await getAirdropPaidById(id)
+        const airdrop = await getAirdropFreeById(id)
         setAirdropData(airdrop)
       } catch (err: any) {
         setError(err.message || 'Failed to fetch airdrop data')
@@ -39,7 +39,7 @@ export default function EditAirdropPage() {
 
   const handleSuccess = () => {
     toast.success('Airdrop updated successfully!')
-    router.push('/dashboard/airdrop/paid')
+    router.push('/airdrop-menu/dashboard/airdrop/free')
   }
 
   if (loading) {
@@ -57,7 +57,7 @@ export default function EditAirdropPage() {
           <h2 className="text-xl font-semibold text-primary mb-2">Error</h2>
           <p className="text-secondary mb-4">{error}</p>
           <button
-            onClick={() => router.push('/dashboard/airdrop/paid')}
+            onClick={() => router.push('/dashboard/airdrop/free')}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg sm:text-base text-sm"
           >
             Back to Dashboard
@@ -72,9 +72,9 @@ export default function EditAirdropPage() {
       <div className="flex flex-col items-center justify-start min-h-screen">
         <div className="text-center mt-24">
           <h2 className="text-xl font-semibold text-primary mb-2">Airdrop Not Found</h2>
-          <p className="text-secondary mb-4">The airdrop you're looking for doesn't exist.</p>
+          <p className="text-secondary mb-4 sm:text-base text-sm">The airdrop you're looking for doesn't exist.</p>
           <button
-            onClick={() => router.push('/dashboard/airdrop/paid')}
+            onClick={() => router.push('/dashboard/airdrop/free')}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg sm:text-base text-sm"
           >
             Back to Dashboard
@@ -86,11 +86,11 @@ export default function EditAirdropPage() {
 
   return (
     <div className="min-h-screen bg-background">
-       <EditAirdropForm
-          airdropData={airdropData}
-          type="paid"
-          onSuccess={handleSuccess}
-        />
+      <EditAirdropForm
+        airdropData={airdropData}
+        type="free"
+        onSuccess={handleSuccess}
+      />
     </div>
   )
 }

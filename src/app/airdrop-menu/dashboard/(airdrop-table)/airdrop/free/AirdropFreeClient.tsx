@@ -15,7 +15,7 @@ export default function AirdropFreePage() {
       loading={loading}
       error={error}
       onDelete={handleDelete}
-      editRoute="/dashboard/edit-airdrop/free"
+      editRoute="/airdrop-menu/dashboard/edit-airdrop/free"
       title="Airdrop Free"
       subtitle="List of free airdrop campaigns"
     />

@@ -17,3 +17,61 @@ export const createCommunity = async (data: CommunityRequest) => {
 
   return response.json()
 }
+
+export const getCommunity = async () => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/cryptocommunity`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}))
+    throw new Error(errorData.message || 'Failed to fetch communities')
+  }
+
+  const data = await response.json()
+  return Array.isArray(data.data) ? data.data : []
+}
+
+export const updateCommunity = async (_id: string, data: CommunityRequest) => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/cryptocommunity/${_id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}))
+    throw new Error(errorData.message || 'Failed to update community')
+  }
+
+  return response.json()
+}
+
+export const getCommunityById = async (_id: string) => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/cryptocommunity/${_id}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}))
+    throw new Error(errorData.message || 'Failed to fetch community')
+  }
+
+  const data = await response.json()
+  return data.data
+}
+
+export const deleteCommunity = async (_id: string) => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/cryptocommunity/${_id}`, {
+    method: 'DELETE',
+  })
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}))
+    throw new Error(errorData.message || 'Failed to delete community')
+  }
+
+  return response.json()
+}

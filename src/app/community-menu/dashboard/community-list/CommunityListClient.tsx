@@ -1,16 +1,20 @@
 'use client'
 
+import { useCommunityData } from '@/hooks/community/useCommunityData'
 import CommunityTable from '@/components/community/CommunityTable'
-import { dashboardMetadata } from '@/constants/metadataTemplates'
-import { useAuthGuard } from '@/hooks/auth-guard/useAuthGuard'
 
-export const metadata = dashboardMetadata('Add Airdrop', 'Add new airdrop campaign')
+export default function CommunitiesPage() {
+  const { data, loading, error, handleDelete } = useCommunityData()
 
-export default function Page() {
-  useAuthGuard()
   return (
-    <div>
-      <CommunityTable />
-    </div>
+    <CommunityTable
+      data={data}
+      loading={loading}
+      error={error}
+      onDelete={handleDelete}
+      editRoute="/community-menu/dashboard/edit-community"
+      title="Community Management"
+      subtitle="Manage all crypto communities"
+    />
   )
 }

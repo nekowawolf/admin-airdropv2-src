@@ -1,22 +1,27 @@
-"use client"
+'use client'
 
-import { useAuthGuard } from '@/hooks/auth-guard/useAuthGuard'
 import { useState } from 'react'
 import { FiUsers, FiLink, FiImage } from 'react-icons/fi'
-import { useAddCommunity } from '@/hooks/community/useAddCommunity'
+import { useEditCommunity } from '@/hooks/community/useEditCommunity'
 import { CommunityRequest } from '@/types/community'
+import { useRouter } from 'next/navigation'
 
-export default function AddCommunityForm() {
-  useAuthGuard()
+interface EditCommunityFormProps {
+  communityData: any
+  onSuccess?: () => void
+}
+
+export default function EditCommunityForm({ communityData, onSuccess }: EditCommunityFormProps) {
+  const router = useRouter()
   const [formData, setFormData] = useState<CommunityRequest>({
-    name: '',
-    platforms: '',
-    category: '',
-    img_url: '',
-    link_url: ''
+    name: communityData?.name || '',
+    platforms: communityData?.platforms || '',
+    category: communityData?.category || '',
+    img_url: communityData?.img_url || '',
+    link_url: communityData?.link_url || ''
   })
 
-  const { isSubmitting, submitCommunity } = useAddCommunity()
+  const { isSubmitting, successMessage, errorMessage, editCommunity } = useEditCommunity()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -26,35 +31,41 @@ export default function AddCommunityForm() {
     }))
   }
 
-  const resetForm = () => {
-    setFormData({
-      name: '',
-      platforms: '',
-      category: '',
-      img_url: '',
-      link_url: ''
-    })
-  }
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    await submitCommunity(formData)
-    resetForm()
+
+    const success = await editCommunity(communityData._id, formData)
+    if (success && onSuccess) {
+      onSuccess()
+    }
+  }
+
+  const handleCancel = () => {
+    router.back()
   }
 
   return (
     <div className="space-y-12 mt-6 sm:mt-0">
       <div className="text-center sm:text-left">
         <h2 className="text-lg sm:text-2xl font-semibold text-primary">
-          Add New Community
+          Edit Community
         </h2>
         <p className="text-xs sm:text-sm text-secondary">
-          Create a new crypto community listing
+          Update community information
         </p>
       </div>
 
       <div className="bg-[var(--fill-color)] border border-border-color rounded-xl p-6 pb-1 shadow-lg w-full sm:w-5/6 mx-auto mb-8">
         <div className="mb-8">
+          <div className="mb-6">
+            <div className="flex items-center gap-2 card-color2 rounded-lg p-3 border border-border-divider">
+              <FiUsers className="w-4 h-4 text-blue-600" />
+              <span className="text-sm font-medium text-primary">
+                Community Information
+              </span>
+            </div>
+          </div>
+
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 gap-6">
               {/* Community Name */}
@@ -164,14 +175,25 @@ export default function AddCommunityForm() {
                 </div>
               </div>
 
+              {/* Success/Error Messages */}
+              {(successMessage || errorMessage) && (
+                <div className={`p-4 rounded-lg border ${
+                  successMessage 
+                    ? 'bg-green-50 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-800 dark:text-green-300' 
+                    : 'bg-red-50 border-red-200 text-red-800 dark:bg-red-900/20 dark:border-red-800 dark:text-red-300'
+                }`}>
+                  {successMessage || errorMessage}
+                </div>
+              )}
+
               {/* Form Actions */}
               <div className="flex justify-end gap-4 pt-6 border-t border-border-divider">
                 <button
                   type="button"
-                  onClick={resetForm}
+                  onClick={handleCancel}
                   className="px-6 py-3 cursor-pointer rounded-lg text-secondary border border-border-divider hover:bg-button-hover text-sm font-medium transition-colors duration-200"
                 >
-                  Reset Form
+                  Cancel
                 </button>
                 <button
                   type="submit"
@@ -181,10 +203,10 @@ export default function AddCommunityForm() {
                   {isSubmitting ? (
                     <>
                       <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></span>
-                      Creating...
+                      Updating...
                     </>
                   ) : (
-                    'Create Community'
+                    'Update Community'
                   )}
                 </button>
               </div>

@@ -97,7 +97,7 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
     const content = (
         <>
             {/* Sidebar Header */}
-            <div className="h-16 flex items-center gap-3 px-6 sidebar-border border-b">
+            <div className="h-16 flex items-center gap-3 px-6 sidebar-border">
                 <img
                     src="https://nekowawolf.github.io/delete-later/assets/img/icon_w.png"
                     alt="logo"

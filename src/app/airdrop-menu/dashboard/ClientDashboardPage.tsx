@@ -1,14 +1,14 @@
 'use client'
 
-import { useAuthGuard } from '@/hooks/useAuthGuard'
-import { useAirdropData } from '@/hooks/useAirdropData'
-import { useAirdropEndedData } from '@/hooks/useAirdropEndedData'
+import { useAuthGuard } from '@/hooks/auth-guard/useAuthGuard'
+import { useAirdropData } from '@/hooks/airdrop/useAirdropData'
+import { useAirdropEndedData } from '@/hooks/airdrop/useAirdropEndedData'
 import StatCard from '@/components/dashboard/chart/StatCard'
 import BackerChart from '@/components/dashboard/chart/BackerChart'
 import MonthlyAirdropChart from '@/components/dashboard/chart/MonthlyAirdropChart'
 import ProjectMetricsChart from '@/components/dashboard/chart/ProjectMetricsChart'
 import { Gift, TimerOff, DollarSign, Rocket, Users, BarChart3, TrendingUp, Filter, Calendar } from 'lucide-react'
-import { useBackerData, useMonthlyAirdropData, useProjectMetrics } from '@/hooks/useChartData'
+import { useBackerData, useMonthlyAirdropData, useProjectMetrics } from '@/hooks/airdrop/useChartData'
 import { Spinner } from '@/components/ui/shadcn-io/spinner'
 import { useState, useMemo, useRef, useEffect } from 'react'
 import { IoIosArrowUp } from "react-icons/io"

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { updateAirdropEnded } from '@/services/endedService'
+import { updateAirdropEnded } from '@/services/airdrop/endedService'
 
 export function useEditAirdrop() {
   const [isSubmitting, setIsSubmitting] = useState(false)

@@ -1,10 +1,10 @@
-import { authFetch } from '@/services/authService'
-import { AirdropPaidRequest } from '@/types/airdrop'
+import { authFetch } from '@/services/auth/authService'
+import { AirdropFreeRequest } from '@/types/airdrop'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
-export const createAirdropPaid = async (data: AirdropPaidRequest) => {
-  const response = await authFetch(`${API_BASE_URL}/airdrop/paidairdrop`, {
+export const createAirdropFree = async (data: AirdropFreeRequest) => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/freeairdrop`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -12,29 +12,29 @@ export const createAirdropPaid = async (data: AirdropPaidRequest) => {
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}))
-    throw new Error(errorData.message || 'Failed to create paid airdrop')
+    throw new Error(errorData.message || 'Failed to create free airdrop')
   }
 
   return response.json()
 }
 
-export const getAirdropPaid = async () => {
-  const response = await authFetch(`${API_BASE_URL}/airdrop/paidairdrop`, {
+export const getAirdropFree = async () => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/freeairdrop`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   })
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}))
-    throw new Error(errorData.message || 'Failed to fetch paid airdrops')
+    throw new Error(errorData.message || 'Failed to fetch free airdrops')
   }
 
   const data = await response.json()
   return Array.isArray(data.data) ? data.data : []
 }
 
-export const updateAirdropPaid = async (id: string, data: AirdropPaidRequest) => {
-  const response = await authFetch(`${API_BASE_URL}/airdrop/paidairdrop/${id}`, {
+export const updateAirdropFree = async (id: string, data: AirdropFreeRequest) => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/freeairdrop/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -42,14 +42,14 @@ export const updateAirdropPaid = async (id: string, data: AirdropPaidRequest) =>
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}))
-    throw new Error(errorData.message || 'Failed to update paid airdrop')
+    throw new Error(errorData.message || 'Failed to update free airdrop')
   }
 
   return response.json()
 }
 
-export const getAirdropPaidById = async (id: string) => {
-  const response = await authFetch(`${API_BASE_URL}/airdrop/paidairdrop/${id}`, {
+export const getAirdropFreeById = async (id: string) => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/freeairdrop/${id}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   })
@@ -63,14 +63,14 @@ export const getAirdropPaidById = async (id: string) => {
   return data.data
 }
 
-export const deleteAirdropPaid = async (id: string) => {
-  const response = await authFetch(`${API_BASE_URL}/airdrop/paidairdrop/${id}`, {
+export const deleteAirdropFree = async (id: string) => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/freeairdrop/${id}`, {
     method: 'DELETE',
   })
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}))
-    throw new Error(errorData.message || 'Failed to delete paid airdrop')
+    throw new Error(errorData.message || 'Failed to delete free airdrop')
   }
 
   return response.json()

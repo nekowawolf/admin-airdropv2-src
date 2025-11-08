@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { getAirdropEndedById } from '@/services/endedService'
+import { getAirdropEndedById } from '@/services/airdrop/endedService'
 import EditAirdropForm from '@/components/airdrops/EditAirdropEndedForm'
 import { Spinner } from "@/components/ui/shadcn-io/spinner"
-import { useAuthGuard } from '@/hooks/useAuthGuard'
+import { useAuthGuard } from '@/hooks/auth-guard/useAuthGuard'
 import { toast } from 'sonner'
 
 export default function EditAirdropEndedPage() {

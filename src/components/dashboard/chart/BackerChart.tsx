@@ -13,7 +13,7 @@ import {
   ChartOptions
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
-import { BackerData } from '@/services/chartService'
+import { BackerData } from '@/services/airdrop/chartService'
 import { Spinner } from '@/components/ui/shadcn-io/spinner'
 
 ChartJS.register(

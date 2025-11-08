@@ -1,7 +1,7 @@
 'use client'
 
-import { useAuthGuard } from '@/hooks/useAuthGuard'
-import { useAirdropEndedData } from '@/hooks/useAirdropEndedData'
+import { useAuthGuard } from '@/hooks/auth-guard/useAuthGuard'
+import { useAirdropEndedData } from '@/hooks/airdrop/useAirdropEndedData'
 import EndedAirdropTable from '@/components/airdrops/AirdropTableEnded'
 
 export default function EndedAirdropsPage() {

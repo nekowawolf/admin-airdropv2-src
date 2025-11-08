@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
-import { getBackerStats, BackerData } from '@/services/chartService'
-import { getMonthlyAirdropStatsByYear, MonthlyAirdropData } from '@/services/chartService'
-import { getProjectMetrics, ProjectMetric } from '@/services/chartService'
+import { getBackerStats, BackerData } from '@/services/airdrop/chartService'
+import { getMonthlyAirdropStatsByYear, MonthlyAirdropData } from '@/services/airdrop/chartService'
+import { getProjectMetrics, ProjectMetric } from '@/services/airdrop/chartService'
 
 export const useBackerData = () => {
   const [data, setData] = useState<BackerData[]>([])

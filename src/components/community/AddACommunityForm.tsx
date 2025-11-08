@@ -1,6 +1,9 @@
 'use client'
 
+import { useAuthGuard } from '@/hooks/auth-guard/useAuthGuard'
+
 export default function AddACommunityForm() {
+  useAuthGuard()
   return (
     <div className="space-y-6 mt-6 sm:mt-0">
       <div className="text-center sm:text-left">

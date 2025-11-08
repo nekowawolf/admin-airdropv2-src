@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { createAirdropFree } from '@/services/freeService'
-import { createAirdropPaid } from '@/services/paidService'
+import { createAirdropFree } from '@/services/airdrop/freeService'
+import { createAirdropPaid } from '@/services/airdrop/paidService'
 import { AirdropFreeRequest, AirdropPaidRequest } from '@/types/airdrop'
 
 export function useAddAirdrop() {

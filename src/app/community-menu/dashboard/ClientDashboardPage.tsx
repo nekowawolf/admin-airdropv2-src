@@ -1,6 +1,6 @@
 'use client'
 
-import { useAuthGuard } from '@/hooks/useAuthGuard'
+import { useAuthGuard } from '@/hooks/auth-guard/useAuthGuard'
 
 export default function ClientDashboardPage() {
   useAuthGuard()

@@ -14,7 +14,7 @@ import {
   ChartOptions,
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
-import { MonthlyAirdropData } from '@/services/chartService'
+import { MonthlyAirdropData } from '@/services/airdrop/chartService'
 import { Spinner } from '@/components/ui/shadcn-io/spinner'
 
 ChartJS.register(

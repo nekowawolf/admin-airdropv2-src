@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { toggleDarkMode, isDarkMode } from '@/utils/darkmode'
-import { logout } from '@/services/authService'
+import { logout } from '@/services/auth/authService'
 
 type HeaderProps = {
 	onToggleSidebar?: () => void

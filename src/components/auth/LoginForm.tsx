@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import { login } from '@/services/authService'
+import { login } from '@/services/auth/authService'
 
 export default function LoginForm() {
   const [username, setUsername] = useState('')

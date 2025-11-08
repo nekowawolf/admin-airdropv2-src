@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getAirdropEnded, deleteAirdropEnded } from '@/services/endedService'
+import { getAirdropEnded, deleteAirdropEnded } from '@/services/airdrop/endedService'
 
 export const useAirdropEndedData = () => {
   const [data, setData] = useState<any[]>([])

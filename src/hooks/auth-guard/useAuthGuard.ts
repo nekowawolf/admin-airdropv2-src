@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
 import { toast } from 'sonner'
-import { refreshAccessToken } from '@/services/authService'
+import { refreshAccessToken } from '@/services/auth/authService'
 
 export function useAuthGuard() {
   const router = useRouter()

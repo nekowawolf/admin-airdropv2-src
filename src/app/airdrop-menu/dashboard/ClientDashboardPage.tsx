@@ -167,7 +167,7 @@ export default function ClientDashboardPage() {
   ]
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-6 sm:mt-0">
       <div className="text-center sm:text-left">
         <h2 className="text-lg sm:text-2xl font-semibold text-primary">
           Dashboard Analytics

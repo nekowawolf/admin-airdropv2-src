@@ -90,6 +90,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
     const isCommunityDashboardPathActive =
         pathname.startsWith('/community-menu/dashboard') &&
         !pathname.includes('/add-community')
+    const isCommunityListActive =
+        pathname === '/community-menu/dashboard/community-list'
 
     // === SIDEBAR CONTENT ===
     const content = (
@@ -301,6 +303,16 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                                         }`}
                                     >
                                         Analytic
+                                    </Link>
+                                    <Link
+                                        href="/community-menu/dashboard/community-list"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isCommunityListActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Community List
                                     </Link>
                                 </div>
                             )}

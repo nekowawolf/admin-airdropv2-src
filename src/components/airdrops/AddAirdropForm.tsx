@@ -1,10 +1,10 @@
 "use client"
 
-import { useAuthGuard } from '@/hooks/useAuthGuard'
+import { useAuthGuard } from '@/hooks/auth-guard/useAuthGuard'
 import { useState, useRef, useEffect } from 'react'
 import { FiDollarSign, FiGift } from 'react-icons/fi'
 import { IoIosArrowUp } from "react-icons/io"
-import { useAddAirdrop } from '@/hooks/useAddAirdrop'
+import { useAddAirdrop } from '@/hooks/airdrop/useAddAirdrop'
 import { AirdropFormData } from '@/types/airdrop'
 
 interface DropdownOption {

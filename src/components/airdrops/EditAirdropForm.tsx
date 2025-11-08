@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { FiGift } from 'react-icons/fi'
 import { IoIosArrowUp } from "react-icons/io"
-import { useEditAirdrop } from '@/hooks/useEditAirdrop'
+import { useEditAirdrop } from '@/hooks/airdrop/useEditAirdrop'
 import { AirdropFormData } from '@/types/airdrop'
 import { useRouter } from 'next/navigation'
 

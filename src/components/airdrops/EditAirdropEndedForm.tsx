@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { FaFreeCodeCamp } from "react-icons/fa";
 import { IoIosArrowUp } from "react-icons/io"
-import { useEditAirdrop } from '@/hooks/useEditAirdropEnded'
+import { useEditAirdrop } from '@/hooks/airdrop/useEditAirdropEnded'
 import { useRouter } from 'next/navigation'
 
 interface DropdownOption {

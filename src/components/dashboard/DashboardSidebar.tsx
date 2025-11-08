@@ -114,43 +114,30 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
 
                 {/* === Airdrop Group === */}
                 <div>
-                    <div className="flex items-center gap-2">
-                        <Link
-                            href="/airdrop-menu/dashboard"
-                            className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
-                                pathname.startsWith('/airdrop-menu/dashboard')
-                                    ? 'border-accent text-accent bg-accent/10'
-                                    : openAirdrop
-                                    ? 'border-accent text-accent bg-accent/10'
-                                    : 'border-transparent text-secondary hover:hover-bg'
+                    <button
+                        type="button"
+                        onClick={handleAirdropDropdown}
+                        className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
+                            pathname.startsWith('/airdrop-menu/dashboard')
+                                ? 'border-accent text-accent bg-accent/10'
+                                : 'border-transparent text-secondary hover:hover-bg'
                             }`}
-                        >
-                            <HiMiniRocketLaunch
-                                className={`${
-                                    pathname.startsWith('/airdrop-menu/dashboard')
-                                        ? 'text-accent'
-                                        : openAirdrop
-                                        ? 'text-accent'
-                                        : 'text-muted'
-                                }`}
-                                size={18}
-                            />
-                            <span>Airdrop</span>
-                        </Link>
-                        <button
-                            type="button"
-                            onClick={handleAirdropDropdown}
-                            aria-expanded={openAirdrop}
-                            className="p-2 rounded-md text-muted hover:text-accent"
-                            title="Toggle Airdrop menu"
-                        >
-                            <i
-                                className={`fa-solid fa-caret-down text-xs transition-transform ${
-                                    openAirdrop ? 'rotate-180' : ''
-                                }`}
-                            />
-                        </button>
-                    </div>
+                    >
+                        <HiMiniRocketLaunch
+                            className={`${
+                                pathname.startsWith('/airdrop-menu/dashboard')
+                                    ? 'text-accent'
+                                    : 'text-muted'
+                            }`}
+                            size={18}
+                        />
+                        <span>Airdrop</span>
+                        <i
+                            className={`fa-solid fa-caret-down ml-auto text-xs transition-transform ${
+                                openAirdrop ? 'rotate-180' : ''
+                            }`}
+                        />
+                    </button>
 
                     {openAirdrop && (
                         <div className="pl-8 mt-2 space-y-1">
@@ -248,43 +235,31 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
 
                 {/* === Community Group === */}
                 <div>
-                    <div className="flex items-center gap-2">
-                        <Link
-                            href="/community-menu/dashboard"
-                            className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
+                    <button
+                        type="button"
+                        onClick={handleCommunityDropdown}
+                        className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
+                            pathname.startsWith('/community-menu/dashboard')
+                                ? 'border-accent text-accent bg-accent/10'
+                                : 'border-transparent text-secondary hover:hover-bg'
+
+                        }`}
+                    >
+                        <FaLayerGroup
+                            className={`${
                                 pathname.startsWith('/community-menu/dashboard')
-                                    ? 'border-accent text-accent bg-accent/10'
-                                    : openCommunity
-                                    ? 'border-accent text-accent bg-accent/10'
-                                    : 'border-transparent text-secondary hover:hover-bg'
+                                    ? 'text-accent'
+                                    : 'text-muted'
                             }`}
-                        >
-                            <FaLayerGroup
-                                className={`${
-                                    pathname.startsWith('/community-menu/dashboard')
-                                        ? 'text-accent'
-                                        : openCommunity
-                                        ? 'text-accent'
-                                        : 'text-muted'
-                                }`}
-                                size={18}
-                            />
-                            <span>Community</span>
-                        </Link>
-                        <button
-                            type="button"
-                            onClick={handleCommunityDropdown}
-                            aria-expanded={openCommunity}
-                            className="p-2 rounded-md text-muted hover:text-accent"
-                            title="Toggle Community menu"
-                        >
-                            <i
-                                className={`fa-solid fa-caret-down text-xs transition-transform ${
-                                    openCommunity ? 'rotate-180' : ''
-                                }`}
-                            />
-                        </button>
-                    </div>
+                            size={18}
+                        />
+                        <span>Community</span>
+                        <i
+                            className={`fa-solid fa-caret-down ml-auto text-xs transition-transform ${
+                                openCommunity ? 'rotate-180' : ''
+                            }`}
+                        />
+                    </button>
 
                     {openCommunity && (
                         <div className="pl-8 mt-2 space-y-1">

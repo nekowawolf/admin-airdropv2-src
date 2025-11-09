@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { getCommunityById } from '@/services/community/communityService'
 import EditCommunityForm from '@/components/community/EditCommunityForm'
@@ -16,16 +16,28 @@ export default function EditCommunityClient() {
   const [communityData, setCommunityData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const hasFetched = useRef(false)
 
   const id = params.id as string
 
   useEffect(() => {
+    if (hasFetched.current) return
+    hasFetched.current = true
+
     const fetchCommunityData = async () => {
       try {
         setLoading(true)
+        setError(null)
+        
         const community = await getCommunityById(id)
-        setCommunityData(community)
+        
+        if (community && community._id) {
+          setCommunityData(community)
+        } else {
+          setError('Community data is invalid')
+        }
       } catch (err: any) {
+        console.error('Error fetching community:', err)
         setError(err.message || 'Failed to fetch community data')
       } finally {
         setLoading(false)
@@ -34,6 +46,9 @@ export default function EditCommunityClient() {
 
     if (id) {
       fetchCommunityData()
+    } else {
+      setError('No community ID provided')
+      setLoading(false)
     }
   }, [id])
 
@@ -42,7 +57,7 @@ export default function EditCommunityClient() {
     router.push('/community-menu/dashboard/community-list')
   }
 
-  if (loading) {
+  if (loading && !communityData) {
     return (
       <div className="flex justify-center py-10 mt-36">
         <Spinner variant="circle" size={40} className="text-blue-500" />
@@ -50,7 +65,7 @@ export default function EditCommunityClient() {
     )
   }
 
-  if (error) {
+  if (error && !communityData) {
     return (
       <div className="flex flex-col items-center justify-start min-h-screen">
         <div className="text-center mt-24">
@@ -67,7 +82,7 @@ export default function EditCommunityClient() {
     )
   }
 
-  if (!communityData) {
+  if (!loading && !error && !communityData) {
     return (
       <div className="flex flex-col items-center justify-start min-h-screen">
         <div className="text-center mt-24">

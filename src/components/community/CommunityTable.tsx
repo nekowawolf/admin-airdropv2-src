@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/pagination"
 import { Spinner } from "@/components/ui/shadcn-io/spinner"
 import { cn } from "@/lib/utils"
+import Image from 'next/image'
 import { HiEllipsisVertical } from "react-icons/hi2"
 import { FaTrash } from "react-icons/fa"
 import { MdEdit } from "react-icons/md"
@@ -203,15 +204,19 @@ export default function CommunityTable({
                     </td>
                     <td className="px-6 py-2">{item.category || 'N/A'}</td>
                     <td className="px-6 py-2">
-                      {item.img_url ? (
-                        <img 
-                          src={item.img_url} 
-                          alt={item.name}
-                          className="w-10 h-10 object-cover rounded-lg"
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none'
-                          }}
-                        />
+                       {item.img_url ? (
+                          <div className="relative w-10 h-10">
+                            <Image 
+                              src={item.img_url} 
+                              alt={item.name}
+                              fill
+                              className="object-cover rounded-lg"
+                              sizes="40px"
+                              onError={(e) => {
+                                e.currentTarget.style.display = 'none'
+                              }}
+                            />
+                          </div>
                       ) : (
                         <span className="text-primary">No Image</span>
                       )}

@@ -6,7 +6,8 @@ import { usePathname } from 'next/navigation'
 import { RxDashboard } from 'react-icons/rx'
 import { IoIosAddCircleOutline } from 'react-icons/io'
 import { HiMiniRocketLaunch } from 'react-icons/hi2'
-import { FaLayerGroup } from 'react-icons/fa'
+import { FaLayerGroup, FaUserCircle, FaBitcoin } from 'react-icons/fa'
+import { MdImage } from 'react-icons/md'
 
 type SidebarProps = {
     isOpen?: boolean
@@ -20,6 +21,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
     const [openDashboard, setOpenDashboard] = useState(false)
     const [openCommunity, setOpenCommunity] = useState(false)
     const [openCommunityDashboard, setOpenCommunityDashboard] = useState(false)
+    const [openImages, setOpenImages] = useState(false)
+    const [openImagesDashboard, setOpenImagesDashboard] = useState(false)
 
     // === HANDLE ACTIVE SECTIONS ===
     useEffect(() => {
@@ -43,6 +46,14 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                 setOpenCommunityDashboard(true)
             }
         }
+
+        if (pathname.startsWith('/images-menu/dashboard')) {
+            setOpenImages(true)
+            if (!pathname.includes('/add-image')) {
+                setOpenImagesDashboard(true)
+            }
+        }
+
     }, [pathname])
 
     // === HANDLERS ===
@@ -73,6 +84,22 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
     const handleCommunityDashboardDropdown = () =>
         setOpenCommunityDashboard((v) => !v)
 
+    const handleImagesDropdown = () => {
+        setOpenImages(prev => {
+            const next = !prev
+            if (next) {
+                setOpenAirdrop(false)
+                setOpenDashboard(false)
+                setOpenCommunity(false)
+                setOpenCommunityDashboard(false)
+            }
+            return next
+        })
+    }
+
+    const handleImagesDashboardDropdown = () =>
+        setOpenImagesDashboard(v => !v)
+
     // === ACTIVE PATH DETECTION ===
     const isAnalyticsActive = pathname === '/airdrop-menu/dashboard'
     const isFreeActive = pathname === '/airdrop-menu/dashboard/airdrop/free'
@@ -92,6 +119,15 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
         !pathname.includes('/add-community')
     const isCommunityListActive =
         pathname === '/community-menu/dashboard/community-list'
+
+    const isImagesActive = 
+        pathname === '/images-menu/dashboard/images-list'
+    const isImagesDashboardActive =
+        pathname.startsWith('/images-menu/dashboard') && !pathname.includes('/add-image')
+    const isImagesAnalyticActive =
+        pathname === '/images-menu/dashboard'
+    const isAddImageActive =
+        pathname === '/images-menu/dashboard/add-image'    
 
     // === SIDEBAR CONTENT ===
     const content = (
@@ -334,6 +370,129 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                                     size={18}
                                 />
                                 <span>Add Community</span>
+                            </Link>
+                        </div>
+                    )}
+                </div>
+                
+                {/* === Portofolio Group === */}
+                <div
+                    className={`
+                        group flex items-center gap-3 rounded-lg px-3 py-2 text-sm w-full text-left
+                        border-l-4 border-transparent 
+                        text-secondary opacity-60
+                    `}
+                >
+                    <FaUserCircle className="text-muted" size={18} />
+                    <span>Portfolio</span>
+                </div>
+
+                {/* === Crypto Tools Group === */}
+                <div
+                    className={`
+                        group flex items-center gap-3 rounded-lg px-3 py-2 text-sm w-full text-left
+                        border-l-4 border-transparent 
+                        text-secondary opacity-60
+                    `}
+                >
+                    <FaBitcoin className="text-muted" size={18} />
+                    <span>Crypto Tools</span>
+                </div>
+
+                {/* === Image Resources Group === */}
+                <div>
+                    <button
+                        type="button"
+                        onClick={handleImagesDropdown}
+                        className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
+                            pathname.startsWith('/images-menu/dashboard')
+                                ? 'border-accent text-accent bg-accent/10'
+                                : 'border-transparent text-secondary hover:hover-bg'
+                        }`}
+                    >
+                        <MdImage
+                            className={`${
+                                pathname.startsWith('/images-menu/dashboard')
+                                    ? 'text-accent'
+                                    : 'text-muted'
+                            }`}
+                            size={18}
+                        />
+                        <span>Image Resources</span>
+                        <i
+                            className={`fa-solid fa-caret-down ml-auto text-xs transition-transform ${
+                                openImages ? 'rotate-180' : ''
+                            }`}
+                        />
+                    </button>
+
+                    {openImages && (
+                        <div className="pl-8 mt-2 space-y-1">
+                            <button
+                                type="button"
+                                onClick={handleImagesDashboardDropdown}
+                                className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
+                                    isImagesDashboardActive
+                                        ? 'border-accent text-accent bg-accent/10'
+                                        : 'border-transparent text-secondary hover:hover-bg'
+                                }`}
+                            >
+                                <RxDashboard
+                                    className={`${
+                                        isImagesDashboardActive
+                                            ? 'text-accent'
+                                            : 'text-muted'
+                                    }`}
+                                    size={18}
+                                />
+                                <span>Dashboard</span>
+                                <i
+                                    className={`fa-solid fa-caret-down ml-auto text-xs transition-transform ${
+                                        openImagesDashboard ? 'rotate-180' : ''
+                                    }`}
+                                />
+                            </button>
+
+                            {openImagesDashboard && (
+                                <div className="pl-8 mt-1 space-y-1">
+                                     <Link
+                                        href="/images-menu/dashboard"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isImagesAnalyticActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Analytic
+                                    </Link>
+                                    <Link
+                                        href="/images-menu/dashboard/images-list"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isImagesActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Images
+                                    </Link>
+                                </div>
+                            )}
+
+                            <Link
+                                href="/images-menu/dashboard/add-image"
+                                className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors border-l-4 ${
+                                    isAddImageActive
+                                        ? 'border-accent text-accent bg-accent/10'
+                                        : 'border-transparent text-secondary hover:hover-bg'
+                                }`}
+                            >
+                                <IoIosAddCircleOutline
+                                    className={`${
+                                        isAddImageActive ? 'text-accent' : 'text-muted'
+                                    }`}
+                                    size={18}
+                                />
+                                <span>Add Image</span>
                             </Link>
                         </div>
                     )}

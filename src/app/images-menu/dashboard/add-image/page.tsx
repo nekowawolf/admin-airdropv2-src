@@ -1,7 +1,7 @@
-import AddACommunityForm from '@/components/community/AddCommunityForm'
+import AddACommunityForm from '@/components/image-resources/AddImagesForm'
 import { dashboardMetadata } from '@/constants/metadataTemplates'
 
-export const metadata = dashboardMetadata('Add Community', 'Add new Community')
+export const metadata = dashboardMetadata('Add Airdrop', 'Add new airdrop campaign')
 
 export default function Page() {
   return (

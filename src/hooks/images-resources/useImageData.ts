@@ -10,6 +10,7 @@ export const useImageData = () => {
   const fetchData = async () => {
     try {
       setLoading(true)
+      setError(null)
       const result = await getAllImages()
       const validData = Array.isArray(result) ? result.filter(item => 
         item && 
@@ -20,6 +21,7 @@ export const useImageData = () => {
       setData(validData.reverse())
     } catch (err: any) {
       setError(err.message || 'Failed to fetch images')
+      console.error('Error fetching images:', err)
     } finally {
       setLoading(false)
     }
@@ -29,8 +31,9 @@ export const useImageData = () => {
     try {
       await deleteImage(id)
       setData(prev => prev.filter(item => item._id !== id))
-      return true
+      return Promise.resolve()
     } catch (err: any) {
+      console.error('Error deleting image:', err)
       throw new Error(err.message || 'Failed to delete image')
     }
   }

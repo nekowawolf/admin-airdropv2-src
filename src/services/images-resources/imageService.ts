@@ -31,8 +31,9 @@ export const getAllImages = async (): Promise<Image[]> => {
     throw new Error(errorData.message || 'Failed to fetch images')
   }
 
-  const data = await response.json()
-  return Array.isArray(data.data) ? data.data : []
+  const result = await response.json()
+  
+  return result
 }
 
 export const deleteImage = async (id: string): Promise<void> => {

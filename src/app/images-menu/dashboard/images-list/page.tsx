@@ -1,7 +1,7 @@
 import { dashboardMetadata } from '@/constants/metadataTemplates'
 import ImagesListClient from './ImagesListClient'
 
-export const metadata = dashboardMetadata('Airdrop Ended', 'Airdrop Ended Dashboard')
+export const metadata = dashboardMetadata('Images Management', 'Manage all uploaded images')
 
 export default function Page() {
   return <ImagesListClient />

@@ -232,7 +232,7 @@ export default function ImagesTable({
                       </div>
                     </td>
                     <td className="px-6 py-4 text-secondary text-sm">
-                      N/A
+                      {item.size ? formatFileSize(item.size) : 'N/A'}
                     </td>
                     <td className="px-6 py-4 relative">
                       <button 

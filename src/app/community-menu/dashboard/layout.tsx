@@ -2,8 +2,8 @@
 
 import type { ReactNode } from 'react'
 import { useState } from 'react'
-import DashboardSidebar from '@/components/dashboard/DashboardSidebar'
-import DashboardHeader from '@/components/dashboard/DashboardHeader'
+import DashboardSidebar from '@/components/layouts/DashboardSidebar'
+import DashboardHeader from '@/components/layouts/DashboardHeader'
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)

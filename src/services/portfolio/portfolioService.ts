@@ -1,0 +1,196 @@
+import { authFetch } from '@/services/auth/authService'
+import { 
+  Portfolio, 
+  Certificate, 
+  Design, 
+  Project, 
+  Experience, 
+  Education, 
+  SkillItem 
+} from '@/types/portfolio'
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
+
+export const getPortfolio = async (): Promise<Portfolio> => {
+  const response = await fetch(`${API_BASE_URL}/airdrop/portfolio`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch portfolio')
+  }
+
+  return response.json()
+}
+
+export const updatePortfolio = async (data: Portfolio): Promise<any> => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/portfolio`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}))
+    throw new Error(errorData.error || 'Failed to update portfolio')
+  }
+
+  return response.json()
+}
+
+export const addCertificate = async (data: Certificate): Promise<any> => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/portfolio/certificates`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to add certificate')
+  }
+
+  return response.json()
+}
+
+export const addDesign = async (data: Design): Promise<any> => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/portfolio/designs`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to add design')
+  }
+
+  return response.json()
+}
+
+export const addProject = async (data: Project): Promise<any> => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/portfolio/projects`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to add project')
+  }
+
+  return response.json()
+}
+
+export const addExperience = async (data: Experience): Promise<any> => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/portfolio/experience`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to add experience')
+  }
+
+  return response.json()
+}
+
+export const addEducation = async (data: Education): Promise<any> => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/portfolio/education`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to add education')
+  }
+
+  return response.json()
+}
+
+export const addTechSkill = async (data: SkillItem): Promise<any> => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/portfolio/skills/tech`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to add tech skill')
+  }
+
+  return response.json()
+}
+
+export const deleteCertificate = async (id: string): Promise<any> => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/portfolio/certificates/${id}`, {
+    method: 'DELETE',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to delete certificate')
+  }
+
+  return response.json()
+}
+
+export const deleteDesign = async (id: string): Promise<any> => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/portfolio/designs/${id}`, {
+    method: 'DELETE',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to delete design')
+  }
+
+  return response.json()
+}
+
+export const deleteProject = async (id: string): Promise<any> => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/portfolio/projects/${id}`, {
+    method: 'DELETE',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to delete project')
+  }
+
+  return response.json()
+}
+
+export const deleteExperience = async (id: string): Promise<any> => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/portfolio/experience/${id}`, {
+    method: 'DELETE',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to delete experience')
+  }
+
+  return response.json()
+}
+
+export const deleteEducation = async (id: string): Promise<any> => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/portfolio/education/${id}`, {
+    method: 'DELETE',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to delete education')
+  }
+
+  return response.json()
+}
+
+export const deleteTechSkill = async (id: string): Promise<any> => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/portfolio/skills/tech/${id}`, {
+    method: 'DELETE',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to delete tech skill')
+  }
+
+  return response.json()
+}

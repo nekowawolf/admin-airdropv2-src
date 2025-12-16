@@ -21,6 +21,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
     const [openDashboard, setOpenDashboard] = useState(false)
     const [openCommunity, setOpenCommunity] = useState(false)
     const [openCommunityDashboard, setOpenCommunityDashboard] = useState(false)
+    const [openPortfolio, setOpenPortfolio] = useState(false)
+    const [openPortfolioDashboard, setOpenPortfolioDashboard] = useState(false)
     const [openImages, setOpenImages] = useState(false)
     const [openImagesDashboard, setOpenImagesDashboard] = useState(false)
 
@@ -30,6 +32,10 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
         setOpenDashboard(false)
         setOpenCommunity(false)
         setOpenCommunityDashboard(false)
+        setOpenPortfolio(false)
+        setOpenPortfolioDashboard(false)
+        setOpenImages(false)
+        setOpenImagesDashboard(false)
 
         // === AIRDROP PATH ===
         if (pathname.startsWith('/airdrop-menu/dashboard')) {
@@ -47,6 +53,13 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
             }
         }
 
+        // === PORTFOLIO PATH ===
+        if (pathname.startsWith('/portfolio-menu/dashboard')) {
+            setOpenPortfolio(true)
+            setOpenPortfolioDashboard(true)
+        }
+
+        // === IMAGES PATH ===
         if (pathname.startsWith('/images-menu/dashboard')) {
             setOpenImages(true)
             if (!pathname.includes('/add-image')) {
@@ -63,6 +76,10 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
             if (next) {
                 setOpenCommunity(false)
                 setOpenCommunityDashboard(false)
+                setOpenPortfolio(false)
+                setOpenPortfolioDashboard(false)
+                setOpenImages(false)
+                setOpenImagesDashboard(false)
             }
             return next
         })
@@ -76,6 +93,10 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
             if (next) {
                 setOpenAirdrop(false)
                 setOpenDashboard(false)
+                setOpenPortfolio(false)
+                setOpenPortfolioDashboard(false)
+                setOpenImages(false)
+                setOpenImagesDashboard(false)
             }
             return next
         })
@@ -83,6 +104,24 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
 
     const handleCommunityDashboardDropdown = () =>
         setOpenCommunityDashboard((v) => !v)
+
+    const handlePortfolioDropdown = () => {
+        setOpenPortfolio((prev) => {
+            const next = !prev
+            if (next) {
+                setOpenAirdrop(false)
+                setOpenDashboard(false)
+                setOpenCommunity(false)
+                setOpenCommunityDashboard(false)
+                setOpenImages(false)
+                setOpenImagesDashboard(false)
+            }
+            return next
+        })
+    }
+
+    const handlePortfolioDashboardDropdown = () =>
+        setOpenPortfolioDashboard((v) => !v)
 
     const handleImagesDropdown = () => {
         setOpenImages(prev => {
@@ -92,6 +131,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                 setOpenDashboard(false)
                 setOpenCommunity(false)
                 setOpenCommunityDashboard(false)
+                setOpenPortfolio(false)
+                setOpenPortfolioDashboard(false)
             }
             return next
         })
@@ -120,6 +161,10 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
     const isCommunityListActive =
         pathname === '/community-menu/dashboard/community-list'
 
+    const isPortfolioActive = pathname === '/portfolio-menu/dashboard'
+    const isPortfolioDashboardPathActive =
+        pathname.startsWith('/portfolio-menu/dashboard')
+
     const isImagesActive = 
         pathname === '/images-menu/dashboard/images-list'
     const isImagesDashboardActive =
@@ -127,7 +172,7 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
     const isImagesAnalyticActive =
         pathname === '/images-menu/dashboard'
     const isAddImageActive =
-        pathname === '/images-menu/dashboard/add-image'    
+        pathname === '/images-menu/dashboard/add-image'
 
     // === SIDEBAR CONTENT ===
     const content = (
@@ -375,16 +420,76 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                     )}
                 </div>
                 
-                {/* === Portofolio Group === */}
-                <div
-                    className={`
-                        group flex items-center gap-3 rounded-lg px-3 py-2 text-sm w-full text-left
-                        border-l-4 border-transparent 
-                        text-secondary opacity-60
-                    `}
-                >
-                    <FaUserCircle className="text-muted" size={18} />
-                    <span>Portfolio</span>
+                {/* === Portfolio Group === */}
+                <div>
+                    <button
+                        type="button"
+                        onClick={handlePortfolioDropdown}
+                        className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
+                            pathname.startsWith('/portfolio-menu/dashboard')
+                                ? 'border-accent text-accent bg-accent/10'
+                                : 'border-transparent text-secondary hover:hover-bg'
+                        }`}
+                    >
+                        <FaUserCircle
+                            className={`${
+                                pathname.startsWith('/portfolio-menu/dashboard')
+                                    ? 'text-accent'
+                                    : 'text-muted'
+                            }`}
+                            size={18}
+                        />
+                        <span>Portfolio</span>
+                        <i
+                            className={`fa-solid fa-caret-down ml-auto text-xs transition-transform ${
+                                openPortfolio ? 'rotate-180' : ''
+                            }`}
+                        />
+                    </button>
+
+                    {openPortfolio && (
+                        <div className="pl-8 mt-2 space-y-1">
+                            <button
+                                type="button"
+                                onClick={handlePortfolioDashboardDropdown}
+                                className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
+                                    isPortfolioDashboardPathActive
+                                        ? 'border-accent text-accent bg-accent/10'
+                                        : 'border-transparent text-secondary hover:hover-bg'
+                                }`}
+                            >
+                                <RxDashboard
+                                    className={`${
+                                        isPortfolioDashboardPathActive
+                                            ? 'text-accent'
+                                            : 'text-muted'
+                                    }`}
+                                    size={18}
+                                />
+                                <span>Dashboard</span>
+                                <i
+                                    className={`fa-solid fa-caret-down ml-auto text-xs transition-transform ${
+                                        openPortfolioDashboard ? 'rotate-180' : ''
+                                    }`}
+                                />
+                            </button>
+
+                            {openPortfolioDashboard && (
+                                <div className="pl-8 mt-1 space-y-1">
+                                    <Link
+                                        href="/portfolio-menu/dashboard"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isPortfolioActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Manage Portfolio
+                                    </Link>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
 
                 {/* === Crypto Tools Group === */}
@@ -392,7 +497,7 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                     className={`
                         group flex items-center gap-3 rounded-lg px-3 py-2 text-sm w-full text-left
                         border-l-4 border-transparent 
-                        text-secondary opacity-60
+                        text-secondary opacity-60 cursor-not-allowed
                     `}
                 >
                     <FaBitcoin className="text-muted" size={18} />

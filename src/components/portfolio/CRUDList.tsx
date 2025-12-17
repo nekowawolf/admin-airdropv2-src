@@ -373,7 +373,7 @@ export default function CRUDList({
                   {field.label}
                 </th>
               ))}
-              <th className="px-4 py-3 text-sm font-medium text-primary text-right">Actions</th>
+              <th className="px-4 py-3 text-sm font-medium text-primary">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -385,7 +385,7 @@ export default function CRUDList({
                       {renderTableCell(item, field)}
                     </td>
                   ))}
-                  <td className="px-4 py-3 text-right">
+                  <td className="px-4 py-3">
                     <button 
                       onClick={(e) => handleOpenDropdown(e, index, item)}
                       className="p-1.5 hover:bg-[var(--hover-bg)] rounded-lg transition-colors"
@@ -422,7 +422,7 @@ export default function CRUDList({
         createPortal(
           <div
             ref={dropdownRef}
-            className="fixed z-50 w-36 dropdown-bg divide-y divide-border-divider rounded-lg shadow-lg border border-border-divider"
+            className="absolute z-50 w-36 dropdown-bg divide-y divide-border-divider rounded-lg shadow-lg border border-border-divider"
             style={{
               top: `${dropdownPosition.top}px`,
               left: `${dropdownPosition.left}px`

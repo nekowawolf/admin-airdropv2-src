@@ -305,10 +305,11 @@ export default function CRUDList({
         </div>
         <button
           onClick={() => setIsAdding(true)}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+          className="flex items-center gap-1.5 sm:gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm transition-colors whitespace-nowrap"
           disabled={isProcessing}
         >
-          <FaPlus /> Add {title.slice(0, -1)}
+          <FaPlus className="text-xs sm:text-sm" /> 
+          Add {title.slice(0, -1)}
         </button>
       </div>
 

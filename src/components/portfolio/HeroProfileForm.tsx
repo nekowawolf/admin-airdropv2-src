@@ -2,7 +2,10 @@
 
 import { useState } from 'react'
 import { HeroProfile } from '@/types/portfolio'
-import { FiUser, FiFileText, FiGithub, FiTwitter, FiLinkedin, FiMail } from 'react-icons/fi'
+import { FaGithub, FaLinkedin } from 'react-icons/fa'
+import { SiGmail } from 'react-icons/si'
+import { FaXTwitter } from 'react-icons/fa6'
+import { FiUser, FiFileText } from 'react-icons/fi'
 
 interface HeroProfileFormProps {
   data: HeroProfile
@@ -103,7 +106,7 @@ export default function HeroProfileForm({ data, onSubmit, isSubmitting }: HeroPr
           <div>
             <label className="block text-sm font-medium text-secondary mb-1">GitHub</label>
             <div className="relative">
-              <FiGithub className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted w-4 h-4" />
+              <FaGithub className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted w-4 h-4" />
               <input
                 type="url"
                 name="github"
@@ -118,7 +121,7 @@ export default function HeroProfileForm({ data, onSubmit, isSubmitting }: HeroPr
           <div>
             <label className="block text-sm font-medium text-secondary mb-1">Twitter</label>
             <div className="relative">
-              <FiTwitter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted w-4 h-4" />
+              <FaXTwitter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted w-4 h-4" />
               <input
                 type="url"
                 name="twitter"
@@ -133,7 +136,7 @@ export default function HeroProfileForm({ data, onSubmit, isSubmitting }: HeroPr
           <div>
             <label className="block text-sm font-medium text-secondary mb-1">LinkedIn</label>
             <div className="relative">
-              <FiLinkedin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted w-4 h-4" />
+              <FaLinkedin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted w-4 h-4" />
               <input
                 type="url"
                 name="linkedin"
@@ -148,7 +151,7 @@ export default function HeroProfileForm({ data, onSubmit, isSubmitting }: HeroPr
           <div>
             <label className="block text-sm font-medium text-secondary mb-1">Email *</label>
             <div className="relative">
-              <FiMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted w-4 h-4" />
+              <SiGmail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted w-4 h-4" />
               <input
                 type="email"
                 name="email"

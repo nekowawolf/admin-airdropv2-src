@@ -273,11 +273,11 @@ export default function CRUDList({
     
     if (field.type === 'array') {
       return (
-        <div className="flex flex-wrap gap-1">
+        <div className="flex flex-col gap-1.5">
           {Array.isArray(value) && value.map((subitem: string, index: number) => (
             <span 
               key={index} 
-              className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs"
+              className="bg-blue-100 text-blue-800 px-3 py-1.5 rounded-lg text-xs whitespace-nowrap"
             >
               {subitem}
             </span>
@@ -365,8 +365,8 @@ export default function CRUDList({
       )}
 
       {/* Items List */}
-      <div className="overflow-x-auto rounded-lg border border-border-divider">
-        <table className="w-full text-left">
+      <div className="overflow-x-auto overflow-y-auto rounded-lg border border-border-divider max-h-[500px]">
+        <table className="text-left min-w-max w-full">
           <thead className="bg-[var(--card-color3)]">
             <tr>
               {fields.map(field => (

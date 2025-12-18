@@ -18,6 +18,7 @@ export default function PortfolioDashboard() {
     sectionLoading,
     refetch,
     updatePortfolio,
+    updateHeroProfile,
     addCertificate,
     deleteCertificate,
     editCertificate,
@@ -100,7 +101,7 @@ export default function PortfolioDashboard() {
   ]
 
   const handleHeroUpdate = async (data: any) => {
-    await updatePortfolio({ hero: data })
+    await updateHeroProfile(data)
   }
 
   return (

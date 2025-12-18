@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { 
   getPortfolio, 
   updatePortfolio,
+  updateHeroProfile,
   addCertificate,
   addDesign,
   addProject,
@@ -22,7 +23,8 @@ import {
   Project, 
   Experience, 
   Education, 
-  SkillItem 
+  SkillItem,
+  HeroProfile,
 } from '@/types/portfolio'
 import { toast } from 'sonner'
 
@@ -60,6 +62,22 @@ export const usePortfolio = () => {
       return true
     } catch (err: any) {
       const message = err.message || 'Failed to update portfolio'
+      toast.error(message)
+      return false
+    } finally {
+      setIsUpdating(false)
+    }
+  }
+
+  const updateHeroData = async (data: HeroProfile) => {
+    setIsUpdating(true)
+    try {
+      await updateHeroProfile(data)
+      await fetchPortfolio()
+      toast.success('Hero profile updated successfully!')
+      return true
+    } catch (err: any) {
+      const message = err.message || 'Failed to update hero profile'
       toast.error(message)
       return false
     } finally {
@@ -226,6 +244,7 @@ export const usePortfolio = () => {
     
     refetch: fetchPortfolio,
     updatePortfolio: updatePortfolioData,
+    updateHeroProfile: updateHeroData,
     
     addCertificate: handleAddCertificate,
     deleteCertificate: handleDeleteCertificate,

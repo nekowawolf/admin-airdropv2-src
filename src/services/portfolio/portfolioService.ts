@@ -6,7 +6,8 @@ import {
   Project, 
   Experience, 
   Education, 
-  SkillItem 
+  SkillItem,
+  HeroProfile,
 } from '@/types/portfolio'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
@@ -34,6 +35,21 @@ export const updatePortfolio = async (data: Portfolio): Promise<any> => {
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}))
     throw new Error(errorData.error || 'Failed to update portfolio')
+  }
+
+  return response.json()
+}
+
+export const updateHeroProfile = async (data: HeroProfile): Promise<any> => {
+  const response = await authFetch(`${API_BASE_URL}/airdrop/portfolio/hero`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}))
+    throw new Error(errorData.error || 'Failed to update hero profile')
   }
 
   return response.json()

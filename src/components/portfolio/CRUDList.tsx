@@ -16,7 +16,7 @@ interface Item {
 interface CRUDListProps {
   title: string
   items: Item[]
-  fields: { key: string; label: string; type: 'text' | 'url' | 'textarea' | 'number' | 'array' }[]
+  fields: { key: string; label: string; type: 'text' | 'url' | 'textarea' | 'number' | 'array' | 'nested' }[]
   onAdd: (data: any) => Promise<void | boolean>
   onEdit: (id: string, data: any) => Promise<void | boolean>
   onDelete: (id: string) => Promise<void | boolean>
@@ -92,10 +92,33 @@ export default function CRUDList({
     }))
   }
 
+  const reconstructNestedFields = (data: any) => {
+    const result = { ...data }
+    const diagramFields = ['use_case', 'activity', 'erd', 'flowchart']
+    diagramFields.forEach(field => {
+      const imageKey = `${field}_image_url`
+      const descKey = `${field}_description`
+      const imageValue = result[imageKey]
+      const descValue = result[descKey]
+      const hasImage = imageValue && typeof imageValue === 'string' && imageValue.trim()
+      const hasDesc = descValue && typeof descValue === 'string' && descValue.trim()
+      if (hasImage || hasDesc) {
+        result[field] = {
+          image_url: hasImage ? imageValue.trim() : '',
+          description: hasDesc ? descValue.trim() : ''
+        }
+      }
+      delete result[imageKey]
+      delete result[descKey]
+    })
+    return result
+  }
+
   const handleAdd = async () => {
     setIsProcessing(true)
     try {
-      await onAdd(formData)
+      const reconstructedData = reconstructNestedFields(formData)
+      await onAdd(reconstructedData)
       setFormData({})
       setIsAdding(false)
       toast.success(`${title.slice(0, -1)} added successfully!`)
@@ -113,13 +136,14 @@ export default function CRUDList({
   const handleEdit = async (id: string) => {
     setIsProcessing(true)
     try {
-      await onEdit(id, formData)
+      const reconstructedData = reconstructNestedFields(formData)
+      await onEdit(id, reconstructedData)
       setEditingId(null)
       setFormData({})
       toast.success(`${title.slice(0, -1)} updated successfully!`)
       
       setLocalItems(prev => prev.map(item => 
-        item.id === id ? { ...item, ...formData } : item
+        item.id === id ? { ...item, ...reconstructedData } : item
       ))
       
       if (onRefresh) {
@@ -153,7 +177,16 @@ export default function CRUDList({
 
   const startEditing = (item: Item) => {
     setEditingId(item.id)
-    setFormData(item)
+    const flattened: any = { ...item }
+    const diagramFields = ['use_case', 'activity', 'erd', 'flowchart']
+    diagramFields.forEach(field => {
+      if (item[field] && typeof item[field] === 'object') {
+        flattened[`${field}_image_url`] = item[field].image_url || ''
+        flattened[`${field}_description`] = item[field].description || ''
+        delete flattened[field]
+      }
+    })
+    setFormData(flattened)
     setOpenDropdownIndex(null)
   }
 
@@ -179,8 +212,33 @@ export default function CRUDList({
     setFormData({})
   }
 
-  const renderFormField = (field: { key: string; label: string; type: 'text' | 'url' | 'textarea' | 'number' | 'array' }) => {
+  const renderFormField = (field: { key: string; label: string; type: 'text' | 'url' | 'textarea' | 'number' | 'array' | 'nested' }) => {
     const value = formData[field.key] || ''
+    
+    if (field.type === 'nested') {
+      const imageKey = `${field.key}_image_url`
+      const descKey = `${field.key}_description`
+      return (
+        <div className="space-y-3">
+          <input
+            type="url"
+            name={imageKey}
+            value={formData[imageKey] || ''}
+            onChange={handleInputChange}
+            className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary"
+            placeholder="Image URL"
+          />
+          <textarea
+            name={descKey}
+            value={formData[descKey] || ''}
+            onChange={handleInputChange}
+            className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary"
+            rows={3}
+            placeholder="Description"
+          />
+        </div>
+      )
+    }
     
     if (field.type === 'textarea') {
       return (
@@ -254,8 +312,35 @@ export default function CRUDList({
     )
   }
 
-  const renderTableCell = (item: Item, field: { key: string; label: string; type: 'text' | 'url' | 'textarea' | 'number' | 'array' }) => {
+  const renderTableCell = (item: Item, field: { key: string; label: string; type: 'text' | 'url' | 'textarea' | 'number' | 'array' | 'nested' }) => {
     const value = item[field.key]
+    
+    if (field.type === 'nested') {
+      const nestedValue = value as { image_url?: string; description?: string } | undefined
+      if (nestedValue && (nestedValue.image_url || nestedValue.description)) {
+        return (
+          <div className="flex flex-col gap-1">
+            {nestedValue.image_url && (
+              <a 
+                href={nestedValue.image_url} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline text-xs"
+              >
+                View Image
+              </a>
+            )}
+            {nestedValue.description && (
+              <span className="text-xs text-secondary truncate max-w-[200px]" title={nestedValue.description}>
+                {nestedValue.description}
+              </span>
+            )}
+            {!nestedValue.image_url && !nestedValue.description && '-'}
+          </div>
+        )
+      }
+      return <span className="text-secondary">-</span>
+    }
     
     if (field.type === 'url' && value) {
       return (

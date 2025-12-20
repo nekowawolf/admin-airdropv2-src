@@ -191,6 +191,14 @@ export default function PortfolioDashboard() {
               { key: 'description', label: 'Description', type: 'textarea' },
               { key: 'image_url', label: 'Image URL', type: 'url' },
               { key: 'link', label: 'Link', type: 'url' },
+              { key: 'github_url', label: 'GitHub URL', type: 'url' },
+              { key: 'video_url', label: 'Video URL', type: 'url' },
+              { key: 'screenshots', label: 'Screenshots', type: 'array' },
+              { key: 'stack', label: 'Tech Stack', type: 'array' },
+              { key: 'use_case', label: 'Use Case Diagram', type: 'nested' },
+              { key: 'activity', label: 'Activity Diagram', type: 'nested' },
+              { key: 'erd', label: 'ERD Diagram', type: 'nested' },
+              { key: 'flowchart', label: 'Flowchart Diagram', type: 'nested' },
             ]}
             onAdd={addProject}
             onEdit={editProject}

@@ -34,12 +34,25 @@ export interface Design {
   link: string;
 }
 
+export interface DiagramItem {
+  image_url: string;
+  description: string;
+}
+
 export interface Project {
   id: string;
   title: string;
   description: string;
   image_url: string;
   link: string;
+  github_url?: string;
+  screenshots?: string[];
+  video_url?: string;
+  use_case?: DiagramItem;
+  activity?: DiagramItem;
+  erd?: DiagramItem;
+  flowchart?: DiagramItem;
+  stack?: string[];
 }
 
 export interface Experience {

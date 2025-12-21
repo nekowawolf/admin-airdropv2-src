@@ -84,10 +84,19 @@ export const addDesign = async (data: Design): Promise<any> => {
 }
 
 export const addProject = async (data: Project): Promise<any> => {
+  const payload: any = {
+    ...data,
+    screenshots: Array.isArray(data.screenshots)
+      ? data.screenshots
+          .map((s: any) => (typeof s === 'string' ? s : s?.image_url || ''))
+          .filter((url: string) => typeof url === 'string' && url.trim().length > 0)
+      : undefined,
+  }
+
   const response = await authFetch(`${API_BASE_URL}/airdrop/portfolio/projects`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
+    body: JSON.stringify(payload),
   })
 
   if (!response.ok) {

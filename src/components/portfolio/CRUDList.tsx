@@ -13,10 +13,17 @@ interface Item {
   [key: string]: any
 }
 
+type FieldDef = { 
+  key: string; 
+  label: string; 
+  type: 'text' | 'url' | 'textarea' | 'number' | 'array' | 'nested' | 'screenshots';
+  options?: { showDescription?: boolean }
+}
+
 interface CRUDListProps {
   title: string
   items: Item[]
-  fields: { key: string; label: string; type: 'text' | 'url' | 'textarea' | 'number' | 'array' | 'nested' | 'screenshots' }[]
+  fields: FieldDef[]
   onAdd: (data: any) => Promise<void | boolean>
   onEdit: (id: string, data: any) => Promise<void | boolean>
   onDelete: (id: string) => Promise<void | boolean>
@@ -242,7 +249,7 @@ export default function CRUDList({
     setFormData({})
   }
 
-  const renderFormField = (field: { key: string; label: string; type: 'text' | 'url' | 'textarea' | 'number' | 'array' | 'nested' | 'screenshots' }) => {
+  const renderFormField = (field: FieldDef) => {
     const value = formData[field.key] || ''
     
     if (field.type === 'screenshots') {
@@ -267,13 +274,15 @@ export default function CRUDList({
                   Remove
                 </button>
               </div>
-              <textarea
-                value={item.description || ''}
-                onChange={(e) => handleScreenshotChange(field.key, index, 'description', e.target.value)}
-                className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary"
-                rows={2}
-                placeholder="Description (optional)"
-              />
+              {field.options?.showDescription !== false && (
+                <textarea
+                  value={item.description || ''}
+                  onChange={(e) => handleScreenshotChange(field.key, index, 'description', e.target.value)}
+                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary"
+                  rows={2}
+                  placeholder="Description (optional)"
+                />
+              )}
             </div>
           ))}
           <button
@@ -385,7 +394,7 @@ export default function CRUDList({
     )
   }
 
-  const renderTableCell = (item: Item, field: { key: string; label: string; type: 'text' | 'url' | 'textarea' | 'number' | 'array' | 'nested' | 'screenshots' }) => {
+  const renderTableCell = (item: Item, field: FieldDef) => {
     const value = item[field.key]
 
     if (field.key === 'image_url' && value) {

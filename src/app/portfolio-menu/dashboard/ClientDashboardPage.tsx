@@ -170,8 +170,12 @@ export default function PortfolioDashboard() {
             fields={[
               { key: 'title', label: 'Title', type: 'text' },
               { key: 'description', label: 'Description', type: 'textarea' },
-              { key: 'image_url', label: 'Image URL', type: 'url' },
+              { key: 'category', label: 'Category', type: 'text' },
+              { key: 'tools', label: 'Tools', type: 'array' },
+              { key: 'tags', label: 'Tags', type: 'array' },
+              { key: 'image_url', label: 'Thumbnail URL', type: 'url' },
               { key: 'link', label: 'Link', type: 'url' },
+              { key: 'screenshots', label: 'Screenshots', type: 'screenshots' },
             ]}
             onAdd={addDesign}
             onEdit={editDesign}

@@ -32,6 +32,15 @@ export interface Design {
   description: string;
   image_url: string;
   link: string;
+  category: string;
+  tools: string[];
+  tags: string[];
+  screenshots: Screenshot[];
+}
+
+export interface Screenshot {
+  image_url: string;
+  description?: string;
 }
 
 export interface DiagramItem {

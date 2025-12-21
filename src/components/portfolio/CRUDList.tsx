@@ -16,7 +16,7 @@ interface Item {
 interface CRUDListProps {
   title: string
   items: Item[]
-  fields: { key: string; label: string; type: 'text' | 'url' | 'textarea' | 'number' | 'array' | 'nested' }[]
+  fields: { key: string; label: string; type: 'text' | 'url' | 'textarea' | 'number' | 'array' | 'nested' | 'screenshots' }[]
   onAdd: (data: any) => Promise<void | boolean>
   onEdit: (id: string, data: any) => Promise<void | boolean>
   onDelete: (id: string) => Promise<void | boolean>
@@ -86,6 +86,29 @@ export default function CRUDList({
   }
 
   const handleRemoveArrayItem = (field: string, index: number) => {
+    setFormData((prev: any) => ({
+      ...prev,
+      [field]: prev[field].filter((_: any, i: number) => i !== index)
+    }))
+  }
+
+  const handleScreenshotChange = (field: string, index: number, subField: 'image_url' | 'description', value: string) => {
+    setFormData((prev: any) => ({
+      ...prev,
+      [field]: prev[field] ? prev[field].map((item: any, i: number) => 
+        i === index ? { ...item, [subField]: value } : item
+      ) : [{ [subField]: value }]
+    }))
+  }
+
+  const handleAddScreenshot = (field: string) => {
+    setFormData((prev: any) => ({
+      ...prev,
+      [field]: [...(prev[field] || []), { image_url: '', description: '' }]
+    }))
+  }
+
+  const handleRemoveScreenshot = (field: string, index: number) => {
     setFormData((prev: any) => ({
       ...prev,
       [field]: prev[field].filter((_: any, i: number) => i !== index)
@@ -212,9 +235,52 @@ export default function CRUDList({
     setFormData({})
   }
 
-  const renderFormField = (field: { key: string; label: string; type: 'text' | 'url' | 'textarea' | 'number' | 'array' | 'nested' }) => {
+  const renderFormField = (field: { key: string; label: string; type: 'text' | 'url' | 'textarea' | 'number' | 'array' | 'nested' | 'screenshots' }) => {
     const value = formData[field.key] || ''
     
+    if (field.type === 'screenshots') {
+      return (
+        <div className="space-y-4">
+          {(formData[field.key] || []).map((item: any, index: number) => (
+            <div key={index} className="flex flex-col gap-2">
+              <div className="flex gap-2">
+                <input
+                  type="url"
+                  value={item.image_url || ''}
+                  onChange={(e) => handleScreenshotChange(field.key, index, 'image_url', e.target.value)}
+                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary"
+                  placeholder={`Img URL ${index + 1}`}
+                />
+                <button
+                  type="button"
+                  onClick={() => handleRemoveScreenshot(field.key, index)}
+                  className="px-3 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:bg-red-400"
+                  disabled={isProcessing}
+                >
+                  Remove
+                </button>
+              </div>
+              <textarea
+                value={item.description || ''}
+                onChange={(e) => handleScreenshotChange(field.key, index, 'description', e.target.value)}
+                className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary"
+                rows={2}
+                placeholder="Description (optional)"
+              />
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() => handleAddScreenshot(field.key)}
+            className="text-sm text-blue-600 hover:text-blue-700 disabled:text-blue-400"
+            disabled={isProcessing}
+          >
+            + Add Screenshot
+          </button>
+        </div>
+      )
+    }
+
     if (field.type === 'nested') {
       const imageKey = `${field.key}_image_url`
       const descKey = `${field.key}_description`
@@ -312,9 +378,47 @@ export default function CRUDList({
     )
   }
 
-  const renderTableCell = (item: Item, field: { key: string; label: string; type: 'text' | 'url' | 'textarea' | 'number' | 'array' | 'nested' }) => {
+  const renderTableCell = (item: Item, field: { key: string; label: string; type: 'text' | 'url' | 'textarea' | 'number' | 'array' | 'nested' | 'screenshots' }) => {
     const value = item[field.key]
+
+    if (field.key === 'image_url' && value) {
+      return (
+        <div className="w-24 h-14 rounded-lg overflow-hidden border border-border-divider bg-[var(--card-color2)]">
+          <img 
+            src={value as string} 
+            alt="Thumbnail" 
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none'
+            }}
+          />
+        </div>
+      )
+    }
     
+    if (field.type === 'screenshots') {
+      const screenshots = value as { image_url: string; description?: string }[] | undefined
+      if (screenshots && screenshots.length > 0) {
+        return (
+          <div className="flex flex-col gap-1">
+            <div className="flex gap-1 overflow-hidden">
+              {screenshots.slice(0, 3).map((shot, idx) => (
+                <div key={idx} className="w-8 h-8 rounded bg-gray-200 overflow-hidden relative">
+                   <img src={shot.image_url} alt="thumbnail" className="object-cover w-full h-full" onError={(e) => e.currentTarget.style.display = 'none'} />
+                </div>
+              ))}
+              {screenshots.length > 3 && (
+                <div className="w-8 h-8 rounded bg-gray-100 flex items-center justify-center text-xs text-secondary">
+                  +{screenshots.length - 3}
+                </div>
+              )}
+            </div>
+          </div>
+        )
+      }
+      return <span className="text-secondary">-</span>
+    }
+
     if (field.type === 'nested') {
       const nestedValue = value as { image_url?: string; description?: string } | undefined
       if (nestedValue && (nestedValue.image_url || nestedValue.description)) {
@@ -358,7 +462,7 @@ export default function CRUDList({
     
     if (field.type === 'array') {
       return (
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-wrap gap-1.5 min-w-[200px]">
           {Array.isArray(value) && value.map((subitem: string, index: number) => (
             <span 
               key={index} 

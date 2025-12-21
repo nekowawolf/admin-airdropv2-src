@@ -201,6 +201,13 @@ export default function CRUDList({
   const startEditing = (item: Item) => {
     setEditingId(item.id)
     const flattened: any = { ...item }
+    
+    if (flattened.screenshots && Array.isArray(flattened.screenshots)) {
+      flattened.screenshots = flattened.screenshots.map((s: any) => 
+        typeof s === 'string' ? { image_url: s, description: '' } : s
+      )
+    }
+
     const diagramFields = ['use_case', 'activity', 'erd', 'flowchart']
     diagramFields.forEach(field => {
       if (item[field] && typeof item[field] === 'object') {
@@ -397,16 +404,19 @@ export default function CRUDList({
     }
     
     if (field.type === 'screenshots') {
-      const screenshots = value as { image_url: string; description?: string }[] | undefined
+      const screenshots = value as ({ image_url: string; description?: string } | string)[] | undefined
       if (screenshots && screenshots.length > 0) {
         return (
           <div className="flex flex-col gap-1">
             <div className="flex gap-1 overflow-hidden">
-              {screenshots.slice(0, 3).map((shot, idx) => (
-                <div key={idx} className="w-8 h-8 rounded bg-gray-200 overflow-hidden relative">
-                   <img src={shot.image_url} alt="thumbnail" className="object-cover w-full h-full" onError={(e) => e.currentTarget.style.display = 'none'} />
-                </div>
-              ))}
+              {screenshots.slice(0, 3).map((shot, idx) => {
+                const imageUrl = typeof shot === 'string' ? shot : shot.image_url
+                return (
+                  <div key={idx} className="w-8 h-8 rounded bg-gray-200 overflow-hidden relative">
+                    <img src={imageUrl} alt="thumbnail" className="object-cover w-full h-full" onError={(e) => e.currentTarget.style.display = 'none'} />
+                  </div>
+                )
+              })}
               {screenshots.length > 3 && (
                 <div className="w-8 h-8 rounded bg-gray-100 flex items-center justify-center text-xs text-secondary">
                   +{screenshots.length - 3}

@@ -55,7 +55,7 @@ export interface Project {
   image_url: string;
   link: string;
   github_url?: string;
-  screenshots?: string[];
+  screenshots?: Screenshot[];
   video_url?: string;
   use_case?: DiagramItem;
   activity?: DiagramItem;

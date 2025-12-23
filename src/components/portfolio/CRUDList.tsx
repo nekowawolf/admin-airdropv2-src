@@ -124,7 +124,7 @@ export default function CRUDList({
 
   const reconstructNestedFields = (data: any) => {
     const result = { ...data }
-    const diagramFields = ['use_case', 'activity', 'erd', 'flowchart']
+    const diagramFields = ['use_case', 'activity', 'erd', 'flowchart', 'color_palette', 'typography']
     diagramFields.forEach(field => {
       const imageKey = `${field}_image_url`
       const descKey = `${field}_description`
@@ -215,7 +215,7 @@ export default function CRUDList({
       )
     }
 
-    const diagramFields = ['use_case', 'activity', 'erd', 'flowchart']
+    const diagramFields = ['use_case', 'activity', 'erd', 'flowchart', 'color_palette', 'typography']
     diagramFields.forEach(field => {
       if (item[field] && typeof item[field] === 'object') {
         flattened[`${field}_image_url`] = item[field].image_url || ''

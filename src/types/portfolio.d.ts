@@ -32,10 +32,13 @@ export interface Design {
   description: string;
   image_url: string;
   link: string;
+  video_url?: string;
   category: string;
-  tools: string[];
-  tags: string[];
-  screenshots: Screenshot[];
+  tools?: string[];
+  screenshots?: string[];
+  ss_desc?: string;
+  color_palette?: VisualAsset;
+  typography?: VisualAsset;
 }
 
 export interface Screenshot {
@@ -46,6 +49,11 @@ export interface Screenshot {
 export interface DiagramItem {
   image_url: string;
   description: string;
+}
+
+export interface VisualAsset {
+  image_url: string;
+  description?: string;
 }
 
 export interface Project {

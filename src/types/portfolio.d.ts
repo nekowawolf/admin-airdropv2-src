@@ -63,7 +63,8 @@ export interface Project {
   image_url: string;
   link: string;
   github_url?: string;
-  screenshots?: Screenshot[];
+  screenshots?: string[];
+  ss_desc?: string;
   video_url?: string;
   use_case?: DiagramItem;
   activity?: DiagramItem;

@@ -200,6 +200,7 @@ export default function PortfolioDashboard() {
               { key: 'github_url', label: 'GitHub URL', type: 'url' },
               { key: 'video_url', label: 'Video URL', type: 'url' },
               { key: 'screenshots', label: 'Screenshots', type: 'screenshots', options: { showDescription: false } },
+              { key: 'ss_desc', label: 'Screenshots Description', type: 'textarea' },
               { key: 'stack', label: 'Tech Stack', type: 'array' },
               { key: 'use_case', label: 'Use Case Diagram', type: 'nested' },
               { key: 'activity', label: 'Activity Diagram', type: 'nested' },

@@ -21,6 +21,7 @@ const nextConfig: NextConfig = {
       'imgur.com',
       'i.imgur.com',
       'source.unsplash.com',
+      'i.pinimg.com',
     ],
   },
 };

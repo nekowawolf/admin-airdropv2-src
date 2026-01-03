@@ -126,6 +126,11 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
     vesting: airdropData?.vesting || '',
     usd_income: airdropData?.usd_income?.toString() || '',
     claim: airdropData?.link_claim || '',
+    link_discord: airdropData?.link_discord || '',
+    link_twitter: airdropData?.link_twitter || '',
+    image_url: airdropData?.image_url || '',
+    description: airdropData?.description || '',
+    link_guide: airdropData?.link_guide || '',
   })
 
   const { isSubmitting, editAirdrop } = useEditAirdrop(type)
@@ -152,7 +157,12 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
       ...formData,
       price: Number(formData.price),
       usd_income: Number(formData.usd_income),
-      link_claim: formData.claim
+      link_claim: formData.claim,
+      link_discord: formData.link_discord,
+      link_twitter: formData.link_twitter,
+      image_url: formData.image_url,
+      description: formData.description,
+      link_guide: formData.link_guide
     }
 
     const success = await editAirdrop(airdropData.id, payload)
@@ -223,20 +233,96 @@ export default function EditAirdropForm({ airdropData, type, onSuccess }: EditAi
                 </div>
               </div>
 
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="flex flex-col gap-2">
+                  <label className="text-secondary text-sm font-medium" htmlFor="link">
+                    Project Link *
+                  </label>
+                  <input
+                    type="url"
+                    id="link"
+                    name="link"
+                    value={formData.link}
+                    onChange={handleInputChange}
+                    placeholder="https://example.com"
+                    required
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-secondary text-sm font-medium" htmlFor="image_url">
+                    Image URL
+                  </label>
+                  <input
+                    type="url"
+                    id="image_url"
+                    name="image_url"
+                    value={formData.image_url}
+                    onChange={handleInputChange}
+                    placeholder="https://example.com/image.png"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
               <div className="flex flex-col gap-2">
-                <label className="text-secondary text-sm font-medium" htmlFor="link">
-                  Project Link *
+                <label className="text-secondary text-sm font-medium" htmlFor="description">
+                  Description
                 </label>
-                <input
-                  type="url"
-                  id="link"
-                  name="link"
-                  value={formData.link}
-                  onChange={handleInputChange}
-                  placeholder="https://example.com"
-                  required
-                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                <textarea
+                  id="description"
+                  name="description"
+                  value={formData.description}
+                  onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                  placeholder="Enter project description"
+                  rows={4}
+                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                 />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="flex flex-col gap-2">
+                  <label className="text-secondary text-sm font-medium" htmlFor="link_discord">
+                    Discord Link
+                  </label>
+                  <input
+                    type="url"
+                    id="link_discord"
+                    name="link_discord"
+                    value={formData.link_discord}
+                    onChange={handleInputChange}
+                    placeholder="https://discord.gg/..."
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-secondary text-sm font-medium" htmlFor="link_twitter">
+                    Twitter Link
+                  </label>
+                  <input
+                    type="url"
+                    id="link_twitter"
+                    name="link_twitter"
+                    value={formData.link_twitter}
+                    onChange={handleInputChange}
+                    placeholder="https://twitter.com/..."
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-secondary text-sm font-medium" htmlFor="link_guide">
+                    Guide Link
+                  </label>
+                  <input
+                    type="url"
+                    id="link_guide"
+                    name="link_guide"
+                    value={formData.link_guide}
+                    onChange={handleInputChange}
+                    placeholder="https://..."
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

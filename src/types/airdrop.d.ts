@@ -13,6 +13,11 @@ export interface AirdropBase {
   claim: string
   price: number
   usd_income: number
+  link_discord: string
+  link_twitter: string
+  image_url: string
+  description: string
+  link_guide: string
 }
 
 export interface AirdropFormData extends AirdropBase {}

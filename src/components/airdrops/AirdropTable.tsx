@@ -14,10 +14,11 @@ import {
 import { Spinner } from "@/components/ui/shadcn-io/spinner"
 import { cn } from "@/lib/utils"
 import { HiEllipsisVertical } from "react-icons/hi2"
-import { FaTrash } from "react-icons/fa"
+import { FaTrash, FaDiscord, FaTwitter, FaBook } from "react-icons/fa"
 import { MdEdit } from "react-icons/md"
 import { createPortal } from "react-dom"
 import { toast } from 'sonner'
+import Image from "next/image"
 
 interface AirdropTableProps {
   data: any[]
@@ -189,9 +190,11 @@ export default function AirdropTable({
           <table className="w-full text-left">
             <thead className="bg-[var(--card-color3)]">
               <tr>
+                <th className="px-6 py-2 min-w-[80px]">Image</th>
                 <th className="px-6 py-2 min-w-[140px]">Name</th>
                 <th className="px-6 py-2 min-w-[140px]">Task</th>
                 <th className="px-6 py-2 min-w-[120px]">Link</th>
+                <th className="px-6 py-2 min-w-[120px]">Socials</th>
                 <th className="px-6 py-2 min-w-[100px]">Level</th>
                 <th className="px-6 py-2 min-w-[120px]">Status</th>
                 <th className="px-6 py-2 min-w-[130px]">Backed</th>
@@ -204,6 +207,22 @@ export default function AirdropTable({
             {paginatedData.length > 0 ? (
                  paginatedData.map((item, index) => (
                    <tr key={index} className="border-t border-border-divider">
+                     <td className="px-6 py-2">
+                        {item.image_url ? (
+                          <div className="relative w-10 h-10 rounded-full overflow-hidden border border-border-divider">
+                            <Image 
+                                src={item.image_url} 
+                                alt={item.name || 'Airdrop'} 
+                                fill 
+                                className="object-cover"
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-xs text-gray-500">
+                             N/A
+                          </div>
+                        )}
+                     </td>
                      <td className="px-6 py-2">{item.name || 'N/A'}</td>
                      <td className="px-6 py-2">{item.task || 'N/A'}</td>
                      <td className="px-6 py-2 text-accent">
@@ -212,6 +231,28 @@ export default function AirdropTable({
                        ) : (
                          <span className="text-primary">N/A</span>
                        )}
+                     </td>
+                     <td className="px-6 py-2">
+                        <div className="flex gap-2">
+                           {item.link_discord && (
+                             <a href={item.link_discord} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-500">
+                               <FaDiscord size={16} />
+                             </a>
+                           )}
+                           {item.link_twitter && (
+                             <a href={item.link_twitter} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-500">
+                               <FaTwitter size={16} />
+                             </a>
+                           )}
+                           {item.link_guide && (
+                             <a href={item.link_guide} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-500">
+                               <FaBook size={16} />
+                             </a>
+                           )}
+                           {!item.link_discord && !item.link_twitter && !item.link_guide && (
+                             <span className="text-muted text-xs">N/A</span>
+                           )}
+                        </div>
                      </td>
                      <td className="px-6 py-2">{item.level || 'N/A'}</td>
                      <td className="px-6 py-2">
@@ -231,7 +272,7 @@ export default function AirdropTable({
                  ))
                ) : (
                 <tr>
-                  <td colSpan={8} className="text-center py-4">No results found.</td>
+                  <td colSpan={11} className="text-center py-4">No results found.</td>
                 </tr>
               )}
             </tbody>

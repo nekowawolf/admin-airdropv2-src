@@ -14,7 +14,9 @@ import {
 import { Spinner } from "@/components/ui/shadcn-io/spinner"
 import { cn } from "@/lib/utils"
 import { HiEllipsisVertical } from "react-icons/hi2"
-import { FaTrash, FaDiscord, FaTwitter, FaBook } from "react-icons/fa"
+import { FaTrash, FaDiscord } from "react-icons/fa"
+import { FaXTwitter } from "react-icons/fa6";
+import { TbWorld } from "react-icons/tb";
 import { MdEdit } from "react-icons/md"
 import { createPortal } from "react-dom"
 import { toast } from 'sonner'
@@ -193,7 +195,9 @@ export default function AirdropTable({
                 <th className="px-6 py-2 min-w-[80px]">Image</th>
                 <th className="px-6 py-2 min-w-[140px]">Name</th>
                 <th className="px-6 py-2 min-w-[140px]">Task</th>
+                <th className="px-6 py-2 min-w-[200px]">Description</th>
                 <th className="px-6 py-2 min-w-[120px]">Link</th>
+                <th className="px-6 py-2 min-w-[120px]">Guide</th>
                 <th className="px-6 py-2 min-w-[120px]">Socials</th>
                 <th className="px-6 py-2 min-w-[100px]">Level</th>
                 <th className="px-6 py-2 min-w-[120px]">Status</th>
@@ -225,9 +229,25 @@ export default function AirdropTable({
                      </td>
                      <td className="px-6 py-2">{item.name || 'N/A'}</td>
                      <td className="px-6 py-2">{item.task || 'N/A'}</td>
+                     <td className="px-6 py-2">
+                       {item.description ? (
+                         <div className="max-w-[280px] truncate">
+                           {item.description.length > 15 ? item.description.slice(0, 15) + '...' : item.description}
+                         </div>
+                       ) : (
+                         'N/A'
+                       )}
+                     </td>
                      <td className="px-6 py-2 text-accent">
                        {item.link ? (
                          <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-blue-500">Visit</a>
+                       ) : (
+                         <span className="text-primary">N/A</span>
+                      )}
+                     </td>
+                     <td className="px-6 py-2 text-accent">
+                       {item.link_guide ? (
+                         <a href={item.link_guide} target="_blank" rel="noopener noreferrer" className="text-blue-500">Visit</a>
                        ) : (
                          <span className="text-primary">N/A</span>
                        )}
@@ -241,12 +261,12 @@ export default function AirdropTable({
                            )}
                            {item.link_twitter && (
                              <a href={item.link_twitter} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-500">
-                               <FaTwitter size={16} />
+                               <FaXTwitter size={16} />
                              </a>
                            )}
                            {item.link_guide && (
                              <a href={item.link_guide} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-500">
-                               <FaBook size={16} />
+                               <TbWorld size={16} />
                              </a>
                            )}
                            {!item.link_discord && !item.link_twitter && !item.link_guide && (
@@ -272,7 +292,7 @@ export default function AirdropTable({
                  ))
                ) : (
                 <tr>
-                  <td colSpan={11} className="text-center py-4">No results found.</td>
+                  <td colSpan={13} className="text-center py-4">No results found.</td>
                 </tr>
               )}
             </tbody>

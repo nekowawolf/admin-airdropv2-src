@@ -22,6 +22,7 @@ const nextConfig: NextConfig = {
       'i.imgur.com',
       'source.unsplash.com',
       'i.pinimg.com',
+      'img.cryptorank.io',
     ],
   },
 };

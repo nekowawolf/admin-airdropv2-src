@@ -58,7 +58,7 @@ export default function EditAirdropEndedPage() {
           <h2 className="text-xl font-semibold text-primary mb-2">Error</h2>
           <p className="text-secondary mb-4 sm:text-base text-sm">{error}</p>
           <button
-            onClick={() => router.push('/dashboard/airdrop/ended')}
+            onClick={() => router.push('/airdrop-menu/dashboard/airdrop/ended')}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg sm:text-base text-sm"
           >
             Back to Ended Airdrops
@@ -75,7 +75,7 @@ export default function EditAirdropEndedPage() {
           <h2 className="text-xl font-semibold text-primary mb-2">Airdrop Not Found</h2>
           <p className="text-secondary mb-4 sm:text-base text-sm">The airdrop you're looking for doesn't exist.</p>
           <button
-            onClick={() => router.push('/dashboard/airdrop/ended')}
+            onClick={() => router.push('/airdrop-menu/dashboard/airdrop/ended')}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg sm:text-base text-sm"
           >
             Back to Ended Airdrops

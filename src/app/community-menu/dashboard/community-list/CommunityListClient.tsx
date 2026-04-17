@@ -2,8 +2,10 @@
 
 import { useCommunityData } from '@/hooks/community/useCommunityData'
 import CommunityTable from '@/components/community/CommunityTable'
+import { useAuthGuard } from '@/hooks/auth-guard/useAuthGuard'
 
 export default function CommunitiesPage() {
+  useAuthGuard()
   const { data, loading, error, handleDelete } = useCommunityData()
 
   return (

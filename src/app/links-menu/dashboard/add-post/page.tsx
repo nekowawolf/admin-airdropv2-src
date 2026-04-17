@@ -1,8 +1,8 @@
 import { dashboardMetadata } from '@/constants/metadataTemplates'
-import AddPostClient from './AddPostClient'
+import AddPostForm from '@/components/links/AddPostForm'
 
 export const metadata = dashboardMetadata('Add Link Post', 'Create a new link post')
 
 export default function Page() {
-  return <AddPostClient />
+  return <AddPostForm />
 }

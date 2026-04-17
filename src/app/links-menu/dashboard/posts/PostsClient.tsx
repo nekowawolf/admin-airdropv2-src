@@ -2,8 +2,10 @@
 
 import { usePostsData } from '@/hooks/links/usePostsData'
 import LinkPostTable from '@/components/links/LinkPostTable'
+import { useAuthGuard } from '@/hooks/auth-guard/useAuthGuard'
 
 export default function PostsClient() {
+  useAuthGuard()
   const { data, loading, error, handleDelete } = usePostsData()
 
   return (

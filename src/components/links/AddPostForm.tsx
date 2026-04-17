@@ -1,14 +1,13 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { useRouter, useParams } from 'next/navigation'
-import { Spinner } from "@/components/ui/shadcn-io/spinner"
+import { useRouter } from 'next/navigation'
+import { useAuthGuard } from '@/hooks/auth-guard/useAuthGuard'
 import { toast } from 'sonner'
-import { updatePost, getPostById } from '@/services/links/linkService'
+import { createPost } from '@/services/links/linkService'
 import { LinkPostRequest } from '@/types/link'
 import { IoIosArrowUp } from "react-icons/io"
 
-// CustomDropdown Component
 interface DropdownOption {
   value: string
   label: string
@@ -69,6 +68,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
         />
       </button>
 
+      {/* Dropdown menu */}
       <div 
         id={id}
         className={`z-10 absolute top-full left-0 right-0 mt-1 dropdown-bg divide-y divide-border-divider rounded-lg shadow-sm border border-border-divider ${
@@ -105,47 +105,24 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
   )
 }
 
-export default function EditPostClient() {
+export default function AddPostForm() {
+  useAuthGuard()
   const router = useRouter()
-  const params = useParams()
-  const id = params.id as string
-
   const [loading, setLoading] = useState(false)
-  const [initialLoading, setInitialLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  
+
   const [formData, setFormData] = useState<LinkPostRequest>({
     caption: '',
     url: '',
     category: ''
   })
 
-  // Fetch initial data
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        setInitialLoading(true)
-        const data = await getPostById(id)
-        if (data) {
-          setFormData({
-            caption: data.caption || '',
-            url: data.url || '',
-            category: data.category || ''
-          })
-        } else {
-          setError('Post not found')
-        }
-      } catch (err: any) {
-        setError(err.message || 'Failed to fetch post')
-      } finally {
-        setInitialLoading(false)
-      }
-    }
-
-    if (id) {
-      fetchPost()
-    }
-  }, [id])
+  const resetForm = () => {
+    setFormData({
+      caption: '',
+      url: '',
+      category: ''
+    })
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -159,50 +136,25 @@ export default function EditPostClient() {
     e.preventDefault()
     try {
       setLoading(true)
-      await updatePost(id, formData)
-      toast.success('Post updated successfully')
+      await createPost(formData)
+      toast.success('Post created successfully')
       router.push('/links-menu/dashboard/posts')
     } catch (err: any) {
-      toast.error(err.message || 'Failed to update post')
+      toast.error(err.message || 'Failed to create post')
       console.error(err)
     } finally {
       setLoading(false)
     }
   }
 
-  if (initialLoading) {
-    return (
-      <div className="flex justify-center py-10 mt-36">
-        <Spinner variant="circle" size={40} className="text-blue-500" />
-      </div>
-    )
-  }
-
-  if (error) {
-    return (
-      <div className="flex flex-col items-center justify-start min-h-screen">
-        <div className="text-center mt-24">
-          <h2 className="text-xl font-semibold text-primary mb-2">Error</h2>
-          <p className="text-secondary mb-4">{error}</p>
-          <button
-            onClick={() => router.push('/links-menu/dashboard/posts')}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg sm:text-base text-sm"
-          >
-            Back to Posts
-          </button>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className="space-y-6 min-h-screen p-6">
       <div className="text-center sm:text-left">
         <h2 className="text-lg sm:text-2xl font-semibold text-primary">
-          Edit Post
+          Add New Post
         </h2>
         <p className="text-xs sm:text-sm text-secondary">
-          Update the link post data
+          Create a new link post
         </p>
       </div>
 
@@ -269,10 +221,10 @@ export default function EditPostClient() {
             <div className="flex justify-end gap-4 pt-6 border-t border-border-divider">
               <button
                 type="button"
-                onClick={() => router.push('/links-menu/dashboard/posts')}
+                onClick={resetForm}
                 className="px-6 py-3 cursor-pointer rounded-lg text-secondary border border-border-divider hover:bg-button-hover text-sm font-medium transition-colors duration-200"
               >
-                Cancel
+                Reset Form
               </button>
               <button
                 type="submit"
@@ -282,10 +234,10 @@ export default function EditPostClient() {
                 {loading ? (
                   <>
                     <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></span>
-                    Saving...
+                    Creating...
                   </>
                 ) : (
-                  'Save Changes'
+                  'Create Post'
                 )}
               </button>
             </div>

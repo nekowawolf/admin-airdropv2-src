@@ -5,8 +5,10 @@ import { useRouter } from 'next/navigation'
 import { Spinner } from "@/components/ui/shadcn-io/spinner"
 import { toast } from 'sonner'
 import { useProfileData } from '@/hooks/links/useProfileData'
+import { useAuthGuard } from '@/hooks/auth-guard/useAuthGuard'
 
 export default function ProfileClient() {
+  useAuthGuard()
   const router = useRouter()
   const { profile, loading, saving, error, handleUpdate } = useProfileData()
 

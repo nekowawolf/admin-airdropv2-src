@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import { RxDashboard } from 'react-icons/rx'
 import { IoIosAddCircleOutline } from 'react-icons/io'
 import { HiMiniRocketLaunch } from 'react-icons/hi2'
-import { FaLayerGroup, FaUserCircle, FaBitcoin } from 'react-icons/fa'
+import { FaLayerGroup, FaUserCircle, FaBitcoin, FaLink } from 'react-icons/fa'
 import { MdImage } from 'react-icons/md'
 
 type SidebarProps = {
@@ -25,6 +25,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
     const [openPortfolioDashboard, setOpenPortfolioDashboard] = useState(false)
     const [openImages, setOpenImages] = useState(false)
     const [openImagesDashboard, setOpenImagesDashboard] = useState(false)
+    const [openLink, setOpenLink] = useState(false)
+    const [openLinkDashboard, setOpenLinkDashboard] = useState(false)
 
     // === HANDLE ACTIVE SECTIONS ===
     useEffect(() => {
@@ -36,6 +38,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
         setOpenPortfolioDashboard(false)
         setOpenImages(false)
         setOpenImagesDashboard(false)
+        setOpenLink(false)
+        setOpenLinkDashboard(false)
 
         // === AIRDROP PATH ===
         if (pathname.startsWith('/airdrop-menu/dashboard')) {
@@ -67,6 +71,14 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
             }
         }
 
+        // === LINK PATH ===
+        if (pathname.startsWith('/links-menu/dashboard')) {
+            setOpenLink(true)
+            if (!pathname.includes('/add-post')) {
+                setOpenLinkDashboard(true)
+            }
+        }
+
     }, [pathname])
 
     // === HANDLERS ===
@@ -80,6 +92,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                 setOpenPortfolioDashboard(false)
                 setOpenImages(false)
                 setOpenImagesDashboard(false)
+                setOpenLink(false)
+                setOpenLinkDashboard(false)
             }
             return next
         })
@@ -97,6 +111,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                 setOpenPortfolioDashboard(false)
                 setOpenImages(false)
                 setOpenImagesDashboard(false)
+                setOpenLink(false)
+                setOpenLinkDashboard(false)
             }
             return next
         })
@@ -115,6 +131,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                 setOpenCommunityDashboard(false)
                 setOpenImages(false)
                 setOpenImagesDashboard(false)
+                setOpenLink(false)
+                setOpenLinkDashboard(false)
             }
             return next
         })
@@ -133,6 +151,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                 setOpenCommunityDashboard(false)
                 setOpenPortfolio(false)
                 setOpenPortfolioDashboard(false)
+                setOpenLink(false)
+                setOpenLinkDashboard(false)
             }
             return next
         })
@@ -140,6 +160,26 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
 
     const handleImagesDashboardDropdown = () =>
         setOpenImagesDashboard(v => !v)
+
+    const handleLinkDropdown = () => {
+        setOpenLink(prev => {
+            const next = !prev
+            if (next) {
+                setOpenAirdrop(false)
+                setOpenDashboard(false)
+                setOpenCommunity(false)
+                setOpenCommunityDashboard(false)
+                setOpenPortfolio(false)
+                setOpenPortfolioDashboard(false)
+                setOpenImages(false)
+                setOpenImagesDashboard(false)
+            }
+            return next
+        })
+    }
+
+    const handleLinkDashboardDropdown = () =>
+        setOpenLinkDashboard(v => !v)
 
     // === ACTIVE PATH DETECTION ===
     const isAnalyticsActive = pathname === '/airdrop-menu/dashboard'
@@ -173,6 +213,12 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
         pathname === '/images-menu/dashboard'
     const isAddImageActive =
         pathname === '/images-menu/dashboard/add-image'
+
+    const isLinkProfileActive = pathname === '/links-menu/dashboard/profile'
+    const isLinkPostsActive = pathname === '/links-menu/dashboard/posts'
+    const isAddLinkPostActive = pathname === '/links-menu/dashboard/add-post'
+    const isLinkDashboardPathActive =
+        pathname.startsWith('/links-menu/dashboard') && !pathname.includes('/add-post')
 
     // === SIDEBAR CONTENT ===
     const content = (
@@ -492,6 +538,105 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                     )}
                 </div>
 
+                {/* === Link Group === */}
+                <div>
+                    <button
+                        type="button"
+                        onClick={handleLinkDropdown}
+                        className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
+                            pathname.startsWith('/links-menu/dashboard')
+                                ? 'border-accent text-accent bg-accent/10'
+                                : 'border-transparent text-secondary hover:hover-bg'
+                        }`}
+                    >
+                        <FaLink
+                            className={`${
+                                pathname.startsWith('/links-menu/dashboard')
+                                    ? 'text-accent'
+                                    : 'text-muted'
+                            }`}
+                            size={18}
+                        />
+                        <span>Link</span>
+                        <i
+                            className={`fa-solid fa-caret-down ml-auto text-xs transition-transform ${
+                                openLink ? 'rotate-180' : ''
+                            }`}
+                        />
+                    </button>
+
+                    {openLink && (
+                        <div className="pl-8 mt-2 space-y-1">
+                            <button
+                                type="button"
+                                onClick={handleLinkDashboardDropdown}
+                                className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
+                                    isLinkDashboardPathActive
+                                        ? 'border-accent text-accent bg-accent/10'
+                                        : 'border-transparent text-secondary hover:hover-bg'
+                                }`}
+                            >
+                                <RxDashboard
+                                    className={`${
+                                        isLinkDashboardPathActive
+                                            ? 'text-accent'
+                                            : 'text-muted'
+                                    }`}
+                                    size={18}
+                                />
+                                <span>Dashboard</span>
+                                <i
+                                    className={`fa-solid fa-caret-down ml-auto text-xs transition-transform ${
+                                        openLinkDashboard ? 'rotate-180' : ''
+                                    }`}
+                                />
+                            </button>
+
+                            {openLinkDashboard && (
+                                <div className="pl-8 mt-1 space-y-1">
+                                     <Link
+                                        href="/links-menu/dashboard/profile"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isLinkProfileActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Profile
+                                    </Link>
+                                    <Link
+                                        href="/links-menu/dashboard/posts"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isLinkPostsActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Posts
+                                    </Link>
+                                </div>
+                            )}
+
+                            <Link
+                                href="/links-menu/dashboard/add-post"
+                                className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors border-l-4 ${
+                                    isAddLinkPostActive
+                                        ? 'border-accent text-accent bg-accent/10'
+                                        : 'border-transparent text-secondary hover:hover-bg'
+                                }`}
+                            >
+                                <IoIosAddCircleOutline
+                                    className={`${
+                                        isAddLinkPostActive ? 'text-accent' : 'text-muted'
+                                    }`}
+                                    size={18}
+                                />
+                                <span>Add Post</span>
+                            </Link>
+                        </div>
+                    )}
+                </div>
+
                 {/* === Crypto Tools Group === */}
                 <div
                     className={`
@@ -501,7 +646,7 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                     `}
                 >
                     <FaBitcoin className="text-muted" size={18} />
-                    <span>Crypto Tools</span>
+                    <span>Web3 Tools</span>
                 </div>
 
                 {/* === Image Resources Group === */}
@@ -598,7 +743,7 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                                     size={18}
                                 />
                                 <span>Add Image</span>
-                            </Link>
+                                </Link>
                         </div>
                     )}
                 </div>

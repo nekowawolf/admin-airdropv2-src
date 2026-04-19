@@ -75,7 +75,6 @@ export default function LinkPostTable({
       (item.caption?.toLowerCase() || '').includes(search.toLowerCase()) ||
       (item.category?.toLowerCase() || '').includes(search.toLowerCase())
     )
-    .reverse()
   }, [search, safeData])
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage)

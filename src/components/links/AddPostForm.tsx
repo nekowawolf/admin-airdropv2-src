@@ -138,7 +138,7 @@ export default function AddPostForm() {
       setLoading(true)
       await createPost(formData)
       toast.success('Post created successfully')
-      router.push('/links-menu/dashboard/posts')
+      resetForm()
     } catch (err: any) {
       toast.error(err.message || 'Failed to create post')
       console.error(err)

@@ -124,6 +124,7 @@ export default function AddAirdropForm() {
     claim: '',
     link_discord: '',
     link_twitter: '',
+    link_telegram: '',
     image_url: '',
     description: '',
     link_guide: '',
@@ -164,6 +165,7 @@ export default function AddAirdropForm() {
       claim: '',
       link_discord: '',
       link_twitter: '',
+      link_telegram: '',
       image_url: '',
       description: '',
       link_guide: '',
@@ -180,6 +182,7 @@ export default function AddAirdropForm() {
       link_claim: formData.claim,
       link_discord: formData.link_discord,
       link_twitter: formData.link_twitter,
+      link_telegram: formData.link_telegram,
       image_url: formData.image_url,
       description: formData.description,
       link_guide: formData.link_guide
@@ -309,7 +312,7 @@ export default function AddAirdropForm() {
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
                   <label className="text-secondary text-sm font-medium" htmlFor="link_discord">
                     Discord Link
@@ -335,6 +338,20 @@ export default function AddAirdropForm() {
                     value={formData.link_twitter}
                     onChange={handleInputChange}
                     placeholder="https://twitter.com/..."
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-secondary text-sm font-medium" htmlFor="link_telegram">
+                    Telegram Link
+                  </label>
+                  <input
+                    type="url"
+                    id="link_telegram"
+                    name="link_telegram"
+                    value={formData.link_telegram}
+                    onChange={handleInputChange}
+                    placeholder="https://t.me/..."
                     className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>

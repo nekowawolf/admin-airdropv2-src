@@ -14,9 +14,8 @@ import {
 import { Spinner } from "@/components/ui/shadcn-io/spinner"
 import { cn } from "@/lib/utils"
 import { HiEllipsisVertical } from "react-icons/hi2"
-import { FaTrash, FaDiscord } from "react-icons/fa"
+import { FaTrash, FaDiscord, FaTelegram } from "react-icons/fa"
 import { FaXTwitter } from "react-icons/fa6";
-import { TbWorld } from "react-icons/tb";
 import { MdEdit } from "react-icons/md"
 import { createPortal } from "react-dom"
 import { toast } from 'sonner'
@@ -264,12 +263,12 @@ export default function AirdropTable({
                                <FaXTwitter size={16} />
                              </a>
                            )}
-                           {item.link_guide && (
-                             <a href={item.link_guide} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-500">
-                               <TbWorld size={16} />
+                           {item.link_telegram && (
+                             <a href={item.link_telegram} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-500">
+                               <FaTelegram size={16} />
                              </a>
                            )}
-                           {!item.link_discord && !item.link_twitter && !item.link_guide && (
+                           {!item.link_discord && !item.link_twitter && !item.link_telegram && (
                              <span className="text-muted text-xs">N/A</span>
                            )}
                         </div>

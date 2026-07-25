@@ -156,8 +156,11 @@ export default function EditGithubReposForm({ id }: { id: string }) {
                     { value: 'Infrastructure', label: 'Infrastructure' },
                     { value: 'Data', label: 'Data' },
                     { value: 'Design', label: 'Design' },
+                    { value: 'Image', label: 'Image' },
                     { value: 'Video', label: 'Video' },
+                    { value: 'Audio', label: 'Audio' },
                     { value: 'Security', label: 'Security' },
+                    { value: 'Document', label: 'Document' },
                     { value: 'Learning', label: 'Learning' }
                   ]}
                   placeholder="Select Category"

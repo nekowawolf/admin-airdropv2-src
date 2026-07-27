@@ -6,6 +6,8 @@ import { FiUsers, FiLink, FiImage } from 'react-icons/fi'
 import { useAddAITool } from '@/hooks/ai-tools/useAddAITool'
 import { AIToolsRequest } from '@/types/ai-tools'
 import { MultiSelectDropdown } from '@/components/ui/MultiSelectDropdown'
+import { validateUrl } from '@/utils/urlValidation'
+import { toast } from 'sonner'
 
 const categories = [
     "Image",
@@ -63,6 +65,17 @@ export default function AddAIToolsForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!formData.name) { toast.error('Please fill out Project Name'); return; }
+    if (!formData.description) { toast.error('Please fill out Description'); return; }
+    if (!formData.imgURL) { toast.error('Please fill out Image URL'); return; }
+    if (!formData.website) { toast.error('Please fill out Website URL'); return; }
+    if (selectedCategories.length === 0) { toast.error('Please select at least one Category'); return; }
+    if (formData.website && !validateUrl(formData.website, 'website')) { toast.error('Invalid Website URL format'); return; }
+    if (formData.twitter && !validateUrl(formData.twitter, 'twitter')) { toast.error('Invalid Twitter URL format'); return; }
+    if (formData.instagram && !validateUrl(formData.instagram, 'instagram')) { toast.error('Invalid Instagram URL format'); return; }
+    if (formData.discord && !validateUrl(formData.discord, 'discord')) { toast.error('Invalid Discord URL format'); return; }
+    if (formData.youtube && !validateUrl(formData.youtube, 'youtube')) { toast.error('Invalid YouTube URL format'); return; }
+
 
     const dataToSubmit = {
       ...formData,
@@ -101,7 +114,6 @@ export default function AddAIToolsForm() {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Enter name"
-                    required
                     className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -118,7 +130,6 @@ export default function AddAIToolsForm() {
                   value={formData.description}
                   onChange={handleInputChange}
                   placeholder="Enter description"
-                  required
                   className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
                 />
               </div>
@@ -133,7 +144,6 @@ export default function AddAIToolsForm() {
                   selected={selectedCategories}
                   onChange={setSelectedCategories}
                   placeholder="Select Category"
-                  required
                 />
               </div>
 
@@ -151,7 +161,6 @@ export default function AddAIToolsForm() {
                     value={formData.imgURL}
                     onChange={handleInputChange}
                     placeholder="https://example.com/image.jpg"
-                    required
                     className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -190,7 +199,6 @@ export default function AddAIToolsForm() {
                     value={formData.website}
                     onChange={handleInputChange}
                     placeholder="https://example.com"
-                    required
                     className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>

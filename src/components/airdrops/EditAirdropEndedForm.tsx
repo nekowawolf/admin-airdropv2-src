@@ -5,6 +5,8 @@ import { FaFreeCodeCamp } from "react-icons/fa";
 import { useEditAirdrop } from '@/hooks/airdrop/useEditAirdropEnded'
 import { useRouter } from 'next/navigation'
 import { CustomDropdown } from '@/components/ui/CustomDropdown'
+import { validateUrl } from '@/utils/urlValidation'
+import { toast } from 'sonner'
 
 
 interface EditAirdropEndedFormProps {
@@ -57,6 +59,12 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!formData.name) { toast.error('Please fill out Project Name'); return; }
+    if (!formData.description) { toast.error('Please fill out Description'); return; }
+    if (formData.link_discord && !validateUrl(formData.link_discord, 'discord')) { toast.error('Invalid Discord URL format'); return; }
+    if (formData.link_telegram && !validateUrl(formData.link_telegram, 'telegram')) { toast.error('Invalid Telegram URL format'); return; }
+    if (formData.link_twitter && !validateUrl(formData.link_twitter, 'twitter')) { toast.error('Invalid Twitter URL format'); return; }
+
     const payload = {
       ...formData,
       price: Number(formData.price),
@@ -116,7 +124,6 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                   value={formData.name}
                   onChange={handleInputChange}
                   placeholder="Enter project name"
-                  required
                   className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -142,7 +149,6 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                     { value: 'node', label: 'Node' }
                   ]}
                   placeholder="Select Task Type"
-                  required
                 />
               </div>
             </div>
@@ -159,7 +165,6 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                     value={formData.link}
                     onChange={handleInputChange}
                     placeholder="https://example.com"
-                    required
                     className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -269,7 +274,6 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                       { value: 'hard', label: 'High (20M-50M>)' }
                     ]}
                     placeholder="Select Funding Level"
-                    required
                   />
                 </div>
                 
@@ -286,7 +290,6 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                       { value: 'active', label: 'Active' },
                       { value: 'ended', label: 'Ended' }
                     ]}
-                    required
                   />
                 </div>
               </div>
@@ -303,7 +306,6 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                     value={formData.backed}
                     onChange={handleInputChange}
                     placeholder="e.g., HashKey Capital, ConsenSys"
-                    required
                     className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -319,7 +321,6 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                     value={formData.funds}
                     onChange={handleInputChange}
                     placeholder="e.g., 53.37M"
-                    required
                     className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>

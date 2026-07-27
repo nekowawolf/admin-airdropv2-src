@@ -6,6 +6,8 @@ import { FiUsers, FiGithub } from 'react-icons/fi'
 import { useAddGithubRepo } from '@/hooks/github-repos/useAddGithubRepo'
 import { GithubRepoRequest } from '@/types/github-repos'
 import { CustomDropdown } from '@/components/ui/CustomDropdown'
+import { validateUrl } from '@/utils/urlValidation'
+import { toast } from 'sonner'
 
 export default function AddGithubReposForm() {
   useAuthGuard()
@@ -56,6 +58,16 @@ export default function AddGithubReposForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!formData.name) { toast.error('Please fill out Project Name'); return; }
+    if (!formData.description) { toast.error('Please fill out Description'); return; }
+    if (!formData.category) { toast.error('Please fill out Category'); return; }
+    if (!formData.repo_url) { toast.error('Please fill out GitHub Repo URL'); return; }
+    if (formData.repo_url && !validateUrl(formData.repo_url, 'github')) { toast.error('Invalid GitHub URL format'); return; }
+    if (formData.website && !validateUrl(formData.website, 'website')) { toast.error('Invalid Website URL format'); return; }
+    if (formData.twitter && !validateUrl(formData.twitter, 'twitter')) { toast.error('Invalid Twitter URL format'); return; }
+    if (formData.instagram && !validateUrl(formData.instagram, 'instagram')) { toast.error('Invalid Instagram URL format'); return; }
+    if (formData.discord && !validateUrl(formData.discord, 'discord')) { toast.error('Invalid Discord URL format'); return; }
+
 
     let owner = formData.owner;
     let repo_name = formData.repo_name;
@@ -114,7 +126,6 @@ export default function AddGithubReposForm() {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Enter project name"
-                    required
                     className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -131,7 +142,6 @@ export default function AddGithubReposForm() {
                   value={formData.description}
                   onChange={handleInputChange}
                   placeholder="Enter description"
-                  required
                   className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
                 />
               </div>
@@ -161,7 +171,6 @@ export default function AddGithubReposForm() {
                     { value: 'Learning', label: 'Learning' }
                   ]}
                   placeholder="Select Category"
-                  required
                 />
               </div>
 
@@ -179,7 +188,6 @@ export default function AddGithubReposForm() {
                     value={formData.repo_url}
                     onChange={handleInputChange}
                     placeholder="https://github.com/owner/repo"
-                    required
                     className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>

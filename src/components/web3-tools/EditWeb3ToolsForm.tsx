@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation'
 import { CustomDropdown } from '@/components/ui/CustomDropdown'
 import { MultiSelectDropdown } from '@/components/ui/MultiSelectDropdown'
 import { Spinner } from "@/components/ui/shadcn-io/spinner"
+import { validateUrl } from '@/utils/urlValidation'
+import { toast } from 'sonner'
 
 const chains = [
   "Ethereum", "Bitcoin", "Solana", "BNB Chain", "Polygon", "Optimism", "Arbitrum",
@@ -63,6 +65,18 @@ export default function EditWeb3ToolsForm({ id }: { id: string }) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!formData.name) { toast.error('Please fill out Project Name'); return; }
+    if (!formData.description) { toast.error('Please fill out Description'); return; }
+    if (!formData.imageUrl) { toast.error('Please fill out Image URL'); return; }
+    if (!formData.website) { toast.error('Please fill out Website URL'); return; }
+    if (selectedChains.length === 0) { toast.error('Please select at least one Chain'); return; }
+    if (formData.website && !validateUrl(formData.website, 'website')) { toast.error('Invalid Website URL format'); return; }
+    if (formData.twitter && !validateUrl(formData.twitter, 'twitter')) { toast.error('Invalid Twitter URL format'); return; }
+    if (formData.instagram && !validateUrl(formData.instagram, 'instagram')) { toast.error('Invalid Instagram URL format'); return; }
+    if (formData.discord && !validateUrl(formData.discord, 'discord')) { toast.error('Invalid Discord URL format'); return; }
+    if (formData.telegram && !validateUrl(formData.telegram, 'telegram')) { toast.error('Invalid Telegram URL format'); return; }
+    if (formData.youtube && !validateUrl(formData.youtube, 'youtube')) { toast.error('Invalid YouTube URL format'); return; }
+
 
     const dataToSubmit = {
       ...formData,
@@ -111,7 +125,6 @@ export default function EditWeb3ToolsForm({ id }: { id: string }) {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Enter name"
-                    required
                     className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -128,7 +141,6 @@ export default function EditWeb3ToolsForm({ id }: { id: string }) {
                   value={formData.description}
                   onChange={handleInputChange}
                   placeholder="Enter description"
-                  required
                   className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
                 />
               </div>
@@ -160,7 +172,6 @@ export default function EditWeb3ToolsForm({ id }: { id: string }) {
                     { value: 'Research', label: 'Research' }
                   ]}
                   placeholder="Select Category"
-                  required
                 />
               </div>
 
@@ -174,7 +185,6 @@ export default function EditWeb3ToolsForm({ id }: { id: string }) {
                   selected={selectedChains}
                   onChange={setSelectedChains}
                   placeholder="e.g., Ethereum, Solana, Polygon"
-                  required
                 />
               </div>
 
@@ -192,7 +202,6 @@ export default function EditWeb3ToolsForm({ id }: { id: string }) {
                     value={formData.imageUrl}
                     onChange={handleInputChange}
                     placeholder="https://example.com/image.jpg"
-                    required
                     className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -212,7 +221,6 @@ export default function EditWeb3ToolsForm({ id }: { id: string }) {
                     value={formData.website}
                     onChange={handleInputChange}
                     placeholder="https://example.com"
-                    required
                     className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>

@@ -1,6 +1,4 @@
-import { getAirdropEnded } from './endedService'
-import { getAirdropFree } from './freeService'
-import { getAirdropPaid } from './paidService'
+import { getAirdrops } from './airdropService'
 
 export interface BackerData {
   name: string
@@ -25,13 +23,14 @@ export interface ProjectMetric {
   supply?: string
   fdv?: string
   market_cap?: string
-  vesting?: string
+  is_vesting?: boolean
   price?: number
 }
 
 export const getBackerStats = async (): Promise<BackerData[]> => {
   try {
-    const endedData = await getAirdropEnded()
+    const allData = await getAirdrops()
+    const endedData = allData.filter((item: any) => item.status === 'ended' || item.ended_at)
     
     const backerCount: Record<string, number> = {}
     
@@ -58,17 +57,15 @@ export const getBackerStats = async (): Promise<BackerData[]> => {
 
 export const getMonthlyAirdropStatsByYear = async (year?: number): Promise<MonthlyAirdropData[]> => {
   try {
-    const [freeData, paidData, endedData] = await Promise.all([
-      getAirdropFree(),
-      getAirdropPaid(),
-      getAirdropEnded()
-    ])
+    const rawData = await getAirdrops()
 
-    const allData = [
-      ...freeData.map((item: any) => ({ ...item, type: 'free' })),
-      ...paidData.map((item: any) => ({ ...item, type: 'paid' })),
-      ...endedData.map((item: any) => ({ ...item, type: 'ended' }))
-    ]
+    const allData = rawData.map((item: any) => {
+      let type = 'free'
+      if (item.status === 'ended' || item.ended_at) type = 'ended'
+      else if (item.is_paid) type = 'paid'
+      
+      return { ...item, type }
+    })
 
     let filteredData = allData
     if (year) {
@@ -129,17 +126,13 @@ export const getMonthlyAirdropStatsByYear = async (year?: number): Promise<Month
 
 export const getProjectMetrics = async (): Promise<ProjectMetric[]> => {
   try {
-    const [endedData] = await Promise.all([
-      getAirdropEnded()
-    ])
+    const rawData = await getAirdrops()
 
-    const allData = [
-      ...endedData
-    ].filter(item => item.status === 'ended')
+    const allData = rawData.filter((item: any) => item.status === 'ended' || item.ended_at)
 
     return allData
-      .filter(item => item && item.name)
-      .map(item => {
+      .filter((item: any) => item && item.name)
+      .map((item: any) => {
         let fundingValue = 0;
         if (item.funds) {
           if (item.funds.includes('M')) {
@@ -162,11 +155,11 @@ export const getProjectMetrics = async (): Promise<ProjectMetric[]> => {
           supply: item.supply,
           fdv: item.fdv,
           market_cap: item.market_cap,
-          vesting: item.vesting,
+          is_vesting: item.is_vesting,
           price: item.price ? parseFloat(item.price.toString()) : undefined
         }
       })
-      .sort((a, b) => b.income - a.income)
+      .sort((a: ProjectMetric, b: ProjectMetric) => b.income - a.income)
   } catch (error) {
     console.error('Failed to fetch project metrics:', error)
     return []

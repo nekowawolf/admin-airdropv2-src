@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { createAirdropFree } from '@/services/airdrop/freeService'
-import { createAirdropPaid } from '@/services/airdrop/paidService'
-import { AirdropFreeRequest, AirdropPaidRequest } from '@/types/airdrop'
+import { createAirdrop } from '@/services/airdrop/airdropService'
+import { AirdropRequest } from '@/types/airdrop'
 
 export function useAddAirdrop() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -10,7 +9,7 @@ export function useAddAirdrop() {
   const [errorMessage, setErrorMessage] = useState('')
 
   const submitAirdrop = async (
-    data: AirdropFreeRequest | AirdropPaidRequest,
+    data: AirdropRequest,
     type: 'free' | 'paid'
   ) => {
     setIsSubmitting(true)
@@ -18,15 +17,16 @@ export function useAddAirdrop() {
     setErrorMessage('')
 
     try {
-      if (type === 'free') {
-        await createAirdropFree(data as AirdropFreeRequest)
-        toast.success('Free airdrop created successfully!')
-        setSuccessMessage('Free airdrop created successfully!')
-      } else {
-        await createAirdropPaid(data as AirdropPaidRequest)
-        toast.success('Paid airdrop created successfully!')
-        setSuccessMessage('Paid airdrop created successfully!')
+      // Ensure the is_paid flag is set correctly based on the type parameter
+      const payload = {
+        ...data,
+        is_paid: type === 'paid'
       }
+      
+      await createAirdrop(payload as AirdropRequest)
+      const successText = `${type === 'free' ? 'Free' : 'Paid'} airdrop created successfully!`
+      toast.success(successText)
+      setSuccessMessage(successText)
     } catch (err: any) {
       console.error('Error creating airdrop:', err)
       const errorMsg = err.message || 'Failed to create airdrop. Please try again.'

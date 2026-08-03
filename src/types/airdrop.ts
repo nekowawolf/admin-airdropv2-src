@@ -1,7 +1,8 @@
 export interface AirdropBase {
+  _id?: string
   name: string
   task: string
-  link: string
+  website: string
   level: string
   status: string
   backed: string
@@ -9,22 +10,21 @@ export interface AirdropBase {
   supply: string
   fdv: string
   market_cap: string
-  vesting: string
-  claim: string
+  is_vesting: boolean
+  is_paid: boolean
+  claim_url: string
   price: number
   usd_income: number
-  link_discord: string
-  link_twitter: string
-  link_telegram: string
+  discord: string
+  twitter: string
+  telegram: string
   image_url: string
   description: string
-  link_guide: string
+  guide_url: string
+  created_at?: string
+  ended_at?: string
 }
 
 export interface AirdropFormData extends AirdropBase {}
 
 export interface AirdropRequest extends AirdropBase {}
-
-export interface AirdropFreeRequest extends AirdropBase {}
-
-export interface AirdropPaidRequest extends AirdropBase {}

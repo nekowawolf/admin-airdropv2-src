@@ -83,7 +83,7 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
       supply: (item as any).supply,
       fdv: (item as any).fdv, 
       market_cap: (item as any).market_cap,
-      vesting: (item as any).vesting,
+      is_vesting: (item as any).is_vesting,
       price: (item as any).price
     }))
   }, [paginatedData])
@@ -143,7 +143,7 @@ export default function ProjectMetricsChart({ data, loading, height = 300 }: Pro
                 if (project.supply) labels.push(`Supply: ${project.supply}`)
                 if (project.fdv) labels.push(`FDV: ${project.fdv}`)
                 if (project.market_cap) labels.push(`Market Cap: ${project.market_cap}`)
-                if (project.vesting) labels.push(`Vesting: ${project.vesting}`)
+                if (project.is_vesting) labels.push(`is_vesting: ${project.is_vesting}`)
                 if (project.price) labels.push(`Listing Price: $${project.price}`)
 
                 if (project.created_at) {

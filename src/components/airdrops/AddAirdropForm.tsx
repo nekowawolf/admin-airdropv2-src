@@ -16,7 +16,7 @@ export default function AddAirdropForm() {
   const [formData, setFormData] = useState<AirdropFormData>({
     name: '',
     task: '',
-    link: '',
+    website: '',
     level: '',
     status: 'active',
     backed: '',
@@ -25,15 +25,16 @@ export default function AddAirdropForm() {
     fdv: '',
     market_cap: '',
     price: 0,
-    vesting: '',
+    is_vesting: false,
     usd_income: 0,
-    claim: '',
-    link_discord: '',
-    link_twitter: '',
-    link_telegram: '',
+    claim_url: '',
+    discord: '',
+    twitter: '',
+    telegram: '',
     image_url: '',
     description: '',
-    link_guide: '',
+    guide_url: '',
+    is_paid: false,
   })
 
   const { isSubmitting, successMessage, errorMessage, submitAirdrop } = useAddAirdrop()
@@ -49,7 +50,7 @@ export default function AddAirdropForm() {
   const handleDropdownChange = (name: string, value: string) => {
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: name === 'is_vesting' ? value === 'true' : value
     }))
   }
 
@@ -57,7 +58,7 @@ export default function AddAirdropForm() {
     setFormData({
       name: '',
       task: '',
-      link: '',
+      website: '',
       level: '',
       status: 'active',
       backed: '',
@@ -66,15 +67,16 @@ export default function AddAirdropForm() {
       fdv: '',
       market_cap: '',
       price: 0,
-      vesting: '',
+      is_vesting: false,
       usd_income: 0,
-      claim: '',
-      link_discord: '',
-      link_twitter: '',
-      link_telegram: '',
+      claim_url: '',
+      discord: '',
+      twitter: '',
+      telegram: '',
       image_url: '',
       description: '',
-      link_guide: '',
+      guide_url: '',
+      is_paid: false,
     })
   }
 
@@ -82,22 +84,23 @@ export default function AddAirdropForm() {
   e.preventDefault()
     if (!formData.name) { toast.error('Please fill out Project Name'); return; }
     if (!formData.description) { toast.error('Please fill out Description'); return; }
-    if (formData.link_discord && !validateUrl(formData.link_discord, 'discord')) { toast.error('Invalid Discord URL format'); return; }
-    if (formData.link_telegram && !validateUrl(formData.link_telegram, 'telegram')) { toast.error('Invalid Telegram URL format'); return; }
-    if (formData.link_twitter && !validateUrl(formData.link_twitter, 'twitter')) { toast.error('Invalid Twitter URL format'); return; }
+    if (formData.discord && !validateUrl(formData.discord, 'discord')) { toast.error('Invalid Discord URL format'); return; }
+    if (formData.telegram && !validateUrl(formData.telegram, 'telegram')) { toast.error('Invalid Telegram URL format'); return; }
+    if (formData.twitter && !validateUrl(formData.twitter, 'twitter')) { toast.error('Invalid Twitter URL format'); return; }
 
 
     const payload = {
       ...formData,
       price: Number(formData.price),
       usd_income: Number(formData.usd_income),
-      link_claim: formData.claim,
-      link_discord: formData.link_discord,
-      link_twitter: formData.link_twitter,
-      link_telegram: formData.link_telegram,
+      is_vesting: formData.is_vesting,
+      claim_url: formData.claim_url,
+      discord: formData.discord,
+      twitter: formData.twitter,
+      telegram: formData.telegram,
       image_url: formData.image_url,
       description: formData.description,
-      link_guide: formData.link_guide
+      guide_url: formData.guide_url
     }
 
     await submitAirdrop(payload, activeTab)
@@ -194,7 +197,7 @@ export default function AddAirdropForm() {
                     type="url"
                     id="link"
                     name="link"
-                    value={formData.link}
+                    value={formData.website}
                     onChange={handleInputChange}
                     placeholder="https://example.com"
                     className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -233,56 +236,56 @@ export default function AddAirdropForm() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
-                  <label className="text-secondary text-sm font-medium" htmlFor="link_discord">
+                  <label className="text-secondary text-sm font-medium" htmlFor="discord">
                     Discord Link
                   </label>
                   <input
                     type="url"
-                    id="link_discord"
-                    name="link_discord"
-                    value={formData.link_discord}
+                    id="discord"
+                    name="discord"
+                    value={formData.discord}
                     onChange={handleInputChange}
                     placeholder="https://discord.gg/..."
                     className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-secondary text-sm font-medium" htmlFor="link_twitter">
+                  <label className="text-secondary text-sm font-medium" htmlFor="twitter">
                     Twitter Link
                   </label>
                   <input
                     type="url"
-                    id="link_twitter"
-                    name="link_twitter"
-                    value={formData.link_twitter}
+                    id="twitter"
+                    name="twitter"
+                    value={formData.twitter}
                     onChange={handleInputChange}
                     placeholder="https://twitter.com/..."
                     className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-secondary text-sm font-medium" htmlFor="link_telegram">
+                  <label className="text-secondary text-sm font-medium" htmlFor="telegram">
                     Telegram Link
                   </label>
                   <input
                     type="url"
-                    id="link_telegram"
-                    name="link_telegram"
-                    value={formData.link_telegram}
+                    id="telegram"
+                    name="telegram"
+                    value={formData.telegram}
                     onChange={handleInputChange}
                     placeholder="https://t.me/..."
                     className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-secondary text-sm font-medium" htmlFor="link_guide">
+                  <label className="text-secondary text-sm font-medium" htmlFor="guide_url">
                     Guide Link
                   </label>
                   <input
                     type="url"
-                    id="link_guide"
-                    name="link_guide"
-                    value={formData.link_guide}
+                    id="guide_url"
+                    name="guide_url"
+                    value={formData.guide_url}
                     onChange={handleInputChange}
                     placeholder="https://..."
                     className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -426,12 +429,12 @@ export default function AddAirdropForm() {
                   </label>
                   <CustomDropdown
                     id="vesting"
-                    name="vesting"
-                    value={formData.vesting}
-                    onChange={(value) => handleDropdownChange('vesting', value)}
+                    name="is_vesting"
+                    value={formData.is_vesting ? 'true' : 'false'}
+                    onChange={(value) => handleDropdownChange('is_vesting', value)}
                     options={[
-                      { value: 'yes', label: 'Yes' },
-                      { value: 'no', label: 'No' }
+                      { value: 'true', label: 'Yes' },
+                      { value: 'false', label: 'No' }
                     ]}
                     placeholder="Select vesting option"
                   />
@@ -460,7 +463,7 @@ export default function AddAirdropForm() {
                   type="text"
                   id="claim"
                   name="claim"
-                  value={formData.claim}
+                  value={formData.claim_url}
                   onChange={handleInputChange}
                   placeholder="https://example.com"
                   className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"

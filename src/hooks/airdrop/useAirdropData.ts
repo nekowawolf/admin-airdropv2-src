@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
-import { getAirdropFree, deleteAirdropFree } from '@/services/airdrop/freeService'
-import { getAirdropPaid, deleteAirdropPaid } from '@/services/airdrop/paidService'
+import { useState, useEffect, useCallback } from 'react'
+import { getAirdrops, deleteAirdrop } from '@/services/airdrop/airdropService'
 
 type AirdropType = 'free' | 'paid'
 
@@ -9,15 +8,16 @@ export const useAirdropData = (type: AirdropType) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       setLoading(true)
-      const result = type === 'free' ? await getAirdropFree() : await getAirdropPaid()
+      const isPaid = type === 'paid'
+      const result = await getAirdrops(isPaid)
       const validData = Array.isArray(result) ? result.filter(item => 
         item && 
         item !== null && 
         item !== undefined && 
-        item.status === 'active' && 
+        item.status !== 'ended' && !item.ended_at &&
         item.name && 
         item.task && 
         item.level && 
@@ -31,16 +31,12 @@ export const useAirdropData = (type: AirdropType) => {
     } finally {
       setLoading(false)
     }
-  }
+  }, [type])
 
   const handleDelete = async (id: string) => {
     try {
-      if (type === 'free') {
-        await deleteAirdropFree(id)
-      } else {
-        await deleteAirdropPaid(id)
-      }
-      setData(prev => prev.filter(item => item.id !== id))
+      await deleteAirdrop(id)
+      setData(prev => prev.filter(item => (item.id || item._id) !== id))
     } catch (err: any) {
       throw new Error(err.message || `Failed to delete ${type} airdrop`)
     }
@@ -48,7 +44,7 @@ export const useAirdropData = (type: AirdropType) => {
 
   useEffect(() => {
     fetchData()
-  }, [type])
+  }, [fetchData])
 
   return {
     data,

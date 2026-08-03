@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import { updateAirdropFree } from '@/services/airdrop/freeService'
-import { updateAirdropPaid } from '@/services/airdrop/paidService'
-import { AirdropFreeRequest, AirdropPaidRequest } from '@/types/airdrop'
+import { updateAirdrop } from '@/services/airdrop/airdropService'
+import { AirdropRequest } from '@/types/airdrop'
 
 type AirdropType = 'free' | 'paid'
 
@@ -10,7 +9,7 @@ export const useEditAirdrop = (type: AirdropType) => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
-  const editAirdrop = async (id: string, data: AirdropFreeRequest | AirdropPaidRequest) => {
+  const editAirdrop = async (id: string, data: AirdropRequest) => {
     setIsSubmitting(true)
     setSuccessMessage(null)
     setErrorMessage(null)
@@ -20,14 +19,10 @@ export const useEditAirdrop = (type: AirdropType) => {
         ...data,
         price: Number(data.price),
         usd_income: Number(data.usd_income),
-        link_claim: (data as any).link_claim
+        is_paid: type === 'paid'
       }
 
-      if (type === 'free') {
-        await updateAirdropFree(id, payload as AirdropFreeRequest)
-      } else {
-        await updateAirdropPaid(id, payload as AirdropPaidRequest)
-      }
+      await updateAirdrop(id, payload as AirdropRequest)
 
       setSuccessMessage('Airdrop updated successfully!')
       return true

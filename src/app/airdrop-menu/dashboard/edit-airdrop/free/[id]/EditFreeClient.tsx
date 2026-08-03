@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { getAirdropFreeById } from '@/services/airdrop/freeService'
+import { getAirdropById } from '@/services/airdrop/airdropService'
 import EditAirdropForm from '@/components/airdrops/EditAirdropForm'
 import { Spinner } from "@/components/ui/shadcn-io/spinner"
 import { useAuthGuard } from '@/hooks/auth-guard/useAuthGuard'
@@ -23,7 +23,7 @@ export default function EditAirdropPage() {
     const fetchAirdropData = async () => {
       try {
         setLoading(true)
-        const airdrop = await getAirdropFreeById(id)
+        const airdrop = await getAirdropById(id)
         setAirdropData(airdrop)
       } catch (err: any) {
         setError(err.message || 'Failed to fetch airdrop data')

@@ -125,7 +125,7 @@ export default function AirdropTable({
   }
 
   const handleEdit = (item: any) => {
-    router.push(`${editRoute}/${item.id}`)
+    router.push(`${editRoute}/${item._id || item.id}`)
     setOpenDropdownIndex(null)
   }
 
@@ -216,7 +216,7 @@ export default function AirdropTable({
                                 src={item.image_url || ''} 
                                 alt={item.name || 'Airdrop'} 
                                 fill 
-                                className="object-cover rounded-lg"
+                                className="object-cover rounded-md"
                                 sizes="40px"
                             />
                           </div>
@@ -233,37 +233,37 @@ export default function AirdropTable({
                        )}
                      </td>
                      <td className="px-6 py-2 text-accent">
-                       {item.link ? (
-                         <a href={item.link} target="_blank" rel="noopener noreferrer" className="cursor-pointer text-blue-500">Visit</a>
+                       {item.website ? (
+                         <a href={item.website} target="_blank" rel="noopener noreferrer" className="cursor-pointer text-blue-500">Visit</a>
                        ) : (
                          <span className="text-primary">N/A</span>
                       )}
                      </td>
                      <td className="px-6 py-2 text-accent">
-                       {item.link_guide ? (
-                         <a href={item.link_guide} target="_blank" rel="noopener noreferrer" className="cursor-pointer text-blue-500">Visit</a>
+                       {item.guide_url ? (
+                         <a href={item.guide_url} target="_blank" rel="noopener noreferrer" className="cursor-pointer text-blue-500">Visit</a>
                        ) : (
                          <span className="text-primary">N/A</span>
                        )}
                      </td>
                      <td className="px-6 py-2">
                         <div className="flex gap-2">
-                           {item.link_discord && (
-                             <a href={item.link_discord} target="_blank" rel="noopener noreferrer" className="cursor-pointer text-blue-400 hover:text-blue-500">
+                           {item.discord && (
+                             <a href={item.discord} target="_blank" rel="noopener noreferrer" className="cursor-pointer text-blue-400 hover:text-blue-500">
                                <FaDiscord size={16} />
                              </a>
                            )}
-                           {item.link_twitter && (
-                             <a href={item.link_twitter} target="_blank" rel="noopener noreferrer" className="cursor-pointer text-blue-400 hover:text-blue-500">
+                           {item.twitter && (
+                             <a href={item.twitter} target="_blank" rel="noopener noreferrer" className="cursor-pointer text-blue-400 hover:text-blue-500">
                                <FaXTwitter size={16} />
                              </a>
                            )}
-                           {item.link_telegram && (
-                             <a href={item.link_telegram} target="_blank" rel="noopener noreferrer" className="cursor-pointer text-blue-400 hover:text-blue-500">
+                           {item.telegram && (
+                             <a href={item.telegram} target="_blank" rel="noopener noreferrer" className="cursor-pointer text-blue-400 hover:text-blue-500">
                                <FaTelegram size={16} />
                              </a>
                            )}
-                           {!item.link_discord && !item.link_twitter && !item.link_telegram && (
+                           {!item.discord && !item.twitter && !item.telegram && (
                              <span className="text-muted text-xs">N/A</span>
                            )}
                         </div>
@@ -315,7 +315,7 @@ export default function AirdropTable({
               </li>
               <li>
                  <button
-                   onClick={() => handleDeleteClick(paginatedData[openDropdownIndex].id, paginatedData[openDropdownIndex].name || 'Unknown')}
+                   onClick={() => handleDeleteClick(paginatedData[openDropdownIndex]._id || paginatedData[openDropdownIndex].id, paginatedData[openDropdownIndex].name || 'Unknown')}
                    className="cursor-pointer flex items-center gap-2 w-full px-4 py-2 text-red-600"
                  >
                    <FaTrash size={16} /> Delete

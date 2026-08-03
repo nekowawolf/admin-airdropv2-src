@@ -15,4 +15,5 @@ export interface GithubRepoRequest extends GithubRepoBase {}
 
 export interface GithubRepoResponse extends GithubRepoBase {
   _id: string
+  created_at?: string
 }

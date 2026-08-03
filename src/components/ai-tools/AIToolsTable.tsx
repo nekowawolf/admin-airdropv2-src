@@ -198,7 +198,7 @@ export default function AIToolsTable({
                     <td className="px-6 py-2">
                           <div className="relative w-10 h-10">
                             <FallbackImage 
-                              src={item.imgURL || ''} 
+                              src={item.image_url || ''} 
                               alt={item.name || 'AI Tool'}
                               fill
                               className="object-cover rounded-lg"

@@ -226,7 +226,7 @@ export default function EndedAirdropTable({
                                 src={item.image_url || ''} 
                                 alt={item.name || 'Airdrop'} 
                                 fill 
-                                className="object-cover rounded-md"
+                                className="object-cover rounded-lg"
                                 sizes="40px"
                             />
                           </div>

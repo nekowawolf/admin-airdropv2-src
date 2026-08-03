@@ -32,7 +32,7 @@ export default function EditAIToolsForm({ id }: { id: string }) {
     description: '',
     categories: [],
     video_url: '',
-    imgURL: '',
+    image_url: '',
     website: '',
     twitter: '',
     instagram: '',
@@ -60,7 +60,7 @@ export default function EditAIToolsForm({ id }: { id: string }) {
     e.preventDefault()
     if (!formData.name) { toast.error('Please fill out Project Name'); return; }
     if (!formData.description) { toast.error('Please fill out Description'); return; }
-    if (!formData.imgURL) { toast.error('Please fill out Image URL'); return; }
+    if (!formData.image_url) { toast.error('Please fill out Image URL'); return; }
     if (!formData.website) { toast.error('Please fill out Website URL'); return; }
     if (selectedCategories.length === 0) { toast.error('Please select at least one Category'); return; }
     if (formData.website && !validateUrl(formData.website, 'website')) { toast.error('Invalid Website URL format'); return; }
@@ -152,16 +152,16 @@ export default function EditAIToolsForm({ id }: { id: string }) {
 
               {/* Image URL */}
               <div className="flex flex-col gap-2">
-                <label className="text-secondary text-sm font-medium" htmlFor="imgURL">
+                <label className="text-secondary text-sm font-medium" htmlFor="image_url">
                   Image URL *
                 </label>
                 <div className="relative">
                   <FiImage className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted w-4 h-4" />
                   <input
                     type="url"
-                    id="imgURL"
-                    name="imgURL"
-                    value={formData.imgURL}
+                    id="image_url"
+                    name="image_url"
+                    value={formData.image_url}
                     onChange={handleInputChange}
                     placeholder="https://example.com/image.jpg"
                     className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"

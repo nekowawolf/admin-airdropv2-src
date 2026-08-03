@@ -3,7 +3,7 @@ export interface AIToolsBase {
   description: string
   categories: string[]
   video_url: string
-  imgURL: string
+  image_url: string
   website: string
   twitter: string
   instagram: string

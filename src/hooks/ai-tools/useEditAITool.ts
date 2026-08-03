@@ -17,7 +17,7 @@ export function useEditAITool(id: string) {
             description: data.description || '',
             categories: data.categories || [],
             video_url: data.video_url || '',
-            imgURL: data.imgURL || '',
+            image_url: data.image_url || '',
             website: data.website || '',
             twitter: data.twitter || '',
             instagram: data.instagram || '',

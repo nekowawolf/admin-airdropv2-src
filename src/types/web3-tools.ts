@@ -3,7 +3,7 @@ export interface Web3ToolsBase {
   description: string
   category: string
   chains: string[]
-  imageUrl: string
+  image_url: string
   website: string
   twitter: string
   instagram: string

@@ -17,7 +17,7 @@ export function useEditWeb3Tool(id: string) {
             description: data.description || '',
             category: data.category || '',
             chains: data.chains || [],
-            imageUrl: data.imageUrl || '',
+            image_url: data.image_url || '',
             website: data.website || '',
             twitter: data.twitter || '',
             instagram: data.instagram || '',

@@ -19,8 +19,8 @@ export default function EditCommunityForm({ communityData, onSuccess }: EditComm
     name: communityData?.name || '',
     platforms: communityData?.platforms || '',
     category: communityData?.category || '',
-    img_url: communityData?.img_url || '',
-    link_url: communityData?.link_url || ''
+    image_url: communityData?.image_url || '',
+    link: communityData?.link || ''
   })
 
   const { isSubmitting, editCommunity } = useEditCommunity()
@@ -144,27 +144,27 @@ export default function EditCommunityForm({ communityData, onSuccess }: EditComm
 
               {/* Image URL */}
               <div className="flex flex-col gap-2">
-                <label className="text-secondary text-sm font-medium" htmlFor="img_url">
+                <label className="text-secondary text-sm font-medium" htmlFor="image_url">
                   Image URL *
                 </label>
                 <div className="relative">
                   <FiImage className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted w-4 h-4" />
                   <input
                     type="url"
-                    id="img_url"
-                    name="img_url"
-                    value={formData.img_url}
+                    id="image_url"
+                    name="image_url"
+                    value={formData.image_url}
                     onChange={handleInputChange}
                     placeholder="https://example.com/image.jpg"
                     required
                     className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
-                {formData.img_url && (
+                {formData.image_url && (
                   <div className="mt-2">
                     <p className="text-xs text-secondary mb-2">Image Preview:</p>
                     <img 
-                      src={formData.img_url} 
+                      src={formData.image_url} 
                       alt="Preview" 
                       className="w-20 h-20 object-cover rounded-lg border border-border-divider"
                       onError={(e) => {
@@ -177,16 +177,16 @@ export default function EditCommunityForm({ communityData, onSuccess }: EditComm
 
               {/* Link URL */}
               <div className="flex flex-col gap-2">
-                <label className="text-secondary text-sm font-medium" htmlFor="link_url">
+                <label className="text-secondary text-sm font-medium" htmlFor="link">
                   Community Link *
                 </label>
                 <div className="relative">
                   <FiLink className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted w-4 h-4" />
                   <input
                     type="url"
-                    id="link_url"
-                    name="link_url"
-                    value={formData.link_url}
+                    id="link"
+                    name="link"
+                    value={formData.link}
                     onChange={handleInputChange}
                     placeholder="https://t.me/communityname or https://discord.gg/community"
                     required

@@ -49,7 +49,7 @@ export default function CommunityTable({
     item.name && 
     item.platforms && 
     item.category && 
-    item.link_url
+    item.link
   ) : []
 
   // ===== STATE =====
@@ -202,7 +202,7 @@ export default function CommunityTable({
                     <td className="px-6 py-2">
                           <div className="relative w-10 h-10">
                             <FallbackImage 
-                              src={item.img_url || ''} 
+                              src={item.image_url || ''} 
                               alt={item.name || 'Community'}
                               fill
                               className="object-cover rounded-lg"
@@ -218,9 +218,9 @@ export default function CommunityTable({
                     </td>
                     <td className="px-6 py-2">{item.category || 'N/A'}</td>
                     <td className="px-6 py-2 text-accent">
-                      {item.link_url ? (
+                      {item.link ? (
                         <a 
-                          href={item.link_url} 
+                          href={item.link} 
                           target="_blank" 
                           rel="noopener noreferrer" 
                           className="cursor-pointer text-blue-500 hover:underline"

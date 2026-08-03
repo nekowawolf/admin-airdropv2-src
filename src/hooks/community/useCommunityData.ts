@@ -17,7 +17,7 @@ export const useCommunityData = () => {
         item.name && 
         item.platforms && 
         item.category && 
-        item.link_url
+        item.link
       ) : []
       setData(validData.reverse())
     } catch (err: any) {

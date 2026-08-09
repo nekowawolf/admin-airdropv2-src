@@ -22,7 +22,8 @@ export function useEditGithubRepo(id: string) {
             website: data.website || '',
             twitter: data.twitter || '',
             instagram: data.instagram || '',
-            discord: data.discord || ''
+            discord: data.discord || '',
+            added_by: data.added_by
           })
         }
       } catch (err: any) {

@@ -15,6 +15,8 @@ export default function EditGithubReposForm({ id }: { id: string }) {
   useAuthGuard()
   const router = useRouter()
   const { isSubmitting, initialData, submitEditGithubRepo } = useEditGithubRepo(id)
+  const [addedByName, setAddedByName] = useState('')
+  const [addedByUrl, setAddedByUrl] = useState('')
   const [formData, setFormData] = useState<GithubRepoRequest>({
     name: '',
     description: '',
@@ -31,6 +33,10 @@ export default function EditGithubReposForm({ id }: { id: string }) {
   useEffect(() => {
     if (initialData) {
       setFormData(initialData)
+      if (initialData.added_by) {
+        setAddedByName(initialData.added_by.name || '')
+        setAddedByUrl(initialData.added_by.url || '')
+      }
     }
   }, [initialData])
 
@@ -85,8 +91,8 @@ export default function EditGithubReposForm({ id }: { id: string }) {
       owner,
       repo_name,
       added_by: {
-        name: 'nekowawolf',
-        url: 'https://nekowawolf.xyz'
+        name: addedByName || 'nekowawolf',
+        url: addedByUrl || 'https://nekowawolf.xyz'
       }
     };
 
@@ -261,6 +267,36 @@ export default function EditGithubReposForm({ id }: { id: string }) {
                   onChange={handleInputChange}
                   placeholder="https://discord.gg/..."
                   className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              {/* Added By Name */}
+              <div className="flex flex-col gap-2">
+                <label className="text-secondary text-sm font-medium" htmlFor="addedByName">
+                  Name (addedby)
+                </label>
+                <input
+                  type="text"
+                  id="addedByName"
+                  value={addedByName}
+                  onChange={(e) => setAddedByName(e.target.value)}
+                  placeholder="Your name or username"
+                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              {/* Added By Link */}
+              <div className="flex flex-col gap-2">
+                <label className="text-secondary text-sm font-medium" htmlFor="addedByUrl">
+                  Link <span className="text-secondary/60 font-normal">(opsional)</span>
+                </label>
+                <input
+                  type="url"
+                  id="addedByUrl"
+                  value={addedByUrl}
+                  onChange={(e) => setAddedByUrl(e.target.value)}
+                  placeholder="https://yourwebsite.com or social link"
+                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 

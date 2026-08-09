@@ -83,7 +83,11 @@ export default function EditGithubReposForm({ id }: { id: string }) {
     const payload = {
       ...formData,
       owner,
-      repo_name
+      repo_name,
+      added_by: {
+        name: 'nekowawolf',
+        url: 'https://nekowawolf.xyz'
+      }
     };
 
     const success = await submitEditGithubRepo(payload)

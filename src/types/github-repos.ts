@@ -1,3 +1,8 @@
+export interface AddedByInfo {
+  name?: string
+  url?: string
+}
+
 export interface GithubRepoBase {
   name: string
   description: string
@@ -9,6 +14,7 @@ export interface GithubRepoBase {
   twitter: string
   instagram: string
   discord: string
+  added_by?: AddedByInfo
 }
 
 export interface GithubRepoRequest extends GithubRepoBase {}

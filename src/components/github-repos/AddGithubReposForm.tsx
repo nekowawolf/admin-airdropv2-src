@@ -90,7 +90,11 @@ export default function AddGithubReposForm() {
     const payload = {
       ...formData,
       owner,
-      repo_name
+      repo_name,
+      added_by: {
+        name: 'nekowawolf',
+        url: 'https://nekowawolf.xyz'
+      }
     };
 
     await submitGithubRepo(payload)

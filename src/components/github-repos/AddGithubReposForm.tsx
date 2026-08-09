@@ -1,8 +1,12 @@
 "use client"
 
 import { useAuthGuard } from '@/hooks/auth-guard/useAuthGuard'
-import { useState } from 'react'
-import { FiUsers, FiGithub } from 'react-icons/fi'
+import { useState, useEffect, useRef } from 'react'
+import { FiUsers, FiGithub, FiLoader } from 'react-icons/fi'
+import { getGithubRepos } from '@/services/github-repos/githubReposService'
+import { FaRegCircleCheck } from 'react-icons/fa6'
+import { LiaTimesCircleSolid } from 'react-icons/lia'
+import { AiOutlineExclamationCircle } from 'react-icons/ai'
 import { useAddGithubRepo } from '@/hooks/github-repos/useAddGithubRepo'
 import { GithubRepoRequest } from '@/types/github-repos'
 import { CustomDropdown } from '@/components/ui/CustomDropdown'
@@ -25,6 +29,63 @@ export default function AddGithubReposForm() {
   })
 
   const { isSubmitting, submitGithubRepo } = useAddGithubRepo()
+
+  const [existingUrls, setExistingUrls] = useState<string[]>([])
+  const [isCheckingUrl, setIsCheckingUrl] = useState(false)
+  const [urlExists, setUrlExists] = useState<boolean | null>(null)
+  const [showTooltip, setShowTooltip] = useState(false)
+  const tooltipRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const loadRepos = async () => {
+      try {
+        const repos = await getGithubRepos()
+        const urls = repos.map(r => (r.repo_url || '').toLowerCase().replace(/\/$/, ''))
+        setExistingUrls(urls)
+      } catch (err) {
+        console.error("Failed to load existing repos for validation", err)
+      }
+    }
+    loadRepos()
+  }, [])
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (tooltipRef.current && !tooltipRef.current.contains(event.target as Node)) {
+        setShowTooltip(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
+
+  useEffect(() => {
+    setShowTooltip(false)
+    if (!formData.repo_url) {
+      setUrlExists(null)
+      setIsCheckingUrl(false)
+      return
+    }
+
+    const githubRegex = /^https?:\/\/(www\.)?github\.com\/[a-zA-Z0-9-]+\/[a-zA-Z0-9_.-]+(\/.*)?$/
+    if (!githubRegex.test(formData.repo_url)) {
+      setUrlExists(null)
+      setIsCheckingUrl(false)
+      return
+    }
+
+    setIsCheckingUrl(true)
+    const timer = setTimeout(() => {
+      const cleanUrl = formData.repo_url.toLowerCase().replace(/\/$/, '')
+      const exists = existingUrls.includes(cleanUrl)
+      setUrlExists(exists)
+      setIsCheckingUrl(false)
+    }, 600)
+
+    return () => clearTimeout(timer)
+  }, [formData.repo_url, existingUrls])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -62,6 +123,7 @@ export default function AddGithubReposForm() {
     if (!formData.description) { toast.error('Please fill out Description'); return; }
     if (!formData.category) { toast.error('Please fill out Category'); return; }
     if (!formData.repo_url) { toast.error('Please fill out GitHub Repo URL'); return; }
+    if (urlExists === true) { toast.error('This repo is already listed.'); return; }
     if (formData.repo_url && !validateUrl(formData.repo_url, 'github')) { toast.error('Invalid GitHub URL format'); return; }
     if (formData.website && !validateUrl(formData.website, 'website')) { toast.error('Invalid Website URL format'); return; }
     if (formData.twitter && !validateUrl(formData.twitter, 'twitter')) { toast.error('Invalid Twitter URL format'); return; }
@@ -180,9 +242,34 @@ export default function AddGithubReposForm() {
 
               {/* Repo URL */}
               <div className="flex flex-col gap-2">
-                <label className="text-secondary text-sm font-medium" htmlFor="repo_url">
-                  Repository URL *
-                </label>
+                <div className="flex items-center gap-2">
+                  <label className="text-secondary text-sm font-medium" htmlFor="repo_url">
+                    Repository URL *
+                  </label>
+                  {isCheckingUrl && <FiLoader className="w-3.5 h-3.5 text-blue-500 animate-spin" />}
+                  {!isCheckingUrl && urlExists !== null && (
+                    <div ref={tooltipRef} className="flex items-center gap-1.5 relative">
+                      {urlExists ? (
+                        <LiaTimesCircleSolid className="w-[17px] h-[17px] text-red-500" />
+                      ) : (
+                        <FaRegCircleCheck className="w-3.5 h-3.5 text-green-500" />
+                      )}
+                      <button 
+                        type="button" 
+                        onClick={() => setShowTooltip(!showTooltip)}
+                        className="text-secondary/50 hover:text-secondary cursor-pointer transition-colors outline-none"
+                      >
+                        <AiOutlineExclamationCircle className="w-4 h-4" />
+                      </button>
+                      
+                      {showTooltip && (
+                        <div className="absolute left-full ml-2 top-1/2 -translate-y-1/2 w-max bg-[var(--fill-color)] border border-border-color px-3 py-2 rounded-lg shadow-lg z-50 text-xs font-medium text-primary animate-in fade-in zoom-in duration-200">
+                          {urlExists ? "This repo is already listed." : "This repo is not listed yet."}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
                 <div className="relative">
                   <FiGithub className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted w-4 h-4" />
                   <input

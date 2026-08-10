@@ -23,3 +23,10 @@ export interface GithubRepoResponse extends GithubRepoBase {
   _id: string
   created_at?: string
 }
+
+export interface RepoSubmission {
+  _id: string
+  repo_url: string
+  added_by?: AddedByInfo
+  created_at?: string
+}

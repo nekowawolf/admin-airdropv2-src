@@ -1,5 +1,5 @@
 import { authFetch } from '@/services/auth/authService'
-import { GithubRepoRequest, GithubRepoResponse } from '@/types/github-repos'
+import { GithubRepoRequest, GithubRepoResponse, RepoSubmission } from '@/types/github-repos'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
@@ -85,6 +85,34 @@ export const deleteGithubRepo = async (_id: string) => {
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}))
     throw new Error(errorData.message || 'Failed to delete GitHub repo')
+  }
+
+  return response.json()
+}
+
+export const getRepoSubmissions = async (): Promise<RepoSubmission[]> => {
+  const response = await authFetch(`${API_BASE_URL}/repo-submissions`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}))
+    throw new Error(errorData.message || 'Failed to fetch repo submissions')
+  }
+
+  const data = await response.json()
+  return Array.isArray(data.data) ? data.data : []
+}
+
+export const deleteRepoSubmission = async (_id: string) => {
+  const response = await authFetch(`${API_BASE_URL}/repo-submissions/${_id}`, {
+    method: 'DELETE',
+  })
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}))
+    throw new Error(errorData.message || 'Failed to delete repo submission')
   }
 
   return response.json()

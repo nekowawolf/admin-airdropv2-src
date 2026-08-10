@@ -418,6 +418,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
     const isAddGithubRepoActive = pathname === '/github-repos-menu/dashboard/add-github-repo'
     const isGithubReposDashboardPathActive = pathname.startsWith('/github-repos-menu/dashboard') && !pathname.includes('/add-github-repo')
     const isGithubReposListActive = pathname === '/github-repos-menu/dashboard/github-repos-list'
+    const isRepoSubmissionsActive = pathname === '/github-repos-menu/dashboard/repo-submissions'
+    const isFeedbackActive = pathname === '/github-repos-menu/dashboard/feedback'
 
     // === SIDEBAR CONTENT ===
     const content = (
@@ -1130,6 +1132,26 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                                         }`}
                                     >
                                         GitHub Repos List
+                                    </Link>
+                                    <Link
+                                        href="/github-repos-menu/dashboard/repo-submissions"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isRepoSubmissionsActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Repo Submissions
+                                    </Link>
+                                    <Link
+                                        href="/github-repos-menu/dashboard/feedback"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isFeedbackActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Feedback
                                     </Link>
                                 </div>
                             )}

@@ -92,7 +92,7 @@ export default function EditGithubReposForm({ id }: { id: string }) {
       repo_name,
       added_by: {
         name: addedByName || 'nekowawolf',
-        url: addedByUrl || 'https://nekowawolf.xyz'
+        url: addedByUrl || (addedByName ? '' : 'https://nekowawolf.xyz')
       }
     };
 

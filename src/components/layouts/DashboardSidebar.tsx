@@ -8,6 +8,7 @@ import { IoIosAddCircleOutline } from 'react-icons/io'
 import { HiMiniRocketLaunch } from 'react-icons/hi2'
 import { FaLayerGroup, FaUserCircle, FaBitcoin, FaLink, FaRobot, FaGithub } from 'react-icons/fa'
 import { MdImage } from 'react-icons/md'
+import { AiOutlineDollar } from "react-icons/ai";
 
 type SidebarProps = {
     isOpen?: boolean
@@ -34,6 +35,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
     const [openAIToolsDashboard, setOpenAIToolsDashboard] = useState(false)
     const [openGithubRepos, setOpenGithubRepos] = useState(false)
     const [openGithubReposDashboard, setOpenGithubReposDashboard] = useState(false)
+    const [openSupporter, setOpenSupporter] = useState(false)
+    const [openSupporterDashboard, setOpenSupporterDashboard] = useState(false)
 
 
     // === HANDLE ACTIVE SECTIONS ===
@@ -54,6 +57,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                 setOpenAIToolsDashboard(false)
                 setOpenGithubRepos(false)
                 setOpenGithubReposDashboard(false)
+                setOpenSupporter(false)
+                setOpenSupporterDashboard(false)
 
 
         setOpenWeb3Tools(false)
@@ -62,6 +67,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
         setOpenAIToolsDashboard(false)
         setOpenGithubRepos(false)
         setOpenGithubReposDashboard(false)
+                setOpenSupporter(false)
+                setOpenSupporterDashboard(false)
 
 
         // === AIRDROP PATH ===
@@ -148,6 +155,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                 setOpenAIToolsDashboard(false)
                 setOpenGithubRepos(false)
                 setOpenGithubReposDashboard(false)
+                setOpenSupporter(false)
+                setOpenSupporterDashboard(false)
 
 
         setOpenWeb3Tools(false)
@@ -156,6 +165,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
         setOpenAIToolsDashboard(false)
         setOpenGithubRepos(false)
         setOpenGithubReposDashboard(false)
+                setOpenSupporter(false)
+                setOpenSupporterDashboard(false)
 
             }
             return next
@@ -182,6 +193,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                 setOpenAIToolsDashboard(false)
                 setOpenGithubRepos(false)
                 setOpenGithubReposDashboard(false)
+                setOpenSupporter(false)
+                setOpenSupporterDashboard(false)
 
 
         setOpenWeb3Tools(false)
@@ -190,6 +203,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
         setOpenAIToolsDashboard(false)
         setOpenGithubRepos(false)
         setOpenGithubReposDashboard(false)
+                setOpenSupporter(false)
+                setOpenSupporterDashboard(false)
 
             }
             return next
@@ -217,6 +232,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                 setOpenAIToolsDashboard(false)
                 setOpenGithubRepos(false)
                 setOpenGithubReposDashboard(false)
+                setOpenSupporter(false)
+                setOpenSupporterDashboard(false)
 
 
         setOpenWeb3Tools(false)
@@ -225,6 +242,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
         setOpenAIToolsDashboard(false)
         setOpenGithubRepos(false)
         setOpenGithubReposDashboard(false)
+                setOpenSupporter(false)
+                setOpenSupporterDashboard(false)
 
             }
             return next
@@ -252,6 +271,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                 setOpenAIToolsDashboard(false)
                 setOpenGithubRepos(false)
                 setOpenGithubReposDashboard(false)
+                setOpenSupporter(false)
+                setOpenSupporterDashboard(false)
 
 
         setOpenWeb3Tools(false)
@@ -260,6 +281,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
         setOpenAIToolsDashboard(false)
         setOpenGithubRepos(false)
         setOpenGithubReposDashboard(false)
+                setOpenSupporter(false)
+                setOpenSupporterDashboard(false)
 
             }
             return next
@@ -307,6 +330,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                 setOpenAIToolsDashboard(false)
                 setOpenGithubRepos(false)
                 setOpenGithubReposDashboard(false)
+                setOpenSupporter(false)
+                setOpenSupporterDashboard(false)
             }
             return next
         })
@@ -331,6 +356,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                 setOpenWeb3ToolsDashboard(false)
                 setOpenGithubRepos(false)
                 setOpenGithubReposDashboard(false)
+                setOpenSupporter(false)
+                setOpenSupporterDashboard(false)
             }
             return next
         })
@@ -360,6 +387,33 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
         })
     }
     const handleGithubReposDashboardDropdown = () => setOpenGithubReposDashboard(v => !v)
+
+    const handleSupporterDropdown = () => {
+        setOpenSupporter((prev) => {
+            const next = !prev
+            if (next) {
+                setOpenAirdrop(false)
+                setOpenDashboard(false)
+                setOpenCommunity(false)
+                setOpenCommunityDashboard(false)
+                setOpenPortfolio(false)
+                setOpenPortfolioDashboard(false)
+                setOpenImages(false)
+                setOpenImagesDashboard(false)
+                setOpenLink(false)
+                setOpenLinkDashboard(false)
+                setOpenWeb3Tools(false)
+                setOpenWeb3ToolsDashboard(false)
+                setOpenAITools(false)
+                setOpenAIToolsDashboard(false)
+                setOpenGithubRepos(false)
+                setOpenGithubReposDashboard(false)
+            }
+            return next
+        })
+    }
+
+    const handleSupporterDashboardDropdown = () => setOpenSupporterDashboard((v) => !v)
 
 
     // === ACTIVE PATH DETECTION ===
@@ -420,6 +474,13 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
     const isGithubReposListActive = pathname === '/github-repos-menu/dashboard/github-repos-list'
     const isRepoSubmissionsActive = pathname === '/github-repos-menu/dashboard/repo-submissions'
     const isFeedbackActive = pathname === '/github-repos-menu/dashboard/feedback'
+
+    // === SUPPORTER ===
+    const isSupporterAnalyticActive = pathname === '/supporter-menu/dashboard'
+    const isAddSupporterActive = pathname === '/supporter-menu/dashboard/add-supporter'
+    const isSupporterDashboardPathActive = pathname.startsWith('/supporter-menu/dashboard') && !pathname.includes('/add-supporter')
+    const isSupporterListActive = pathname === '/supporter-menu/dashboard/supporter-list'
+    const isSupportRequestsActive = pathname === '/supporter-menu/dashboard/support-requests'
 
     // === SIDEBAR CONTENT ===
     const content = (
@@ -1177,6 +1238,115 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                 </div>
 
                 {/* === Image Resources Group === */}
+                {/* === Supporter Group === */}
+                <div>
+                    <button
+                        type="button"
+                        onClick={handleSupporterDropdown}
+                        className={`cursor-pointer group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
+                            pathname.startsWith('/supporter-menu/dashboard')
+                                ? 'border-accent text-accent bg-accent/10'
+                                : 'border-transparent text-secondary hover:hover-bg'
+                        }`}
+                    >
+                        <AiOutlineDollar
+                            className={`${
+                                pathname.startsWith('/supporter-menu/dashboard')
+                                    ? 'text-accent'
+                                    : 'text-muted'
+                            }`}
+                            size={18}
+                        />
+                        <span>Supporter</span>
+                        <i
+                            className={`fa-solid fa-caret-down ml-auto text-xs transition-transform ${
+                                openSupporter ? 'rotate-180' : ''
+                            }`}
+                        />
+                    </button>
+
+                    {openSupporter && (
+                        <div className="pl-8 mt-2 space-y-1">
+                            <button
+                                type="button"
+                                onClick={handleSupporterDashboardDropdown}
+                                className={`cursor-pointer group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
+                                    isSupporterDashboardPathActive
+                                        ? 'border-accent text-accent bg-accent/10'
+                                        : 'border-transparent text-secondary hover:hover-bg'
+                                }`}
+                            >
+                                <RxDashboard
+                                    className={`${
+                                        isSupporterDashboardPathActive
+                                            ? 'text-accent'
+                                            : 'text-muted'
+                                    }`}
+                                    size={18}
+                                />
+                                <span>Dashboard</span>
+                                <i
+                                    className={`fa-solid fa-caret-down ml-auto text-xs transition-transform ${
+                                        openSupporterDashboard ? 'rotate-180' : ''
+                                    }`}
+                                />
+                            </button>
+
+                            {openSupporterDashboard && (
+                                <div className="pl-8 mt-1 space-y-1">
+                                    <Link
+                                        href="/supporter-menu/dashboard"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isSupporterAnalyticActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Analytic
+                                    </Link>
+                                    <Link
+                                        href="/supporter-menu/dashboard/supporter-list"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isSupporterListActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Supporter List
+                                    </Link>
+                                    <Link
+                                        href="/supporter-menu/dashboard/support-requests"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isSupportRequestsActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Support Requests
+                                    </Link>
+                                </div>
+                            )}
+
+                            <Link
+                                href="/supporter-menu/dashboard/add-supporter"
+                                className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors border-l-4 ${
+                                    isAddSupporterActive
+                                        ? 'border-accent text-accent bg-accent/10'
+                                        : 'border-transparent text-secondary hover:hover-bg'
+                                }`}
+                            >
+                                <IoIosAddCircleOutline
+                                    className={`${
+                                        isAddSupporterActive ? 'text-accent' : 'text-muted'
+                                    }`}
+                                    size={18}
+                                />
+                                Add Supporter
+                            </Link>
+                        </div>
+                    )}
+                </div>
+
                 <div>
                     <button
                         type="button"

@@ -1,11 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image, { ImageProps } from 'next/image';
 
 export const FALLBACK_IMAGE_URL = 'https://nekowawolf.github.io/cdn-images/images/2026/1780148714_image-unavailable.png';
 
-export const FallbackImage = ({ src, alt, ...props }: ImageProps) => {
+export const FallbackImage = ({ src, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => {
     const [imgSrc, setImgSrc] = useState(src);
 
     useEffect(() => {
@@ -13,11 +12,10 @@ export const FallbackImage = ({ src, alt, ...props }: ImageProps) => {
     }, [src]);
 
     return (
-        <Image
+        <img
             {...props}
-            src={imgSrc ? imgSrc : FALLBACK_IMAGE_URL}
+            src={imgSrc ? (imgSrc as string) : FALLBACK_IMAGE_URL}
             alt={alt || 'Image'}
-            unoptimized={true}
             onError={() => {
                 if (imgSrc !== FALLBACK_IMAGE_URL) {
                     setImgSrc(FALLBACK_IMAGE_URL);

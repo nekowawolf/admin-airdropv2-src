@@ -4,16 +4,26 @@ import React, { useState, useEffect } from 'react';
 
 export const FALLBACK_IMAGE_URL = 'https://nekowawolf.github.io/cdn-images/images/2026/1780148714_image-unavailable.png';
 
-export const FallbackImage = ({ src, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => {
+export interface FallbackImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+    fill?: boolean;
+    sizes?: string;
+}
+
+export const FallbackImage = ({ src, alt, fill, sizes, className, ...props }: FallbackImageProps) => {
     const [imgSrc, setImgSrc] = useState(src);
 
     useEffect(() => {
         setImgSrc(src);
     }, [src]);
 
+    const combinedClassName = fill 
+        ? `absolute inset-0 w-full h-full ${className || ''}` 
+        : className;
+
     return (
         <img
             {...props}
+            className={combinedClassName}
             src={imgSrc ? (imgSrc as string) : FALLBACK_IMAGE_URL}
             alt={alt || 'Image'}
             onError={() => {
@@ -25,16 +35,21 @@ export const FallbackImage = ({ src, alt, ...props }: React.ImgHTMLAttributes<HT
     );
 };
 
-export const FallbackNativeImage = ({ src, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => {
+export const FallbackNativeImage = ({ src, alt, fill, sizes, className, ...props }: FallbackImageProps) => {
     const [imgSrc, setImgSrc] = useState(src);
 
     useEffect(() => {
         setImgSrc(src);
     }, [src]);
 
+    const combinedClassName = fill 
+        ? `absolute inset-0 w-full h-full ${className || ''}` 
+        : className;
+
     return (
         <img
             {...props}
+            className={combinedClassName}
             src={imgSrc ? (imgSrc as string) : FALLBACK_IMAGE_URL}
             alt={alt || 'Image'}
             onError={(e) => {

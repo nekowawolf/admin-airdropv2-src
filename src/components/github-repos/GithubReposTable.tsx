@@ -176,12 +176,13 @@ export default function GithubReposTable({
           <table className="w-full text-left">
             <thead className="bg-[var(--card-color3)]">
               <tr>
-                <th className="px-6 py-2 min-w-[120px]">Name</th>
-                <th className="px-6 py-2 min-w-[200px]">Description</th>
-                <th className="px-6 py-2 min-w-[120px]">Category</th>
-                <th className="px-6 py-2 min-w-[120px]">Owner / Repo</th>
-                <th className="px-6 py-2 min-w-[80px]">Link</th>
-                <th className="px-6 py-2 min-w-[80px]">Action</th>
+                <th className="px-6 py-2 min-w-[150px]">Name</th>
+                <th className="px-6 py-2 min-w-[250px]">Description</th>
+                <th className="px-6 py-2 min-w-[150px]">Category</th>
+                <th className="px-6 py-2 min-w-[200px]">Owner / Repo</th>
+                <th className="px-6 py-2 min-w-[200px]">Added By</th>
+                <th className="px-6 py-2 min-w-[100px]">Link</th>
+                <th className="px-6 py-2 min-w-[100px]">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -202,6 +203,24 @@ export default function GithubReposTable({
                     <td className="px-6 py-2">
                       <div className="flex flex-wrap gap-1.5 min-w-[200px]">
                         <span className="text-secondary whitespace-nowrap">{item.owner} / {item.repo_name}</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-2">
+                      <div className="flex items-center gap-1">
+                        <span>{item.added_by?.name || 'N/A'}</span>
+                        <span className="text-secondary">/</span>
+                        {item.added_by?.url ? (
+                          <a
+                            href={item.added_by.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:underline"
+                          >
+                            Visit
+                          </a>
+                        ) : (
+                          <span className="text-secondary">N/A</span>
+                        )}
                       </div>
                     </td>
                     <td className="px-6 py-2 text-accent">
@@ -227,7 +246,7 @@ export default function GithubReposTable({
                 ))
               ) : (
                 <tr>
-                  <td colSpan={6} className="text-center py-4 text-secondary">No GitHub Repos found.</td>
+                  <td colSpan={7} className="text-center py-4 text-secondary">No GitHub Repos found.</td>
                 </tr>
               )}
             </tbody>

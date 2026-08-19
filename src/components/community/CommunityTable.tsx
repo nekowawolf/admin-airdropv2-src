@@ -210,7 +210,7 @@ export default function CommunityTable({
                             />
                           </div>
                     </td>
-                    <td className="px-6 py-2">{item.name || 'N/A'}</td>
+                    <td className="px-6 py-2 whitespace-nowrap">{item.name || 'N/A'}</td>
                     <td className="px-6 py-2">
                       <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
                         {item.platforms || 'N/A'}

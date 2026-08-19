@@ -207,7 +207,7 @@ export default function Web3ToolsTable({
                             />
                           </div>
                     </td>
-                    <td className="px-6 py-2">{item.name || 'N/A'}</td>
+                    <td className="px-6 py-2 whitespace-nowrap">{item.name || 'N/A'}</td>
                     <td className="px-6 py-2">
                       {item.description ? (
                         <div className="max-w-[280px] truncate">

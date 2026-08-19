@@ -191,7 +191,7 @@ export default function SupporterTable({
                     <td className="px-6 py-2 font-medium">{item.name || 'N/A'}</td>
                     <td className="px-6 py-2">{item.platform || 'N/A'}</td>
                     <td className="px-6 py-2 font-semibold">
-                      {item.amount !== undefined ? `${item.amount}` : 'N/A'}
+                      {item.amount !== undefined ? `$${item.amount}` : 'N/A'}
                     </td>
                     <td className="px-6 py-2 text-accent">
                       {item.url ? (

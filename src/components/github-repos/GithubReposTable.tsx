@@ -189,7 +189,7 @@ export default function GithubReposTable({
               {paginatedData.length > 0 ? (
                 paginatedData.map((item, index) => (
                   <tr key={index} className="border-t border-border-divider">
-                    <td className="px-6 py-2">{item.name || 'N/A'}</td>
+                    <td className="px-6 py-2 whitespace-nowrap">{item.name || 'N/A'}</td>
                     <td className="px-6 py-2">
                       {item.description ? (
                         <div className="max-w-[280px] truncate">

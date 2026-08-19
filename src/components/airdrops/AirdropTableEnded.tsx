@@ -231,7 +231,7 @@ export default function EndedAirdropTable({
                             />
                           </div>
                      </td>
-                    <td className="px-6 py-2">{item.name || 'N/A'}</td>
+                    <td className="px-6 py-2 whitespace-nowrap">{item.name || 'N/A'}</td>
                     <td className="px-6 py-2">{item.task || 'N/A'}</td>
                     <td className="px-6 py-2">
                       {item.description ? (

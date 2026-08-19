@@ -60,7 +60,7 @@ export default function ClientDashboardPage() {
         />
         <StatCard
           title="Total Donated (Amount)"
-          value={totalAmount}
+          value={`$${totalAmount}`}
           icon={<FaDonate />}
           loading={loading}
         />

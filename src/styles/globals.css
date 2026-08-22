@@ -1,29 +1,29 @@
   @import "tailwindcss";
 
   :root {
-    --body-color: #f2f3f8;
+    --body-color: #f3f4f6;
     --fill-color: #ffffff;
-    --card-color: #1f2937;
+    --card-color: #ffffff;
     --border-color: #959090;
-    --card-color2: #20325c0d;
-    --card-color3: #9ca3af9e;
-    --border-divider: rgba(35, 34, 34, 0.53);
+    --card-color2: rgba(17, 21, 40, 0.05);
+    --card-color3: rgba(17, 21, 40, 0.03);
+    --border-divider: rgba(0, 0, 0, 0.1);
 
     /* Dashboard specific colors */
     --header-bg: #ffffff;
-    --header-border: #e5e7eb;
+    --header-border: rgba(0, 0, 0, 0.1);
     --sidebar-bg: #ffffff;
-    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-border: rgba(0, 0, 0, 0.1);
     --text-primary: #111827;
     --text-secondary: #6b7280;
     --text-muted: #9ca3af;
     --text-accent: #4f46e5;
     --hover-bg: #f9fafb;
     --hover-bg-accent: #eef2ff;
-    --button-border: #d1d5db;
+    --button-border: rgba(0, 0, 0, 0.1);
     --button-hover: #f3f4f6;
     --dropdown-bg: #ffffff;
-    --dropdown-border: #e5e7eb;
+    --dropdown-border: rgba(0, 0, 0, 0.1);
     --dropdown-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     --overlay-bg: rgba(0, 0, 0, 0.4);
     --scrollbar-thumb-rgb: 17, 24, 39;
@@ -31,31 +31,31 @@
 
   .darkmode {
     --body-color: #111827;
-    --fill-color: #1f2937;
-    --card-color: #ffffff;
-    --border-color: #000000;
-    --card-color2: #20325c39;
-    --card-color3: #9ca3af9e;
-    --border-divider: rgba(208, 202, 202, 0.455);
+    --fill-color: #1a2540;
+    --card-color: #1a2540;
+    --border-color: #3d4f6f;
+    --card-color2: #161e34d7;
+    --card-color3: #161e34a0;
+    --border-divider: rgba(255, 255, 255, 0.1);
 
     /* Dashboard specific colors - dark mode */
-    --header-bg: #1f2937;
-    --header-border: #374151;
-    --sidebar-bg: #1f2937;
-    --sidebar-border: #374151;
+    --header-bg: #1a2540;
+    --header-border: #3d4f6f;
+    --sidebar-bg: #1a2540;
+    --sidebar-border: #3d4f6f;
     --text-primary: #f9fafb;
     --text-secondary: #d1d5db;
     --text-muted: #9ca3af;
     --text-accent: #a5b4fc;
-    --hover-bg: #374151;
+    --hover-bg: rgba(255, 255, 255, 0.05);
     --hover-bg-accent: #312e81;
-    --button-border: #4b5563;
-    --button-hover: #374151;
-    --dropdown-bg: #1f2937;
-    --dropdown-border: #374151;
+    --button-border: #3d4f6f;
+    --button-hover: rgba(255, 255, 255, 0.05);
+    --dropdown-bg: #1a2540;
+    --dropdown-border: #3d4f6f;
     --dropdown-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
     --overlay-bg: rgba(0, 0, 0, 0.6);
-    --scrollbar-thumb-rgb: 249, 250, 251;
+    --scrollbar-thumb-rgb: 255, 255, 255;
   }
 
   .body-color {

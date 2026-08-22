@@ -246,7 +246,7 @@ export default function ImagesTable({
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => copyToClipboard(item.url)}
-                          className="cursor-pointer flex items-center gap-2 px-3 py-1.5 text-xs bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+                          className="cursor-pointer flex items-center gap-2 px-3 py-1.5 text-xs bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 whitespace-nowrap"
                           title="Copy URL"
                         >
                           {copiedUrl === item.url ? (

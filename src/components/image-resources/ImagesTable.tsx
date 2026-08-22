@@ -35,8 +35,8 @@ export default function ImagesTable({
   loading,
   error,
   onDelete,
-  title = "Images Management",
-  subtitle = "List of all uploaded images"
+  title = "Media Management",
+  subtitle = "List of all uploaded media"
 }: ImagesTableProps) {
 
   // ===== STATE =====
@@ -119,9 +119,9 @@ export default function ImagesTable({
     if (!selectedId) return
     try {
       await onDelete(selectedId)
-      toast.success("Image deleted successfully!")
+      toast.success("Media deleted successfully!")
     } catch (err: any) {
-      toast.error(err.message || "Failed to delete image.")
+      toast.error(err.message || "Failed to delete media.")
     } finally {
       setShowConfirmModal(false)
       setSelectedId(null)
@@ -151,6 +151,16 @@ export default function ImagesTable({
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
   }
 
+  const formatDate = (dateStr?: string): string => {
+    if (!dateStr) return 'N/A'
+    const date = new Date(dateStr)
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    })
+  }
+
   // ===== RENDER =====
   return (
     <div className="space-y-6 min-h-screen p-6">
@@ -160,7 +170,7 @@ export default function ImagesTable({
       </div>
 
       <SearchInput
-        placeholder="Search images..."
+        placeholder="Search media..."
         value={search}
         onChange={setSearch}
       />
@@ -187,8 +197,10 @@ export default function ImagesTable({
               <tr>
                 <th className="px-6 py-3 min-w-[150px]">Filename</th>
                 <th className="px-6 py-3 min-w-[120px]">Preview</th>
+                <th className="px-6 py-3 min-w-[80px]">Type</th>
                 <th className="px-6 py-3 min-w-[200px]">URL</th>
                 <th className="px-6 py-3 min-w-[100px]">Size</th>
+                <th className="px-6 py-3 min-w-[120px]">Created</th>
                 <th className="px-6 py-3 min-w-[80px]">Actions</th>
               </tr>
             </thead>
@@ -203,14 +215,32 @@ export default function ImagesTable({
                     </td>
                     <td className="px-6 py-4">
                       <div className="relative w-16 h-16 rounded-lg overflow-hidden border border-border-divider">
-                        <FallbackImage 
-                          src={item.url} 
-                          alt={item.filename}
-                          fill
-                          className="object-cover"
-                          sizes="64px"
-                        />
+                        {item.media_type === 'video' ? (
+                          <video
+                            src={item.url}
+                            className="w-full h-full object-cover"
+                            muted
+                            preload="metadata"
+                          />
+                        ) : (
+                          <FallbackImage 
+                            src={item.url} 
+                            alt={item.filename}
+                            fill
+                            className="object-cover"
+                            sizes="64px"
+                          />
+                        )}
                       </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                        item.media_type === 'video'
+                          ? 'bg-purple-500/20 text-purple-400'
+                          : 'bg-blue-500/20 text-blue-400'
+                      }`}>
+                        {item.media_type || 'image'}
+                      </span>
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
@@ -234,6 +264,9 @@ export default function ImagesTable({
                     <td className="px-6 py-4 text-secondary text-sm">
                       {item.size ? formatFileSize(item.size) : 'N/A'}
                     </td>
+                    <td className="px-6 py-4 text-secondary text-sm">
+                      {formatDate(item.created_at)}
+                    </td>
                     <td className="px-6 py-4 relative">
                       <button 
                         onClick={(e) => handleOpenDropdown(e, index)} 
@@ -247,8 +280,8 @@ export default function ImagesTable({
                 ))
               ) : (
                 <tr>
-                  <td colSpan={6} className="text-center py-8 text-secondary">
-                    {data.length === 0 ? 'No images uploaded yet.' : 'No images found matching your search.'}
+                  <td colSpan={7} className="text-center py-8 text-secondary">
+                    {data.length === 0 ? 'No media uploaded yet.' : 'No media found matching your search.'}
                   </td>
                 </tr>
               )}
@@ -292,9 +325,9 @@ export default function ImagesTable({
           <div className="fixed inset-0 flex items-center justify-center bg-[var(--overlay-bg)] z-50 p-4">
             <div className="dropdown-bg rounded-lg shadow-lg p-6 max-w-sm w-full text-center border border-border-divider">
               <FaTrash size={32} className="text-red-600 mx-auto mb-4" />
-              <h3 className="text-primary text-lg font-semibold mb-2">Delete Image</h3>
+              <h3 className="text-primary text-lg font-semibold mb-2">Delete Media</h3>
               <p className="text-secondary mb-4">
-                Are you sure you want to delete this image?
+                Are you sure you want to delete this media?
               </p>
               <p className="text-primary font-medium bg-[var(--card-color2)] p-3 rounded-lg mb-6 break-all">
                 {selectedFilename}
@@ -369,7 +402,7 @@ export default function ImagesTable({
 
           {/* Pagination Info */}
           <div className="text-center text-sm text-secondary mt-2">
-            Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, filteredData.length)} of {filteredData.length} images
+            Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, filteredData.length)} of {filteredData.length} media
           </div>
         </>
       )}

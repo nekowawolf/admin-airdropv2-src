@@ -18,10 +18,10 @@ export const useImageData = () => {
         item.filename && 
         item.url
       ) : []
-      setData(validData.reverse())
+      setData(validData)
     } catch (err: any) {
-      setError(err.message || 'Failed to fetch images')
-      console.error('Error fetching images:', err)
+      setError(err.message || 'Failed to fetch media')
+      console.error('Error fetching media:', err)
     } finally {
       setLoading(false)
     }
@@ -33,8 +33,8 @@ export const useImageData = () => {
       setData(prev => prev.filter(item => item._id !== id))
       return Promise.resolve()
     } catch (err: any) {
-      console.error('Error deleting image:', err)
-      throw new Error(err.message || 'Failed to delete image')
+      console.error('Error deleting media:', err)
+      throw new Error(err.message || 'Failed to delete media')
     }
   }
 

@@ -14,8 +14,8 @@ export default function ImagesListClient() {
       loading={loading}
       error={error}
       onDelete={handleDelete}
-      title="Images Management"
-      subtitle="Manage all uploaded images"
+      title="Media Management"
+      subtitle="Manage all uploaded media"
     />
   )
 }

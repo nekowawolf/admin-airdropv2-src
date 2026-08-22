@@ -3,7 +3,7 @@ import { Image } from '@/types/image'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
-export const uploadImage = async (file: File): Promise<Image> => {
+export const uploadImage = async (file: File): Promise<{ message: string; data: Image }> => {
   const formData = new FormData()
   formData.append('file', file)
 
@@ -14,7 +14,7 @@ export const uploadImage = async (file: File): Promise<Image> => {
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}))
-    throw new Error(errorData.message || 'Failed to upload image')
+    throw new Error(errorData.error || 'Failed to upload media')
   }
 
   return response.json()
@@ -28,12 +28,12 @@ export const getAllImages = async (): Promise<Image[]> => {
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}))
-    throw new Error(errorData.message || 'Failed to fetch images')
+    throw new Error(errorData.error || 'Failed to fetch media')
   }
 
   const result = await response.json()
   
-  return result
+  return result.data || []
 }
 
 export const deleteImage = async (id: string): Promise<void> => {
@@ -43,7 +43,7 @@ export const deleteImage = async (id: string): Promise<void> => {
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}))
-    throw new Error(errorData.message || 'Failed to delete image')
+    throw new Error(errorData.error || 'Failed to delete media')
   }
 
   return response.json()

@@ -26,10 +26,10 @@ export function useUploadImage() {
       clearInterval(progressInterval)
       setUploadProgress(100)
       
-      return result.url
+      return result.data.url
     } catch (err: any) {
-      console.error('Error uploading image:', err)
-      const errorMsg = err.message || 'Failed to upload image. Please try again.'
+      console.error('Error uploading media:', err)
+      const errorMsg = err.message || 'Failed to upload media. Please try again.'
       toast.error(errorMsg)
       return null
     } finally {

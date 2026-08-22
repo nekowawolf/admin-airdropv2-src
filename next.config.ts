@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
       'avatars.githubusercontent.com',
       'admin.nekowawolf.xyz',
       'cmty.nekowawolf.xyz',
+      'cdn.nekowawolf.xyz',
       'cdn.motor1.com',
       'static.wixstatic.com',
       'images.unsplash.com',

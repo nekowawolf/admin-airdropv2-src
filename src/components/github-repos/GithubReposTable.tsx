@@ -180,8 +180,8 @@ export default function GithubReposTable({
                 <th className="px-6 py-2 min-w-[250px]">Description</th>
                 <th className="px-6 py-2 min-w-[150px]">Category</th>
                 <th className="px-6 py-2 min-w-[200px]">Owner / Repo</th>
-                <th className="px-6 py-2 min-w-[200px]">Added By</th>
                 <th className="px-6 py-2 min-w-[100px]">Link</th>
+                <th className="px-6 py-2 min-w-[200px]">Added By</th>
                 <th className="px-6 py-2 min-w-[100px]">Action</th>
               </tr>
             </thead>
@@ -205,6 +205,20 @@ export default function GithubReposTable({
                         <span className="text-secondary whitespace-nowrap">{item.owner} / {item.repo_name}</span>
                       </div>
                     </td>
+                    <td className="px-6 py-2 text-accent">
+                      {item.repo_url ? (
+                        <a 
+                          href={item.repo_url} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="cursor-pointer text-blue-500 hover:underline"
+                        >
+                          Visit
+                        </a>
+                      ) : (
+                        <span className="text-primary">N/A</span>
+                      )}
+                    </td>
                     <td className="px-6 py-2">
                       <div className="flex items-center gap-1">
                         <span>{item.added_by?.name || 'N/A'}</span>
@@ -222,20 +236,6 @@ export default function GithubReposTable({
                           <span className="text-secondary">N/A</span>
                         )}
                       </div>
-                    </td>
-                    <td className="px-6 py-2 text-accent">
-                      {item.repo_url ? (
-                        <a 
-                          href={item.repo_url} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="cursor-pointer text-blue-500 hover:underline"
-                        >
-                          Visit
-                        </a>
-                      ) : (
-                        <span className="text-primary">N/A</span>
-                      )}
                     </td>
                     <td className="px-6 py-2 relative">
                       <button onClick={(e) => handleOpenDropdown(e, index)} className="cursor-pointer p-2">

@@ -208,7 +208,7 @@ export default function ImagesTable({
               {paginatedData.length > 0 ? (
                 paginatedData.map((item, index) => (
                   <tr key={item._id || index} className="border-t border-border-divider hover:hover-bg transition-colors">
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex flex-col">
                         <span className="font-medium text-primary">{item.filename || 'N/A'}</span>
                       </div>
@@ -233,7 +233,7 @@ export default function ImagesTable({
                         )}
                       </div>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`text-xs px-2 py-1 rounded-full font-medium ${
                         item.media_type === 'video'
                           ? 'bg-purple-500/20 text-purple-400'
@@ -261,10 +261,10 @@ export default function ImagesTable({
                         </span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-secondary text-sm">
+                    <td className="px-6 py-4 text-secondary text-sm whitespace-nowrap">
                       {item.size ? formatFileSize(item.size) : 'N/A'}
                     </td>
-                    <td className="px-6 py-4 text-secondary text-sm">
+                    <td className="px-6 py-4 text-secondary text-sm whitespace-nowrap">
                       {formatDate(item.created_at)}
                     </td>
                     <td className="px-6 py-4 relative">

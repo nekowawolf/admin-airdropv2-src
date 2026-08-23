@@ -2,20 +2,20 @@ import Cookies from 'js-cookie'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
-export const login = async (username: string, password: string) => {
-  if (!username || !password) {
+export const login = async (username: string, password: string, turnstileToken: string) => {
+  if (!username || !password || !turnstileToken) {
     throw new Error('All fields are required.')
   }
 
   const res = await fetch(`${API_BASE_URL}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ username, password, turnstile_token: turnstileToken }),
   })
 
   if (!res.ok) {
     const errorData = await res.json()
-    throw new Error(errorData.message || 'Login failed.')
+    throw new Error(errorData.error || errorData.message || 'Login failed.')
   }
 
   const data = await res.json()

@@ -488,7 +488,7 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
             {/* Sidebar Header */}
             <div className="h-16 flex items-center gap-3 px-6 sidebar-border">
                 <img
-                    src="https://nekowawolf.github.io/cdn-images/images/2026/1768368937_logo.jpg"
+                    src="https://cdn.nekowawolf.xyz/image/2026/1787422451_logo.webp"
                     alt="logo"
                     className="h-9 w-9 rounded-md object-cover"
                 />

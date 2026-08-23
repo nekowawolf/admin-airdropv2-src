@@ -3,10 +3,12 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { login } from '@/services/auth/authService'
+import { Turnstile } from '@marsidev/react-turnstile'
 
 export default function LoginForm() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [turnstileToken, setTurnstileToken] = useState('')
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const router = useRouter()
@@ -15,7 +17,7 @@ export default function LoginForm() {
     e.preventDefault()
     try {
       setLoading(true)
-      const data = await login(username, password)
+      const data = await login(username, password, turnstileToken)
       localStorage.setItem('lastLogin', new Date().toISOString())
       toast.success('Login successfully!')
       router.push('/airdrop-menu/dashboard')
@@ -31,7 +33,8 @@ export default function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="grid gap-3">
+    <>
+      <form onSubmit={handleSubmit} className="grid gap-3">
       <input
         type="text"
         placeholder="ユーザー名"
@@ -60,14 +63,23 @@ export default function LoginForm() {
 
       <button
         type="submit"
-        disabled={loading}
-        className="flex h-10 cursor-pointer items-center justify-between rounded-sm bg-blue-600 px-2 text-white transition-colors duration-300 hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-400"
+        disabled={loading || !turnstileToken}
+        className="flex h-10 cursor-pointer items-center justify-between rounded-sm bg-blue-600 px-2 text-white transition-colors duration-300 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring focus:ring-blue-400"
       >
         <span>{loading ? 'Loading...' : 'ログイン'}</span>
         <span>
           <i className="fa-solid fa-circle-chevron-right"></i>
         </span>
       </button>
-    </form>
+      </form>
+      <div className="flex justify-center w-full pt-4 mt-2">
+        <Turnstile
+          siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ""}
+          onSuccess={(token) => setTurnstileToken(token)}
+          onError={() => setTurnstileToken("")}
+          onExpire={() => setTurnstileToken("")}
+        />
+      </div>
+    </>
   )
 }

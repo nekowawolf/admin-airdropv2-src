@@ -14,7 +14,6 @@ import { toast } from 'sonner'
 const categories = [
     "Design",
     "Inspiration",
-    "All",
     "Image",
     "Video",
     "Audio",

@@ -13,12 +13,12 @@ import { validateUrl } from '@/utils/urlValidation'
 import { toast } from 'sonner'
 
 const categories = [
-  '3D', 'AI', 'All', 'Game Dev', 'Web3', 'Design', 'Artist', 
+  '3D', 'AI', 'Game Dev', 'Web3', 'Design', 'Artist', 
   'Editing', 'Audio', 'Gadget', 'Machine Learning', 
   'Fullstack', 'Cyber Security'
 ]
 
-const languages = ['All', 'EN', 'ID', 'CN', 'JP']
+const languages = ['EN', 'ID', 'CN', 'JP']
 
 export default function EditCreatorForm({ id }: { id: string }) {
   useAuthGuard()

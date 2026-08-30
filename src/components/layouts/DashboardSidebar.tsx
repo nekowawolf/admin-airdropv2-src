@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import { RxDashboard } from 'react-icons/rx'
 import { IoIosAddCircleOutline } from 'react-icons/io'
 import { HiMiniRocketLaunch } from 'react-icons/hi2'
-import { FaLayerGroup, FaUserCircle, FaBitcoin, FaLink, FaRobot, FaGithub } from 'react-icons/fa'
+import { FaLayerGroup, FaUserCircle, FaBitcoin, FaLink, FaRobot, FaGithub, FaGlobe } from 'react-icons/fa'
 import { MdImage } from 'react-icons/md'
 import { AiOutlineDollar } from "react-icons/ai";
 
@@ -37,6 +37,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
     const [openGithubReposDashboard, setOpenGithubReposDashboard] = useState(false)
     const [openSupporter, setOpenSupporter] = useState(false)
     const [openSupporterDashboard, setOpenSupporterDashboard] = useState(false)
+    const [openNet, setOpenNet] = useState(false)
+    const [openNetDashboard, setOpenNetDashboard] = useState(false)
 
 
     // === HANDLE ACTIVE SECTIONS ===
@@ -131,6 +133,14 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
             setOpenGithubRepos(true)
             if (!pathname.includes('/add-github-repo')) {
                 setOpenGithubReposDashboard(true)
+            }
+        }
+
+        // === NET PATH ===
+        if (pathname.startsWith('/net-menu/dashboard')) {
+            setOpenNet(true)
+            if (!pathname.includes('/add-net')) {
+                setOpenNetDashboard(true)
             }
         }
 
@@ -388,6 +398,34 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
     }
     const handleGithubReposDashboardDropdown = () => setOpenGithubReposDashboard(v => !v)
 
+    const handleNetDropdown = () => {
+        setOpenNet(prev => {
+            const next = !prev
+            if (next) {
+                setOpenAirdrop(false)
+                setOpenDashboard(false)
+                setOpenCommunity(false)
+                setOpenCommunityDashboard(false)
+                setOpenPortfolio(false)
+                setOpenPortfolioDashboard(false)
+                setOpenImages(false)
+                setOpenImagesDashboard(false)
+                setOpenLink(false)
+                setOpenLinkDashboard(false)
+                setOpenWeb3Tools(false)
+                setOpenWeb3ToolsDashboard(false)
+                setOpenAITools(false)
+                setOpenAIToolsDashboard(false)
+                setOpenGithubRepos(false)
+                setOpenGithubReposDashboard(false)
+                setOpenSupporter(false)
+                setOpenSupporterDashboard(false)
+            }
+            return next
+        })
+    }
+    const handleNetDashboardDropdown = () => setOpenNetDashboard(v => !v)
+
     const handleSupporterDropdown = () => {
         setOpenSupporter((prev) => {
             const next = !prev
@@ -481,6 +519,12 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
     const isSupporterDashboardPathActive = pathname.startsWith('/supporter-menu/dashboard') && !pathname.includes('/add-supporter')
     const isSupporterListActive = pathname === '/supporter-menu/dashboard/supporter-list'
     const isSupportRequestsActive = pathname === '/supporter-menu/dashboard/support-requests'
+
+    // === NET ===
+    const isNetAnalyticActive = pathname === '/net-menu/dashboard'
+    const isAddNetActive = pathname === '/net-menu/dashboard/add-net'
+    const isNetDashboardPathActive = pathname.startsWith('/net-menu/dashboard') && !pathname.includes('/add-net')
+    const isNetListActive = pathname === '/net-menu/dashboard/net-list'
 
     // === SIDEBAR CONTENT ===
     const content = (
@@ -1232,6 +1276,105 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                                     size={18}
                                 />
                                 <span>Add GitHub Repo</span>
+                            </Link>
+                        </div>
+                    )}
+                </div>
+
+                {/* === Net Group === */}
+                <div>
+                    <button
+                        type="button"
+                        onClick={handleNetDropdown}
+                        className={`cursor-pointer group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
+                            pathname.startsWith('/net-menu/dashboard')
+                                ? 'border-accent text-accent bg-accent/10'
+                                : 'border-transparent text-secondary hover:hover-bg'
+                        }`}
+                    >
+                        <FaGlobe
+                            className={`${
+                                pathname.startsWith('/net-menu/dashboard')
+                                    ? 'text-accent'
+                                    : 'text-muted'
+                            }`}
+                            size={18}
+                        />
+                        <span>Net</span>
+                        <i
+                            className={`fa-solid fa-caret-down ml-auto text-xs transition-transform ${
+                                openNet ? 'rotate-180' : ''
+                            }`}
+                        />
+                    </button>
+
+                    {openNet && (
+                        <div className="pl-8 mt-2 space-y-1">
+                            <button
+                                type="button"
+                                onClick={handleNetDashboardDropdown}
+                                className={`cursor-pointer group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
+                                    isNetDashboardPathActive
+                                        ? 'border-accent text-accent bg-accent/10'
+                                        : 'border-transparent text-secondary hover:hover-bg'
+                                }`}
+                            >
+                                <RxDashboard
+                                    className={`${
+                                        isNetDashboardPathActive
+                                            ? 'text-accent'
+                                            : 'text-muted'
+                                    }`}
+                                    size={18}
+                                />
+                                <span>Dashboard</span>
+                                <i
+                                    className={`fa-solid fa-caret-down ml-auto text-xs transition-transform ${
+                                        openNetDashboard ? 'rotate-180' : ''
+                                    }`}
+                                />
+                            </button>
+
+                            {openNetDashboard && (
+                                <div className="pl-8 mt-1 space-y-1">
+                                    <Link
+                                        href="/net-menu/dashboard"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isNetAnalyticActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Analytic
+                                    </Link>
+                                    <Link
+                                        href="/net-menu/dashboard/net-list"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isNetListActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Net List
+                                    </Link>
+                                </div>
+                            )}
+
+                            <Link
+                                href="/net-menu/dashboard/add-net"
+                                className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors border-l-4 ${
+                                    isAddNetActive
+                                        ? 'border-accent text-accent bg-accent/10'
+                                        : 'border-transparent text-secondary hover:hover-bg'
+                                }`}
+                            >
+                                <IoIosAddCircleOutline
+                                    className={`${
+                                        isAddNetActive ? 'text-accent' : 'text-muted'
+                                    }`}
+                                    size={18}
+                                />
+                                <span>Add Net</span>
                             </Link>
                         </div>
                     )}

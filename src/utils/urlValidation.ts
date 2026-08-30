@@ -5,6 +5,11 @@ export const URL_PATTERNS = {
   instagram: /^https?:\/\/(www\.)?instagram\.com\/[a-zA-Z0-9_.]+(\/.*)?$/,
   telegram: /^https?:\/\/(www\.)?(t\.me|telegram\.me)\/.+$/,
   youtube: /^https?:\/\/(www\.)?(youtube\.com|youtu\.be)\/.+$/,
+  tiktok: /^https?:\/\/(www\.)?tiktok\.com\/@?[a-zA-Z0-9_.]+(\/.*)?$/,
+  fiverr: /^https?:\/\/(www\.)?fiverr\.com\/.+$/,
+  upwork: /^https?:\/\/(www\.)?upwork\.com\/.+$/,
+  peopleperhour: /^https?:\/\/(www\.)?peopleperhour\.com\/.+$/,
+  freelancer: /^https?:\/\/(www\.)?freelancer\.com\/.+$/,
   website: /^https?:\/\/.+$/
 };
 
@@ -18,7 +23,12 @@ const RESTRICTED_WEBSITE_DOMAINS = [
   't.me',
   'telegram.me',
   'youtube.com',
-  'youtu.be'
+  'youtu.be',
+  'tiktok.com',
+  'fiverr.com',
+  'upwork.com',
+  'peopleperhour.com',
+  'freelancer.com'
 ];
 
 export const validateUrl = (url: string, type: keyof typeof URL_PATTERNS): boolean => {

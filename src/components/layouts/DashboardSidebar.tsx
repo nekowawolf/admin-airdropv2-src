@@ -9,6 +9,7 @@ import { HiMiniRocketLaunch } from 'react-icons/hi2'
 import { FaLayerGroup, FaUserCircle, FaBitcoin, FaLink, FaRobot, FaGithub, FaGlobe } from 'react-icons/fa'
 import { MdImage } from 'react-icons/md'
 import { AiOutlineDollar } from "react-icons/ai";
+import { TiMediaPause } from "react-icons/ti";
 
 type SidebarProps = {
     isOpen?: boolean
@@ -39,6 +40,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
     const [openSupporterDashboard, setOpenSupporterDashboard] = useState(false)
     const [openNet, setOpenNet] = useState(false)
     const [openNetDashboard, setOpenNetDashboard] = useState(false)
+    const [openCreators, setOpenCreators] = useState(false)
+    const [openCreatorsDashboard, setOpenCreatorsDashboard] = useState(false)
 
 
     // === HANDLE ACTIVE SECTIONS ===
@@ -61,6 +64,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                 setOpenGithubReposDashboard(false)
                 setOpenSupporter(false)
                 setOpenSupporterDashboard(false)
+                setOpenCreators(false)
+                setOpenCreatorsDashboard(false)
 
 
         setOpenWeb3Tools(false)
@@ -141,6 +146,14 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
             setOpenNet(true)
             if (!pathname.includes('/add-net')) {
                 setOpenNetDashboard(true)
+            }
+        }
+
+        // === CREATORS PATH ===
+        if (pathname.startsWith('/creators-menu/dashboard')) {
+            setOpenCreators(true)
+            if (!pathname.includes('/add-creator')) {
+                setOpenCreatorsDashboard(true)
             }
         }
 
@@ -420,11 +433,43 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                 setOpenGithubReposDashboard(false)
                 setOpenSupporter(false)
                 setOpenSupporterDashboard(false)
+                setOpenCreators(false)
+                setOpenCreatorsDashboard(false)
             }
             return next
         })
     }
     const handleNetDashboardDropdown = () => setOpenNetDashboard(v => !v)
+
+    const handleCreatorsDropdown = () => {
+        setOpenCreators(prev => {
+            const next = !prev
+            if (next) {
+                setOpenAirdrop(false)
+                setOpenDashboard(false)
+                setOpenCommunity(false)
+                setOpenCommunityDashboard(false)
+                setOpenPortfolio(false)
+                setOpenPortfolioDashboard(false)
+                setOpenImages(false)
+                setOpenImagesDashboard(false)
+                setOpenLink(false)
+                setOpenLinkDashboard(false)
+                setOpenWeb3Tools(false)
+                setOpenWeb3ToolsDashboard(false)
+                setOpenAITools(false)
+                setOpenAIToolsDashboard(false)
+                setOpenGithubRepos(false)
+                setOpenGithubReposDashboard(false)
+                setOpenNet(false)
+                setOpenNetDashboard(false)
+                setOpenSupporter(false)
+                setOpenSupporterDashboard(false)
+            }
+            return next
+        })
+    }
+    const handleCreatorsDashboardDropdown = () => setOpenCreatorsDashboard(v => !v)
 
     const handleSupporterDropdown = () => {
         setOpenSupporter((prev) => {
@@ -525,6 +570,12 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
     const isAddNetActive = pathname === '/net-menu/dashboard/add-net'
     const isNetDashboardPathActive = pathname.startsWith('/net-menu/dashboard') && !pathname.includes('/add-net')
     const isNetListActive = pathname === '/net-menu/dashboard/net-list'
+
+    // === CREATORS ===
+    const isCreatorsAnalyticActive = pathname === '/creators-menu/dashboard'
+    const isAddCreatorActive = pathname === '/creators-menu/dashboard/add-creator'
+    const isCreatorsDashboardPathActive = pathname.startsWith('/creators-menu/dashboard') && !pathname.includes('/add-creator')
+    const isCreatorsListActive = pathname === '/creators-menu/dashboard/creators-list'
 
     // === SIDEBAR CONTENT ===
     const content = (
@@ -1375,6 +1426,105 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
                                     size={18}
                                 />
                                 <span>Add Net</span>
+                            </Link>
+                        </div>
+                    )}
+                </div>
+
+                {/* === Creators Group === */}
+                <div>
+                    <button
+                        type="button"
+                        onClick={handleCreatorsDropdown}
+                        className={`cursor-pointer group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
+                            pathname.startsWith('/creators-menu/dashboard')
+                                ? 'border-accent text-accent bg-accent/10'
+                                : 'border-transparent text-secondary hover:hover-bg'
+                        }`}
+                    >
+                        <TiMediaPause
+                            className={`${
+                                pathname.startsWith('/creators-menu/dashboard')
+                                    ? 'text-accent'
+                                    : 'text-muted'
+                            }`}
+                            size={18}
+                        />
+                        <span>Creators</span>
+                        <i
+                            className={`fa-solid fa-caret-down ml-auto text-xs transition-transform ${
+                                openCreators ? 'rotate-180' : ''
+                            }`}
+                        />
+                    </button>
+
+                    {openCreators && (
+                        <div className="pl-8 mt-2 space-y-1">
+                            <button
+                                type="button"
+                                onClick={handleCreatorsDashboardDropdown}
+                                className={`cursor-pointer group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full text-left border-l-4 ${
+                                    isCreatorsDashboardPathActive
+                                        ? 'border-accent text-accent bg-accent/10'
+                                        : 'border-transparent text-secondary hover:hover-bg'
+                                }`}
+                            >
+                                <RxDashboard
+                                    className={`${
+                                        isCreatorsDashboardPathActive
+                                            ? 'text-accent'
+                                            : 'text-muted'
+                                    }`}
+                                    size={18}
+                                />
+                                <span>Dashboard</span>
+                                <i
+                                    className={`fa-solid fa-caret-down ml-auto text-xs transition-transform ${
+                                        openCreatorsDashboard ? 'rotate-180' : ''
+                                    }`}
+                                />
+                            </button>
+
+                            {openCreatorsDashboard && (
+                                <div className="pl-8 mt-1 space-y-1">
+                                    <Link
+                                        href="/creators-menu/dashboard"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isCreatorsAnalyticActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Analytic
+                                    </Link>
+                                    <Link
+                                        href="/creators-menu/dashboard/creators-list"
+                                        className={`block rounded-lg px-0 py-2 text-sm transition-colors ${
+                                            isCreatorsListActive
+                                                ? 'text-accent font-semibold'
+                                                : 'text-secondary hover:text-accent'
+                                        }`}
+                                    >
+                                        Creators List
+                                    </Link>
+                                </div>
+                            )}
+
+                            <Link
+                                href="/creators-menu/dashboard/add-creator"
+                                className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors border-l-4 ${
+                                    isAddCreatorActive
+                                        ? 'border-accent text-accent bg-accent/10'
+                                        : 'border-transparent text-secondary hover:hover-bg'
+                                }`}
+                            >
+                                <IoIosAddCircleOutline
+                                    className={`${
+                                        isAddCreatorActive ? 'text-accent' : 'text-muted'
+                                    }`}
+                                    size={18}
+                                />
+                                <span>Add Creator</span>
                             </Link>
                         </div>
                     )}

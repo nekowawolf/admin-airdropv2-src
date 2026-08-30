@@ -10,14 +10,16 @@ import { validateUrl } from '@/utils/urlValidation'
 import { toast } from 'sonner'
 
 const categories = [
-    "Mainnet",
-    "Testnet",
-    "Devnet",
-    "Layer 1",
-    "Layer 2",
-    "Sidechain",
-    "Rollup",
-    "Appchain",
+    "Design",
+    "Inspiration",
+    "All",
+    "Image",
+    "Video",
+    "Audio",
+    "Document",
+    "Utilities",
+    "Learning",
+    "Miscellaneous",
 ];
 
 export default function AddNetForm() {

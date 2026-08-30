@@ -16,13 +16,18 @@ export function useEditAITool(id: string) {
             name: data.name || '',
             description: data.description || '',
             categories: data.categories || [],
-            video_url: data.video_url || '',
             image_url: data.image_url || '',
             website: data.website || '',
-            twitter: data.twitter || '',
-            instagram: data.instagram || '',
-            discord: data.discord || '',
-            youtube: data.youtube || ''
+            media: {
+              video_url: data.media?.video_url || '',
+              screenshot_urls: data.media?.screenshot_urls || []
+            },
+            socials: {
+              twitter: data.socials?.twitter || '',
+              instagram: data.socials?.instagram || '',
+              discord: data.socials?.discord || '',
+              youtube: data.socials?.youtube || ''
+            }
           })
         }
       } catch (err: any) {

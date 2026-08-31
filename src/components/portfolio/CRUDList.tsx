@@ -608,14 +608,6 @@ export default function CRUDList({
                 <td colSpan={fields.length + 1} className="px-4 py-8 text-center">
                   <div className="text-secondary">
                     <p className="mb-2">No {title.toLowerCase()} found</p>
-                    {!isAdding && (
-                      <button
-                        onClick={() => setIsAdding(true)}
-                        className="cursor-pointer text-blue-600 hover:text-blue-700 text-sm"
-                      >
-                        Click here to add your first {title.slice(0, -1).toLowerCase()}
-                      </button>
-                    )}
                   </div>
                 </td>
               </tr>
@@ -666,38 +658,18 @@ export default function CRUDList({
       {/* Delete Confirmation Modal */}
       {showConfirm && (
         createPortal(
-          <div className="fixed inset-0 bg-[var(--overlay-bg)] flex items-center justify-center z-50 p-4">
-            <div className="bg-[var(--dropdown-bg)] rounded-lg shadow-xl p-6 max-w-md w-full border border-border-divider">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 bg-red-100 rounded-lg">
-                  <FaTrash size={24} className="text-red-600" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-primary">Delete {title.slice(0, -1)}</h3>
-                  <p className="text-sm text-secondary">This action cannot be undone</p>
-                </div>
-              </div>
-              
-              <div className="my-4 p-3 bg-[var(--card-color2)] rounded-lg">
-                <p className="text-sm text-secondary">
-                  Are you sure you want to delete <span className="font-semibold text-primary">{selectedItemName}</span>?
-                </p>
-                <p className="text-xs text-muted mt-2">
-                  This {title.slice(0, -1).toLowerCase()} will be permanently removed.
-                </p>
-              </div>
-
-              <div className="flex gap-3 pt-4">
-                <button
-                  onClick={() => setShowConfirm(null)}
-                  className="cursor-pointer flex-1 bg-gray-600 hover:bg-gray-700 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-colors"
-                  disabled={isProcessing}
-                >
-                  Cancel
-                </button>
+          <div className="fixed inset-0 flex items-center justify-center bg-[var(--overlay-bg)] z-50 p-4">
+            <div className="dropdown-bg rounded-lg shadow-lg p-6 max-w-sm w-full text-center border border-border-divider">
+              <FaTrash size={32} className="text-red-600 mx-auto mb-4" />
+              <h3 className="text-primary text-lg font-semibold mb-2">Delete {title.slice(0, -1)}</h3>
+              <p className="text-secondary mb-6">
+                Are you sure you want to delete this {title.slice(0, -1)}:{" "}
+                <span className="font-semibold text-primary">{selectedItemName}</span>?
+              </p>
+              <div className="flex justify-center gap-4">
                 <button
                   onClick={() => handleDeleteConfirm(showConfirm)}
-                  className="cursor-pointer flex-1 bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors"
+                  className="cursor-pointer flex items-center justify-center gap-2 bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors duration-200"
                   disabled={isProcessing}
                 >
                   {isProcessing ? (
@@ -706,8 +678,15 @@ export default function CRUDList({
                       Deleting...
                     </>
                   ) : (
-                    'Delete'
+                    'Yes'
                   )}
+                </button>
+                <button
+                  onClick={() => setShowConfirm(null)}
+                  className="cursor-pointer bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400 transition-colors duration-200"
+                  disabled={isProcessing}
+                >
+                  No
                 </button>
               </div>
             </div>

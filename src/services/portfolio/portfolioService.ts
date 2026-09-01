@@ -254,3 +254,74 @@ export const deleteTechSkill = async (id: string): Promise<any> => {
 
   return response.json()
 }
+export const getProjects = async (): Promise<Project[]> => {
+  const response = await fetch(`${API_BASE_URL}/portfolio/projects`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
+  if (!response.ok) throw new Error('Failed to fetch projects')
+  const json = await response.json()
+  return json.data || []
+}
+
+export const getDesigns = async (): Promise<Design[]> => {
+  const response = await fetch(`${API_BASE_URL}/portfolio/designs`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
+  if (!response.ok) throw new Error('Failed to fetch designs')
+  const json = await response.json()
+  return json.data || []
+}
+
+export const getCertificates = async (): Promise<Certificate[]> => {
+  const response = await fetch(`${API_BASE_URL}/portfolio/certificates`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
+  if (!response.ok) throw new Error('Failed to fetch certificates')
+  const json = await response.json()
+  return json.data || []
+}
+
+export const updateProject = async (id: string, data: Project): Promise<any> => {
+  const payload: any = {
+    ...data,
+    screenshots: Array.isArray(data.screenshots)
+      ? data.screenshots.map((s: any) => (typeof s === 'string' ? s : s?.image_url || '')).filter((url: string) => typeof url === 'string' && url.trim().length > 0)
+      : undefined,
+  }
+  const response = await authFetch(`${API_BASE_URL}/portfolio/projects/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+  if (!response.ok) throw new Error('Failed to update project')
+  return response.json()
+}
+
+export const updateDesign = async (id: string, data: Design): Promise<any> => {
+  const payload: any = {
+    ...data,
+    screenshots: Array.isArray(data.screenshots)
+      ? data.screenshots.map((s: any) => (typeof s === 'string' ? s : s?.image_url || '')).filter((url: string) => typeof url === 'string' && url.trim().length > 0)
+      : undefined,
+  }
+  const response = await authFetch(`${API_BASE_URL}/portfolio/designs/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+  if (!response.ok) throw new Error('Failed to update design')
+  return response.json()
+}
+
+export const updateCertificate = async (id: string, data: Certificate): Promise<any> => {
+  const response = await authFetch(`${API_BASE_URL}/portfolio/certificates/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  if (!response.ok) throw new Error('Failed to update certificate')
+  return response.json()
+}

@@ -17,6 +17,12 @@ import {
   deleteEducation,
   deleteTechSkill,
   deleteDesignSkill,
+  getProjects,
+  getDesigns,
+  getCertificates,
+  updateProject,
+  updateDesign,
+  updateCertificate,
 } from '@/services/portfolio/portfolioService'
 import { 
   Portfolio, 
@@ -32,6 +38,9 @@ import { toast } from 'sonner'
 
 export const usePortfolio = () => {
   const [portfolio, setPortfolio] = useState<Portfolio | null>(null)
+  const [projects, setProjects] = useState<Project[]>([])
+  const [designs, setDesigns] = useState<Design[]>([])
+  const [certificates, setCertificates] = useState<Certificate[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [isUpdating, setIsUpdating] = useState(false)
@@ -41,8 +50,16 @@ export const usePortfolio = () => {
     try {
       setLoading(true)
       setError(null)
-      const data = await getPortfolio()
+      const [data, projData, desData, certData] = await Promise.all([
+        getPortfolio(),
+        getProjects(),
+        getDesigns(),
+        getCertificates()
+      ])
       setPortfolio(data)
+      setProjects(projData)
+      setDesigns(desData)
+      setCertificates(certData)
     } catch (err: any) {
       const message = err.message || 'Failed to fetch portfolio'
       setError(message)
@@ -169,8 +186,7 @@ export const usePortfolio = () => {
 
   const handleEditCertificate = async (id: string, data: Certificate) => {
     try {
-      await deleteCertificate(id)
-      await addCertificate(data)
+      await updateCertificate(id, data)
       await fetchPortfolio()
       return true
     } catch (err: any) {
@@ -181,8 +197,7 @@ export const usePortfolio = () => {
 
   const handleEditDesign = async (id: string, data: Design) => {
     try {
-      await deleteDesign(id)
-      await addDesign(data)
+      await updateDesign(id, data)
       await fetchPortfolio()
       return true
     } catch (err: any) {
@@ -193,8 +208,7 @@ export const usePortfolio = () => {
 
   const handleEditProject = async (id: string, data: Project) => {
     try {
-      await deleteProject(id)
-      await addProject(data)
+      await updateProject(id, data)
       await fetchPortfolio()
       return true
     } catch (err: any) {
@@ -257,6 +271,9 @@ export const usePortfolio = () => {
 
   return {
     portfolio,
+    projects,
+    designs,
+    certificates,
     loading,
     error,
     isUpdating,

@@ -10,7 +10,8 @@ import { createPortal } from 'react-dom'
 import { FallbackNativeImage } from '@/components/ui/FallbackImage'
 
 interface Item {
-  id: string
+  id?: string
+  _id?: string
   [key: string]: any
 }
 
@@ -174,7 +175,7 @@ export default function CRUDList({
       toast.success(`${title.slice(0, -1)} updated successfully!`)
       
       setLocalItems(prev => prev.map(item => 
-        item.id === id ? { ...item, ...reconstructedData } : item
+        (item.id || item._id) === id ? { ...item, ...reconstructedData } : item
       ))
       
       if (onRefresh) {
@@ -194,7 +195,7 @@ export default function CRUDList({
       setShowConfirm(null)
       toast.success(`${title.slice(0, -1)} deleted successfully!`)
       
-      setLocalItems(prev => prev.filter(item => item.id !== id))
+      setLocalItems(prev => prev.filter(item => (item.id || item._id) !== id))
       
       if (onRefresh) {
         await onRefresh()
@@ -207,7 +208,7 @@ export default function CRUDList({
   }
 
   const startEditing = (item: Item) => {
-    setEditingId(item.id)
+    setEditingId(item.id || item._id || '')
     const flattened: any = { ...item }
     
     if (flattened.screenshots && Array.isArray(flattened.screenshots)) {
@@ -586,7 +587,7 @@ export default function CRUDList({
           <tbody>
             {localItems.length > 0 ? (
               localItems.map((item, index) => (
-                <tr key={item.id} className="border-t border-border-divider hover:bg-[var(--hover-bg)]">
+                <tr key={item.id || item._id || index} className="border-t border-border-divider hover:bg-[var(--hover-bg)]">
                   {fields.map(field => (
                     <td key={field.key} className="px-4 py-3 text-sm text-primary align-top">
                       {renderTableCell(item, field)}
@@ -640,7 +641,7 @@ export default function CRUDList({
               <li>
                 <button
                   onClick={() => handleDeleteClick(
-                    localItems[openDropdownIndex].id, 
+                    localItems[openDropdownIndex].id || localItems[openDropdownIndex]._id || '', 
                     localItems[openDropdownIndex].title || localItems[openDropdownIndex].name || 'Unknown'
                   )}
                   className="cursor-pointer flex items-center gap-2 w-full px-4 py-2.5 text-sm text-red-600 hover:hover-bg disabled:opacity-50"

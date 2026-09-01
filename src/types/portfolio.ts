@@ -1,9 +1,6 @@
 export interface Portfolio {
   _id?: string;
   hero: HeroProfile;
-  certificates: Certificate[];
-  designs: Design[];
-  projects: Project[];
   experience: Experience[];
   education: Education[];
   skills: Skills;
@@ -21,13 +18,13 @@ export interface HeroProfile {
 }
 
 export interface Certificate {
-  id: string;
+  _id?: string;
   title: string;
   image_url: string;
 }
 
 export interface Design {
-  id: string;
+  _id?: string;
   title: string;
   description: string;
   image_url: string;
@@ -57,7 +54,7 @@ export interface VisualAsset {
 }
 
 export interface Project {
-  id: string;
+  _id?: string;
   title: string;
   description: string;
   image_url: string;

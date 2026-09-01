@@ -12,6 +12,9 @@ export default function PortfolioDashboard() {
   
   const { 
     portfolio, 
+    projects,
+    designs,
+    certificates,
     loading, 
     error,
     isUpdating, 
@@ -150,7 +153,7 @@ export default function PortfolioDashboard() {
         {activeSection === 'certificates' && (
           <CRUDList
             title="Certificates"
-            items={portfolio.certificates || []}
+            items={certificates || []}
             fields={[
               { key: 'title', label: 'Title', type: 'text' },
               { key: 'image_url', label: 'Image URL', type: 'url' },
@@ -167,7 +170,7 @@ export default function PortfolioDashboard() {
         {activeSection === 'designs' && (
           <CRUDList
             title="Designs"
-            items={portfolio.designs || []}
+            items={designs || []}
             fields={[
               { key: 'title', label: 'Title', type: 'text' },
               { key: 'description', label: 'Description', type: 'textarea' },
@@ -193,7 +196,7 @@ export default function PortfolioDashboard() {
         {activeSection === 'projects' && (
           <CRUDList
             title="Projects"
-            items={portfolio.projects || []}
+            items={projects || []}
             fields={[
               { key: 'title', label: 'Title', type: 'text' },
               { key: 'description', label: 'Description', type: 'textarea' },

@@ -8,7 +8,7 @@ import { LiaCertificateSolid } from "react-icons/lia"
 
 export default function PortfolioAnalyticsDashboard() {
   useAuthGuard()
-  const { portfolio, loading } = usePortfolio()
+  const { portfolio, projects, designs, certificates, loading } = usePortfolio()
 
   return (
     <div className="space-y-6 mt-6 sm:mt-0">
@@ -25,19 +25,19 @@ export default function PortfolioAnalyticsDashboard() {
       <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         <StatCard
           title="Total Projects"
-          value={portfolio?.projects?.length || 0}
+          value={projects?.length || 0}
           icon={<FaProjectDiagram />}
           loading={loading}
         />
         <StatCard
           title="Total Designs"
-          value={portfolio?.designs?.length || 0}
+          value={designs?.length || 0}
           icon={<FaPaintBrush />}
           loading={loading}
         />
         <StatCard
           title="Total Certificates"
-          value={portfolio?.certificates?.length || 0}
+          value={certificates?.length || 0}
           icon={<LiaCertificateSolid />}
           loading={loading}
         />

@@ -15,6 +15,7 @@ const categories = [
     "Image",
     "Video",
     "Audio",
+    "3D",
     "Document",
     "Utilities",
     "Learning",

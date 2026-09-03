@@ -41,6 +41,7 @@ export default function EditNetForm({ id }: { id: string }) {
       twitter: '',
       instagram: '',
       discord: '',
+      github: '',
       youtube: ''
     }
   })
@@ -57,7 +58,7 @@ export default function EditNetForm({ id }: { id: string }) {
     const { name, value } = e.target
     if (name === 'video_url') {
       setFormData(prev => ({ ...prev, media: { ...prev.media, video_url: value } }))
-    } else if (['twitter', 'instagram', 'discord', 'youtube'].includes(name)) {
+    } else if (['twitter', 'instagram', 'discord', 'youtube', 'github'].includes(name)) {
       setFormData(prev => ({ ...prev, socials: { ...prev.socials, [name]: value } }))
     } else {
       setFormData(prev => ({ ...prev, [name]: value }))
@@ -107,6 +108,7 @@ export default function EditNetForm({ id }: { id: string }) {
     if (formData.socials?.twitter && !validateUrl(formData.socials.twitter, 'twitter')) { toast.error('Invalid Twitter URL format'); return; }
     if (formData.socials?.instagram && !validateUrl(formData.socials.instagram, 'instagram')) { toast.error('Invalid Instagram URL format'); return; }
     if (formData.socials?.discord && !validateUrl(formData.socials.discord, 'discord')) { toast.error('Invalid Discord URL format'); return; }
+    if (formData.socials?.github && !validateUrl(formData.socials.github, 'github')) { toast.error('Invalid Github URL format'); return; }
     if (formData.socials?.youtube && !validateUrl(formData.socials.youtube, 'youtube')) { toast.error('Invalid YouTube URL format'); return; }
 
 
@@ -326,6 +328,22 @@ export default function EditNetForm({ id }: { id: string }) {
                   value={formData.socials?.discord || ''}
                   onChange={handleInputChange}
                   placeholder="https://discord.gg/..."
+                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              {/* Github */}
+              <div className="flex flex-col gap-2">
+                <label className="text-secondary text-sm font-medium" htmlFor="github">
+                  Github URL
+                </label>
+                <input
+                  type="url"
+                  id="github"
+                  name="github"
+                  value={formData.socials?.github || ''}
+                  onChange={handleInputChange}
+                  placeholder="https://github.com/..."
                   className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>

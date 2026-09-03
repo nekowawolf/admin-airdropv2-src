@@ -26,6 +26,7 @@ export function useEditNet(id: string) {
               twitter: data.socials?.twitter || '',
               instagram: data.socials?.instagram || '',
               discord: data.socials?.discord || '',
+              github: data.socials?.github || '',
               youtube: data.socials?.youtube || ''
             }
           })

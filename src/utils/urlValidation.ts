@@ -1,5 +1,6 @@
 export const URL_PATTERNS = {
   github: /^https?:\/\/(www\.)?github\.com\/[a-zA-Z0-9-]+\/[a-zA-Z0-9_.-]+(\/.*)?$/,
+  github_profile: /^https?:\/\/(www\.)?github\.com\/[a-zA-Z0-9-]+(\/.*)?$/,
   twitter: /^https?:\/\/(www\.)?(twitter|x)\.com\/[a-zA-Z0-9_]+(\/.*)?$/,
   discord: /^https?:\/\/(www\.)?discord\.(gg|com)\/.+$/,
   instagram: /^https?:\/\/(www\.)?instagram\.com\/[a-zA-Z0-9_.]+(\/.*)?$/,

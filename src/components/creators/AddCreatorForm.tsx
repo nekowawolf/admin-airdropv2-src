@@ -108,7 +108,7 @@ export default function AddCreatorForm() {
     if (formData.socials?.discord && !validateUrl(formData.socials.discord, 'discord')) { toast.error('Invalid Discord URL format'); return; }
     if (formData.socials?.youtube && !validateUrl(formData.socials.youtube, 'youtube')) { toast.error('Invalid YouTube URL format'); return; }
     if (formData.socials?.telegram && !validateUrl(formData.socials.telegram, 'telegram')) { toast.error('Invalid Telegram URL format'); return; }
-    if (formData.socials?.github && !validateUrl(formData.socials.github, 'github')) { toast.error('Invalid GitHub URL format'); return; }
+    if (formData.socials?.github && !validateUrl(formData.socials.github, 'github_profile')) { toast.error('Invalid GitHub URL format'); return; }
     if (formData.socials?.tiktok && !validateUrl(formData.socials.tiktok, 'tiktok')) { toast.error('Invalid TikTok URL format'); return; }
     if (formData.platforms?.fiverr && !validateUrl(formData.platforms.fiverr, 'fiverr')) { toast.error('Invalid Fiverr URL format'); return; }
     if (formData.platforms?.upwork && !validateUrl(formData.platforms.upwork, 'upwork')) { toast.error('Invalid Upwork URL format'); return; }

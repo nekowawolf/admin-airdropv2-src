@@ -1,4 +1,5 @@
 import React, { InputHTMLAttributes, useState, useEffect } from 'react';
+import { GoSearch } from "react-icons/go";
 import { CgClose } from "react-icons/cg";
 import { cn } from "@/lib/utils";
 import Fuse from 'fuse.js';
@@ -9,6 +10,7 @@ interface SearchInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, '
   wrapperClassName?: string;
   clearButtonClassName?: string;
   iconClassName?: string;
+  searchIconClassName?: string;
   onClear?: () => void;
   suggestionData?: any[];
   suggestionKey?: string;
@@ -23,6 +25,7 @@ export function SearchInput({
   wrapperClassName,
   clearButtonClassName,
   iconClassName,
+  searchIconClassName,
   onClear,
   suggestionData,
   suggestionKey,
@@ -83,13 +86,14 @@ export function SearchInput({
 
   return (
     <div className={cn("relative w-full max-w-sm", wrapperClassName)}>
+      <GoSearch className={cn("absolute left-3 top-1/2 -translate-y-1/2 text-primary w-4 h-4 pointer-events-none", searchIconClassName)} />
       <input
         type="text"
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className={cn(
-          "border border-border-divider bg-transparent text-primary rounded-lg px-4 py-2 pr-10 w-full focus:outline-none focus:ring-2 focus:ring-text-accent",
+          "w-full pl-9 pr-10 py-2.5 text-sm rounded-lg border border-[var(--border-divider)] bg-[var(--fill-color)] text-primary placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/30 focus:border-blue-600",
           className
         )}
         {...props}

@@ -92,7 +92,7 @@ export default function EditCommunityForm({ communityData, onSuccess }: EditComm
                     onChange={handleInputChange}
                     placeholder="Enter community name"
                     required
-                    className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
               </div>
@@ -157,7 +157,7 @@ export default function EditCommunityForm({ communityData, onSuccess }: EditComm
                     onChange={handleInputChange}
                     placeholder="https://example.com/image.jpg"
                     required
-                    className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
                 {formData.image_url && (
@@ -190,7 +190,7 @@ export default function EditCommunityForm({ communityData, onSuccess }: EditComm
                     onChange={handleInputChange}
                     placeholder="https://t.me/communityname or https://discord.gg/community"
                     required
-                    className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
               </div>

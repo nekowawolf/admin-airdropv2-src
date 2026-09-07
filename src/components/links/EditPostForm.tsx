@@ -130,7 +130,7 @@ export default function EditPostForm() {
                   rows={4}
                   placeholder="What is this post about?"
                   required
-                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600 resize-none"
                 />
               </div>
 
@@ -146,7 +146,7 @@ export default function EditPostForm() {
                   value={formData.url || ''}
                   onChange={handleChange}
                   placeholder="https://..."
-                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 />
               </div>
 

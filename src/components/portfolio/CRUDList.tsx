@@ -264,7 +264,7 @@ export default function CRUDList({
                   type="url"
                   value={item.image_url || ''}
                   onChange={(e) => handleScreenshotChange(field.key, index, 'image_url', e.target.value)}
-                  className="flex-1 min-w-0 card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary"
+                  className="flex-1 min-w-0 card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   placeholder={`Img URL ${index + 1}`}
                 />
                 <button
@@ -280,7 +280,7 @@ export default function CRUDList({
                 <textarea
                   value={item.description || ''}
                   onChange={(e) => handleScreenshotChange(field.key, index, 'description', e.target.value)}
-                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary"
+                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   rows={2}
                   placeholder="Description (optional)"
                 />
@@ -309,14 +309,14 @@ export default function CRUDList({
             name={imageKey}
             value={formData[imageKey] || ''}
             onChange={handleInputChange}
-            className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary"
+            className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
             placeholder="Image URL"
           />
           <textarea
             name={descKey}
             value={formData[descKey] || ''}
             onChange={handleInputChange}
-            className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary"
+            className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
             rows={3}
             placeholder="Description"
           />
@@ -330,7 +330,7 @@ export default function CRUDList({
           name={field.key}
           value={value}
           onChange={handleInputChange}
-          className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary"
+          className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
           rows={3}
           placeholder={`Enter ${field.label.toLowerCase()}`}
         />
@@ -346,7 +346,7 @@ export default function CRUDList({
                 type="text"
                 value={item}
                 onChange={(e) => handleArrayChange(field.key, index, e.target.value)}
-                className="flex-1 min-w-0 card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary"
+                className="flex-1 min-w-0 card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 placeholder={`${field.label} ${index + 1}`}
               />
               <button
@@ -378,7 +378,7 @@ export default function CRUDList({
           name={field.key}
           value={value}
           onChange={handleNumberChange}
-          className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary"
+          className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
           placeholder={`Enter ${field.label.toLowerCase()}`}
         />
       )
@@ -390,7 +390,7 @@ export default function CRUDList({
         name={field.key}
         value={value}
         onChange={handleInputChange}
-        className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary"
+        className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
         placeholder={`Enter ${field.label.toLowerCase()}`}
       />
     )

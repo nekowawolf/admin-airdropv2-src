@@ -163,7 +163,7 @@ export default function AddNetForm() {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Enter name"
-                    className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
               </div>
@@ -179,7 +179,7 @@ export default function AddNetForm() {
                   value={formData.description}
                   onChange={handleInputChange}
                   placeholder="Enter description"
-                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
+                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600 min-h-[100px]"
                 />
               </div>
 
@@ -210,7 +210,7 @@ export default function AddNetForm() {
                     value={formData.image_url}
                     onChange={handleInputChange}
                     placeholder="https://example.com/image.jpg"
-                    className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
               </div>
@@ -229,7 +229,7 @@ export default function AddNetForm() {
                     value={formData.media?.video_url || ''}
                     onChange={handleInputChange}
                     placeholder="https://youtube.com/..."
-                    className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
               </div>
@@ -248,7 +248,7 @@ export default function AddNetForm() {
                         value={url}
                         onChange={(e) => handleScreenshotUrlChange(index, e.target.value)}
                         placeholder="https://example.com/screenshot.jpg"
-                        className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                       />
                     </div>
                     <button
@@ -283,7 +283,7 @@ export default function AddNetForm() {
                     value={formData.website}
                     onChange={handleInputChange}
                     placeholder="https://example.com"
-                    className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
               </div>
@@ -300,7 +300,7 @@ export default function AddNetForm() {
                   value={formData.socials?.twitter || ''}
                   onChange={handleInputChange}
                   placeholder="https://twitter.com/..."
-                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 />
               </div>
 
@@ -316,7 +316,7 @@ export default function AddNetForm() {
                   value={formData.socials?.instagram || ''}
                   onChange={handleInputChange}
                   placeholder="https://instagram.com/..."
-                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 />
               </div>
 
@@ -332,7 +332,7 @@ export default function AddNetForm() {
                   value={formData.socials?.discord || ''}
                   onChange={handleInputChange}
                   placeholder="https://discord.gg/..."
-                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 />
               </div>
 
@@ -348,7 +348,7 @@ export default function AddNetForm() {
                   value={formData.socials?.github || ''}
                   onChange={handleInputChange}
                   placeholder="https://github.com/..."
-                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 />
               </div>
 
@@ -364,7 +364,7 @@ export default function AddNetForm() {
                   value={formData.socials?.youtube || ''}
                   onChange={handleInputChange}
                   placeholder="https://youtube.com/..."
-                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 />
               </div>
 

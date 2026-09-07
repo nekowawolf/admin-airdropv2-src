@@ -42,7 +42,7 @@ export default function HeroProfileForm({ data, onSubmit, isSubmitting }: HeroPr
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-2 text-primary"
+              className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-2 text-primary focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
               placeholder="Your name"
             />
           </div>
@@ -59,7 +59,7 @@ export default function HeroProfileForm({ data, onSubmit, isSubmitting }: HeroPr
               onChange={handleChange}
               required
               rows={3}
-              className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-2 text-primary"
+              className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-2 text-primary focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
               placeholder="Professional summary"
             />
           </div>
@@ -74,7 +74,7 @@ export default function HeroProfileForm({ data, onSubmit, isSubmitting }: HeroPr
             value={formData.avatar_url}
             onChange={handleChange}
             required
-            className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary"
+            className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
             placeholder="https://example.com/avatar.jpg"
           />
           {formData.avatar_url && (
@@ -96,7 +96,7 @@ export default function HeroProfileForm({ data, onSubmit, isSubmitting }: HeroPr
             name="cv_url"
             value={formData.cv_url}
             onChange={handleChange}
-            className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary"
+            className="w-full card-color2 border border-border-divider rounded-lg px-4 py-2 text-primary focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
             placeholder="https://example.com/cv.pdf"
           />
         </div>
@@ -112,7 +112,7 @@ export default function HeroProfileForm({ data, onSubmit, isSubmitting }: HeroPr
                 name="github"
                 value={formData.github}
                 onChange={handleChange}
-                className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-2 text-primary"
+                className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-2 text-primary focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 placeholder="https://github.com/username"
               />
             </div>
@@ -127,7 +127,7 @@ export default function HeroProfileForm({ data, onSubmit, isSubmitting }: HeroPr
                 name="twitter"
                 value={formData.twitter}
                 onChange={handleChange}
-                className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-2 text-primary"
+                className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-2 text-primary focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 placeholder="https://twitter.com/username"
               />
             </div>
@@ -142,7 +142,7 @@ export default function HeroProfileForm({ data, onSubmit, isSubmitting }: HeroPr
                 name="linkedin"
                 value={formData.linkedin}
                 onChange={handleChange}
-                className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-2 text-primary"
+                className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-2 text-primary focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 placeholder="https://linkedin.com/in/username"
               />
             </div>
@@ -158,7 +158,7 @@ export default function HeroProfileForm({ data, onSubmit, isSubmitting }: HeroPr
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-2 text-primary"
+                className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-2 text-primary focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 placeholder="your.email@example.com"
               />
             </div>

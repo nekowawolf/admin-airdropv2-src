@@ -126,7 +126,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                   value={formData.name}
                   onChange={handleInputChange}
                   placeholder="Enter project name"
-                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 />
               </div>
 
@@ -167,7 +167,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                     value={formData.website}
                     onChange={handleInputChange}
                     placeholder="https://example.com"
-                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -181,7 +181,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                     value={formData.image_url}
                     onChange={handleInputChange}
                     placeholder="https://example.com/image.png"
-                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
               </div>
@@ -197,7 +197,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                   onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                   placeholder="Enter project description"
                   rows={4}
-                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600 resize-none"
                 />
               </div>
 
@@ -213,7 +213,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                     value={formData.discord}
                     onChange={handleInputChange}
                     placeholder="https://discord.gg/..."
-                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -227,7 +227,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                     value={formData.twitter}
                     onChange={handleInputChange}
                     placeholder="https://twitter.com/..."
-                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -241,7 +241,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                     value={formData.telegram}
                     onChange={handleInputChange}
                     placeholder="https://t.me/..."
-                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -255,7 +255,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                     value={formData.guide_url}
                     onChange={handleInputChange}
                     placeholder="https://..."
-                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
               </div>
@@ -308,7 +308,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                     value={formData.backed}
                     onChange={handleInputChange}
                     placeholder="e.g., HashKey Capital, ConsenSys"
-                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
 
@@ -323,7 +323,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                     value={formData.funds}
                     onChange={handleInputChange}
                     placeholder="e.g., 53.37M"
-                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
               </div>
@@ -340,7 +340,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                     value={formData.supply}
                     onChange={handleInputChange}
                     placeholder="e.g., 1.00B"
-                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
 
@@ -355,7 +355,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                     value={formData.fdv}
                     onChange={handleInputChange}
                     placeholder="e.g., 2.00B"
-                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
 
@@ -370,7 +370,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                     value={formData.market_cap}
                     onChange={handleInputChange}
                     placeholder="e.g., 270M"
-                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
               </div>
@@ -387,7 +387,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                     value={formData.price}
                     onChange={handleInputChange}
                     placeholder="e.g., 0.01"
-                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
 
@@ -419,7 +419,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                   value={formData.usd_income}
                   onChange={handleInputChange}
                   placeholder="e.g., $100 usd"
-                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 />
               </div>
             </div>
@@ -435,7 +435,7 @@ export default function EditAirdropEndedForm({ airdropData, onSuccess }: EditAir
                   value={formData.claim_url}
                   onChange={handleInputChange}
                   placeholder="https://example.com"
-                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 />
               </div>
 

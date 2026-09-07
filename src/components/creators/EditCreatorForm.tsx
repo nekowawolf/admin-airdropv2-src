@@ -149,7 +149,7 @@ export default function EditCreatorForm({ id }: { id: string }) {
                       value={formData.name}
                       onChange={handleInputChange}
                       placeholder="Enter name"
-                      className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                     />
                   </div>
                 </div>
@@ -181,7 +181,7 @@ export default function EditCreatorForm({ id }: { id: string }) {
                   value={formData.description}
                   onChange={handleInputChange}
                   placeholder="Enter description"
-                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
+                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600 min-h-[100px]"
                 />
               </div>
 
@@ -200,7 +200,7 @@ export default function EditCreatorForm({ id }: { id: string }) {
                       value={formData.image_url}
                       onChange={handleInputChange}
                       placeholder="https://example.com/image.jpg"
-                      className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                     />
                   </div>
                 </div>
@@ -219,7 +219,7 @@ export default function EditCreatorForm({ id }: { id: string }) {
                       value={formData.website}
                       onChange={handleInputChange}
                       placeholder="https://example.com"
-                      className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                     />
                   </div>
                 </div>
@@ -274,7 +274,7 @@ export default function EditCreatorForm({ id }: { id: string }) {
                         value={(formData.socials as any)[social] || ''}
                         onChange={handleInputChange}
                         placeholder={`https://${social}.com/...`}
-                        className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                       />
                     </div>
                   ))}
@@ -297,7 +297,7 @@ export default function EditCreatorForm({ id }: { id: string }) {
                         value={(formData.platforms as any)[platform] || ''}
                         onChange={handleInputChange}
                         placeholder={`https://${platform}.com/...`}
-                        className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                       />
                     </div>
                   ))}

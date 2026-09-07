@@ -36,7 +36,7 @@ export default function MessageForm({ initialData, onSubmit, onCancel, isSubmitt
             onChange={handleInputChange}
             placeholder="Enter message content"
             required
-            className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[150px]"
+            className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600 min-h-[150px]"
           />
         </div>
 

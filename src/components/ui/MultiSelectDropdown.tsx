@@ -63,7 +63,7 @@ export function MultiSelectDropdown({ options, selected, onChange, placeholder =
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="cursor-pointer w-full text-left card-color2 border border-border-divider rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 inline-flex items-center justify-between"
+        className="cursor-pointer w-full text-left card-color2 border border-border-divider rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600 inline-flex items-center justify-between"
       >
         <span className={selected.length > 0 ? "text-primary truncate mr-4" : "text-muted"}>
           {selected.length > 0 ? selected.join(', ') : placeholder}

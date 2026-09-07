@@ -139,7 +139,7 @@ export default function EditGithubReposForm({ id }: { id: string }) {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Enter project name"
-                    className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
               </div>
@@ -155,7 +155,7 @@ export default function EditGithubReposForm({ id }: { id: string }) {
                   value={formData.description}
                   onChange={handleInputChange}
                   placeholder="Enter description"
-                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
+                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600 min-h-[100px]"
                 />
               </div>
 
@@ -201,7 +201,7 @@ export default function EditGithubReposForm({ id }: { id: string }) {
                     value={formData.repo_url}
                     onChange={handleInputChange}
                     placeholder="https://github.com/owner/repo"
-                    className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full card-color2 border border-border-divider rounded-lg pl-10 pr-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                   />
                 </div>
               </div>
@@ -218,7 +218,7 @@ export default function EditGithubReposForm({ id }: { id: string }) {
                   value={formData.website}
                   onChange={handleInputChange}
                   placeholder="https://..."
-                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 />
               </div>
 
@@ -234,7 +234,7 @@ export default function EditGithubReposForm({ id }: { id: string }) {
                   value={formData.twitter}
                   onChange={handleInputChange}
                   placeholder="https://twitter.com/..."
-                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 />
               </div>
 
@@ -250,7 +250,7 @@ export default function EditGithubReposForm({ id }: { id: string }) {
                   value={formData.instagram}
                   onChange={handleInputChange}
                   placeholder="https://instagram.com/..."
-                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 />
               </div>
 
@@ -266,7 +266,7 @@ export default function EditGithubReposForm({ id }: { id: string }) {
                   value={formData.discord}
                   onChange={handleInputChange}
                   placeholder="https://discord.gg/..."
-                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 />
               </div>
 
@@ -281,7 +281,7 @@ export default function EditGithubReposForm({ id }: { id: string }) {
                   value={addedByName}
                   onChange={(e) => setAddedByName(e.target.value)}
                   placeholder="Your name or username"
-                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 />
               </div>
 
@@ -296,7 +296,7 @@ export default function EditGithubReposForm({ id }: { id: string }) {
                   value={addedByUrl}
                   onChange={(e) => setAddedByUrl(e.target.value)}
                   placeholder="https://yourwebsite.com or social link"
-                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full card-color2 border border-border-divider rounded-lg px-4 py-3 text-primary text-sm placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-blue-600/80 focus:border-blue-600"
                 />
               </div>
 

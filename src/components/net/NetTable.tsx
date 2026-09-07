@@ -161,6 +161,8 @@ export default function NetTable({
         placeholder="Search Net..."
         value={search}
         onChange={setSearch}
+        suggestionData={safeData}
+        suggestionKey="name"
       />
 
       {loading && (

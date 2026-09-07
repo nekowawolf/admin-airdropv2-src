@@ -150,6 +150,8 @@ export default function RepoSubmissionsTable({
         placeholder="Search submissions..."
         value={search}
         onChange={setSearch}
+        suggestionData={safeData}
+        suggestionKey="repo_url"
       />
 
       {loading && (

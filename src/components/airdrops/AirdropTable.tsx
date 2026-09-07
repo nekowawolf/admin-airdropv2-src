@@ -169,6 +169,8 @@ export default function AirdropTable({
         placeholder="Search airdrops..."
         value={search}
         onChange={setSearch}
+        suggestionData={safeData}
+        suggestionKey="name"
       />
 
       {loading && (

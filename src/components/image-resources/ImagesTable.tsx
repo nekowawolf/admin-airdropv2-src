@@ -173,6 +173,8 @@ export default function ImagesTable({
         placeholder="Search media..."
         value={search}
         onChange={setSearch}
+        suggestionData={data}
+        suggestionKey="filename"
       />
 
       {loading && (

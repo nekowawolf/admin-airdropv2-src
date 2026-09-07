@@ -154,6 +154,8 @@ export default function GithubReposTable({
         placeholder="Search GitHub Repos..."
         value={search}
         onChange={setSearch}
+        suggestionData={safeData}
+        suggestionKey="name"
       />
 
       {loading && (

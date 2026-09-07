@@ -165,6 +165,8 @@ export default function LinkPostTable({
         placeholder="Search posts..."
         value={search}
         onChange={setSearch}
+        suggestionData={safeData}
+        suggestionKey="caption"
       />
 
       {loading && (

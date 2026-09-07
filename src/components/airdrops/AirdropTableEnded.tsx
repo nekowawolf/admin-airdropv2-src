@@ -171,6 +171,8 @@ export default function EndedAirdropTable({
         placeholder="Search ended airdrops..."
         value={search}
         onChange={setSearch}
+        suggestionData={safeData}
+        suggestionKey="name"
       />
 
       {loading && (

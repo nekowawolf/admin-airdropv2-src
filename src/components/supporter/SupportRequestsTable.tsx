@@ -145,6 +145,8 @@ export default function SupportRequestsTable({
         placeholder="Search Support Requests..."
         value={search}
         onChange={setSearch}
+        suggestionData={safeData}
+        suggestionKey="name"
       />
 
       {loading && (

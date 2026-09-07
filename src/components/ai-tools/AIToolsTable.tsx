@@ -161,6 +161,8 @@ export default function AIToolsTable({
         placeholder="Search AI Tools..."
         value={search}
         onChange={setSearch}
+        suggestionData={safeData}
+        suggestionKey="name"
       />
 
       {loading && (

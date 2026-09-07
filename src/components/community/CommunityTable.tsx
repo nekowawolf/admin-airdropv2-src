@@ -165,6 +165,8 @@ export default function CommunityTable({
         placeholder="Search communities..."
         value={search}
         onChange={setSearch}
+        suggestionData={safeData}
+        suggestionKey="name"
       />
 
       {loading && (

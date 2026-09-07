@@ -155,6 +155,8 @@ export default function CreatorsTable({
         placeholder="Search Creators..."
         value={search}
         onChange={setSearch}
+        suggestionData={safeData}
+        suggestionKey="name"
       />
 
       {loading && (

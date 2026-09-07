@@ -155,6 +155,8 @@ export default function SupporterTable({
         placeholder="Search Supporters..."
         value={search}
         onChange={setSearch}
+        suggestionData={safeData}
+        suggestionKey="name"
       />
 
       {loading && (

@@ -161,6 +161,8 @@ export default function Web3ToolsTable({
         placeholder="Search Web3 Tools..."
         value={search}
         onChange={setSearch}
+        suggestionData={safeData}
+        suggestionKey="name"
       />
 
       {loading && (
